@@ -20,6 +20,10 @@ module Calendly
       users.me
     end
 
+    def organization
+      me.organization
+    end
+
     def organizations
       OrganizationResource.new(self)
     end

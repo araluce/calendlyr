@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-To access the API, you'll need to create a `Calendly::Client` and pass in your API key. You can find your API key at [https://calendly.com/integrations](https://calendly.com/integrations)
+To access the API, you'll need to create a `Calendly::Client` and pass in your API key. You can generate your Personal Access Token at [https://calendly.com/integrations/api_webhooks](https://calendly.com/integrations/api_webhooks)
 
 ```ruby
 client = Calendly::Client.new(api_key: ENV["CALENDLY_API_KEY"])
@@ -62,7 +62,7 @@ client.me
 client.users.me
 client.retrieve(user_uuid: "uuid")
 
-client.me.organization
+client.organization
 #=> #<Calendly::Organization>
 
 client.me.event_types
@@ -102,28 +102,28 @@ client.scheduling_links.create owner_uri: "owner_uri", max_event_count: 1, owner
 ````ruby
 # Create invitation
 client.organizations.invite(organization_uuid: "organization_uuid", email: "test@test.com")
-client.me.organization.invite(email: "test@test.com")
+client.organization.invite(email: "test@test.com")
 # List invitations
 client.organizations.list_invitations(organization_uuid: "organization_uuid")
-client.me.organization.list_invitations
+client.organization.list_invitations
 # Get invitation
 client.organizations.retrieve_invitation(organization_uuid: "organization_uuid", invitation_uuid: "invitation_uuid")
-client.me.organization.invitation(invitation_uuid: "invitation_uuid")
+client.organization.invitation(invitation_uuid: "invitation_uuid")
 #Revoke invitation
 client.organizations.revoke_invitation(organization_uuid: "organization_uuid", invitation_uuid: "organization_uuid")
-client.me.organization.revoke_invitation(invitation_uuid: "organization_uuid")
-invitation = client.me.organization.invitation(invitation_uuid: "invitation_uuid")
+client.organization.revoke_invitation(invitation_uuid: "organization_uuid")
+invitation = client.organization.invitation(invitation_uuid: "invitation_uuid")
 invitation.revoke
 
 # List memberships
 client.organizations.list_memberships
-client.me.organization.memberships
+client.organization.memberships
 # Get membership
 client.organizations.retrieve_membership(membership_uuid: "membership_uuid")
 # Remove membership
 client.organizations.remove_user(membership_uuid: "membership_uuid")
 
-client.me.organization.events
+client.organization.events
 ````
 
 ### Webhooks
