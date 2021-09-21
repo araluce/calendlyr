@@ -1,3 +1,5 @@
+[![](https://img.shields.io/github/license/araluce/calendly.rb)](https://github.com/araluce/calendly.rb/blob/master/LICENSE.txt)
+
 # Calendly API Rubygem
 
 Easy and complete rubygem for [Calendly](https://calendly.com/). Currently supports [API v2](https://calendly.stoplight.io/docs/api-docs).
