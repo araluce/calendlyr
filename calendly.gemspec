@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.description      = "Ruby bindings for Calendly API. Calendly APIs can be found here: https://calendly.stoplight.io/docs/api-docs/"
   spec.homepage         = "https://github.com/araluce/calendly.rb"
   spec.license          = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
   spec.metadata["homepage_uri"] = spec.homepage
 
   spec.files = `git ls-files -z`.split("\x0")
