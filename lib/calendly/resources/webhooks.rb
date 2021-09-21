@@ -5,10 +5,9 @@ module Calendly
       Collection.from_response(response, key: "collection", type: Webhook, client: client)
     end
 
-    def create(resource_uri:, events:, organization_uri:, user_uri: nil, scope:, **attributes)
-      body = { url: resource_uri, events: events, organization: organization_uri, user: user_uri, scope: scope }.merge(attributes).compact
-      response = post_request("webhook_subscriptions", body: body).body.dig("resource")
-      Webhook.new response, client: client
+    def create(resource_uri:, events:, organization_uri:, user_uri: nil, scope:, signing_key: nil)
+      body = { url: resource_uri, events: events, organization: organization_uri, user: user_uri, scope: scope, signing_key: signing_key }.compact
+      Webhook.new post_request("webhook_subscriptions", body: body).body.dig("resource"), client: client
     end
 
     def retrieve(webhook_uuid:)

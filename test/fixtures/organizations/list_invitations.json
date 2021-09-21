@@ -1,0 +1,18 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA/invitations",
+      "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+      "email": "test@example.com",
+      "status": "accepted",
+      "created_at": "2019-08-07T06:05:04.321Z",
+      "updated_at": "2019-01-02T03:04:05.678Z",
+      "last_sent_at": "2019-01-02T03:04:05.678Z",
+      "user": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA/invitations?count=1&page_token=sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+  }
+}

@@ -1,4 +1,4 @@
-# Calendly API Rubygem [WIP] [Waiting for testing]
+# Calendly API Rubygem
 
 Easy and complete rubygem for [Calendly](https://calendly.com/). Currently supports [API v2](https://calendly.stoplight.io/docs/api-docs).
 
