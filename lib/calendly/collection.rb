@@ -1,6 +1,6 @@
 module Calendly
   class Collection
-    attr_reader :data, :total, :next_page, :next_page_token, :client
+    attr_reader :data, :count, :next_page, :next_page_token, :client
 
     def self.from_response(response, key:, type:, client:)
       body = response.body
