@@ -150,3 +150,7 @@ client.data_compliance.delete_invitee_data
 5. Create a new Pull Request
 
 When adding methods, add to the list of DEFINITIONS in lib/calendly.rb. Additionally, write a spec and add it to the list in the README.
+
+## Thanks
+
+Thanks excid3 and his [Vultr.rb](https://github.com/excid3/vultr.rb) rubygem project.
