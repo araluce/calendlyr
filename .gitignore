@@ -22,3 +22,4 @@ tmp
 mkmf.log
 vendor
 .idea/
+bin/my_console
