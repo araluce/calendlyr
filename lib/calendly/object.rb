@@ -2,8 +2,8 @@ require "ostruct"
 
 module Calendly
   class Object < OpenStruct
-    def initialize(attributes, client: nil)
-      super to_ostruct(attributes.merge(client: client, uuid: extract_uuid(attributes)))
+    def initialize(attributes)
+      super to_ostruct(attributes.merge(uuid: extract_uuid(attributes)))
     end
 
     def to_ostruct(obj)

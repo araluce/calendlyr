@@ -1,7 +1,7 @@
 module Calendly
   class User < Object
     def organization
-      @organization ||= Organization.new({"uri" => current_organization}, client: client)
+      @organization ||= Organization.new({"uri" => current_organization}.merge(client: client))
     end
 
     def event_types(**params)

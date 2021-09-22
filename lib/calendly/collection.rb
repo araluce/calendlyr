@@ -5,7 +5,7 @@ module Calendly
     def self.from_response(response, key:, type:, client:)
       body = response.body
       new(
-        data: body[key].map { |attrs| type.new(attrs, client: client) },
+        data: body[key].map { |attrs| type.new(attrs.merge(client: client)) },
         count: body.dig("pagination", "count"),
         next_page: body.dig("pagination", "next_page"),
         client: client
