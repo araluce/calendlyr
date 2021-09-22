@@ -10,5 +10,11 @@ require "calendly"
 # require "pry"
 # Pry.start
 
+client = Calendly::Client.new(api_key: ENV["CALENDLY_API_KEY"])
+
+puts
+puts "We've created a 'client' variable as a Calendly::Client using ENV['CALENDLY_API_KEY'] as the API key."
+puts
+
 require "irb"
 IRB.start(__FILE__)
