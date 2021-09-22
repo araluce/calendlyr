@@ -1,4 +1,5 @@
 [![](https://img.shields.io/github/license/araluce/calendly.rb)](https://github.com/araluce/calendly.rb/blob/master/LICENSE.txt)
+![](https://github.com/araluce/calendly.rb/actions/workflows/ci.yml/badge.svg)
 
 # Calendly API Rubygem
 
