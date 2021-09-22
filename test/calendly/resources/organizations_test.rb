@@ -6,7 +6,7 @@ class OrganizationsResourceTest < Minitest::Test
   def test_invite
     organization_uuid = "ABCDABCDABCDABCD"
     email = "email@example.com"
-    stub = stub_request("organizations/#{organization_uuid}/invitations", method: :post, body: { email: email }, response: stub_response(fixture: "organizations/invite", status: 201))
+    stub = stub_request("organizations/#{organization_uuid}/invitations", method: :post, body: {email: email}, response: stub_response(fixture: "organizations/invite", status: 201))
     client = Calendly::Client.new(api_key: "fake", adapter: :test, stubs: stub)
     invitation = client.organizations.invite(organization_uuid: organization_uuid, email: email)
 

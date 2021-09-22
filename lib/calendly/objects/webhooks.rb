@@ -5,7 +5,7 @@ module Calendly
     end
 
     def associated_organization
-      @associated_organization ||= Organization.new({ "uri" => organization }, client: client)
+      @associated_organization ||= Organization.new({"uri" => organization}, client: client)
     end
   end
 end

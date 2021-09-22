@@ -25,8 +25,8 @@ module Calendly
     def get_params(url)
       return {} unless url
 
-      uri = URI::parse(url)
-      CGI::parse(uri.query)
+      uri = URI.parse(url)
+      CGI.parse(uri.query)
     end
   end
 end

@@ -2,18 +2,18 @@
 #
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require_relative 'lib/calendly/version'
+require_relative "lib/calendly/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "calendly"
-  spec.version       = Calendly::VERSION
-  spec.authors       = ["araluce"]
-  spec.email         = ["araluce11@gmail.com"]
+  spec.name = "calendly"
+  spec.version = Calendly::VERSION
+  spec.authors = ["araluce"]
+  spec.email = ["araluce11@gmail.com"]
 
-  spec.summary          = "Ruby bindings for Calendly API."
-  spec.description      = "Ruby bindings for Calendly API. Calendly APIs can be found here: https://calendly.stoplight.io/docs/api-docs/"
-  spec.homepage         = "https://github.com/araluce/calendly.rb"
-  spec.license          = "MIT"
+  spec.summary = "Ruby bindings for Calendly API."
+  spec.description = "Ruby bindings for Calendly API. Calendly APIs can be found here: https://calendly.stoplight.io/docs/api-docs/"
+  spec.homepage = "https://github.com/araluce/calendly.rb"
+  spec.license = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
   spec.metadata["homepage_uri"] = spec.homepage
 

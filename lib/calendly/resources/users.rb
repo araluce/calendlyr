@@ -1,7 +1,7 @@
 module Calendly
   class UserResource < Resource
     def me
-      retrieve(user_uuid: 'me')
+      retrieve(user_uuid: "me")
     end
 
     def retrieve(user_uuid:)

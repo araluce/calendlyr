@@ -21,8 +21,7 @@ module Calendly
     end
 
     def get_slug(path)
-      path.split('/').last
+      path.split("/").last
     end
-
   end
 end

@@ -1,7 +1,7 @@
 module Calendly
   class OrganizationResource < Resource
     def invite(organization_uuid:, email:)
-      Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: { email: email }).body, client: client
+      Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: {email: email}).body, client: client
     end
 
     def list_invitations(organization_uuid:, **params)
@@ -10,7 +10,7 @@ module Calendly
     end
 
     def list_memberships(user_uri: nil, organization_uri: nil, **params)
-      response = get_request("organization_memberships", params: { user: user_uri, organization: organization_uri }.merge(params).compact)
+      response = get_request("organization_memberships", params: {user: user_uri, organization: organization_uri}.merge(params).compact)
       Collection.from_response(response, key: "collection", type: Membership, client: client)
     end
 
