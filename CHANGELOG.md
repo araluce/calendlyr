@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.3]
+* Fix - Error when trying to send an invitation through the organization
+* More testing = More coverage
+
 ## [0.3.2]
 * Minor fixes
 
@@ -21,6 +25,7 @@ All notable changes to this project will be documented in this file.
 ## 0.1.0
 * Birthday!
 
+[0.3.3]: https://github.com/araluce/calendly.rb/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/araluce/calendly.rb/compare/v0.3.0...v0.3.2
 [0.3.0]: https://github.com/araluce/calendly.rb/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/araluce/calendly.rb/compare/v0.1.1...v0.2.0
