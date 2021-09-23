@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0]
+* No runtime dependencies
+* Minor fixes
+
 ## [0.2.0]
 * Support for ruby 3.0
 * Minor fixes
