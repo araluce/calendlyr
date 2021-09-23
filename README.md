@@ -3,9 +3,13 @@
 [![codecov](https://codecov.io/gh/araluce/calendlyr/branch/master/graph/badge.svg?token=YSUU4PHM6Y)](https://codecov.io/gh/araluce/calendlyr)
 [![Gem Version](https://badge.fury.io/rb/calendlyr.svg)](https://badge.fury.io/rb/calendlyr)
 
-# Calendly API Rubygem
+# Calendly API Rubygem LITE version
 
 Easy and complete rubygem for [Calendly](https://calendly.com/). Currently supports [API v2](https://calendly.stoplight.io/docs/api-docs).
+
+No dependencies, just needed a Personal Access Token.
+
+> If you need a Oauth authentication maybe you need [calendly-api-ruby-client](https://github.com/koshilife/calendly-api-ruby-client)
 
 ## Installation
 
