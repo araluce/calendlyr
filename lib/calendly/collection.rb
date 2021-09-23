@@ -3,11 +3,10 @@ module Calendly
     attr_reader :data, :count, :next_page, :next_page_token, :client
 
     def self.from_response(response, key:, type:, client:)
-      body = response.body
       new(
-        data: body[key].map { |attrs| type.new(attrs.merge(client: client)) },
-        count: body.dig("pagination", "count"),
-        next_page: body.dig("pagination", "next_page"),
+        data: response[key].map { |attrs| type.new(attrs.merge(client: client)) },
+        count: response.dig("pagination", "count"),
+        next_page: response.dig("pagination", "next_page"),
         client: client
       )
     end

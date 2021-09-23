@@ -5,8 +5,8 @@ require "test_helper"
 class UsersResourceTest < Minitest::Test
   def test_retrieve
     user_uuid = "AAAAAAAAAAAAAAAA"
-    stub = stub_request("users/#{user_uuid}", response: stub_response(fixture: "users/retrieve"))
-    client = Calendly::Client.new(api_key: "fake", adapter: :test, stubs: stub)
+    response = {body: fixture_file("users/retrieve"), status: 200}
+    stub(path: "users/#{user_uuid}", response: response)
     user = client.users.retrieve(user_uuid: user_uuid)
 
     assert_equal Calendly::User, user.class

@@ -1,11 +1,7 @@
-# Run `rake calendly.gemspec` to update the gemspec.
-#
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require_relative "lib/calendly/version"
+require "./lib/calendly/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "calendly"
+  spec.name = "calendly.rb"
   spec.version = Calendly::VERSION
   spec.authors = ["araluce"]
   spec.email = ["araluce11@gmail.com"]
@@ -22,6 +18,5 @@ Gem::Specification.new do |spec|
   spec.test_files = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "faraday", "~> 1.7"
-  spec.add_dependency "faraday_middleware", "~> 1.1"
+  spec.add_development_dependency "webmock", "~> 3.14.0"
 end

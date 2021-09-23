@@ -1,7 +1,7 @@
 module Calendly
   class OrganizationResource < Resource
     def invite(organization_uuid:, email:)
-      Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: {email: email}).body.merge(client: client)
+      Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: {email: email}).merge(client: client)
     end
 
     def list_invitations(organization_uuid:, **params)
@@ -15,11 +15,11 @@ module Calendly
     end
 
     def retrieve_invitation(organization_uuid:, invitation_uuid:)
-      Invitation.new get_request("organizations/#{organization_uuid}/invitations/#{invitation_uuid}").body.dig("resource").merge(client: client)
+      Invitation.new get_request("organizations/#{organization_uuid}/invitations/#{invitation_uuid}").dig("resource").merge(client: client)
     end
 
     def retrieve_membership(membership_uuid:)
-      Membership.new get_request("organization_memberships/#{membership_uuid}").body.dig("resource").merge(client: client)
+      Membership.new get_request("organization_memberships/#{membership_uuid}").dig("resource").merge(client: client)
     end
 
     def revoke_invitation(organization_uuid:, invitation_uuid:)

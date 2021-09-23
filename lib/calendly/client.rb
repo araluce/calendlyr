@@ -2,18 +2,11 @@ module Calendly
   class Client
     BASE_URL = "https://api.calendly.com"
 
-    attr_reader :api_key, :adapter
+    attr_reader :api_key
 
-    def initialize(api_key:, adapter: Faraday.default_adapter, stubs: nil)
+    def initialize(api_key:)
       @api_key = api_key
-      @adapter = adapter
-
-      # Test stubs for requests
-      @stubs = stubs
-    end
-
-    def users
-      UserResource.new(self)
+      raise Error, "Add an api_key to use Calendly. Calendly::Client.new(api_key: 'your_api_key')" unless api_key
     end
 
     def me
@@ -22,6 +15,10 @@ module Calendly
 
     def organization
       me.organization
+    end
+
+    def users
+      UserResource.new(self)
     end
 
     def organizations
@@ -50,18 +47,6 @@ module Calendly
 
     def data_compliance
       DataComplianceResource.new(self)
-    end
-
-    def connection
-      @connection ||= Faraday.new(BASE_URL) do |conn|
-        conn.request :authorization, :Bearer, api_key
-        conn.request :json
-
-        conn.response :dates
-        conn.response :json, content_type: "application/json"
-
-        conn.adapter adapter, @stubs
-      end
     end
 
     # Avoid returning #<Calendly::Client @api_key="api_key" ...>

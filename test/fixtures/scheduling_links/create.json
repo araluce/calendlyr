@@ -1,0 +1,7 @@
+{
+  "resource": {
+    "booking_url": "https://calendly.com/d/abcd-brv8/15-minute-meeting",
+    "owner": "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2",
+    "owner_type": "EventType"
+  }
+}

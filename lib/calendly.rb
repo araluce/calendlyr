@@ -1,5 +1,8 @@
-require "faraday"
-require "faraday_middleware"
+require "net/http"
+require "uri"
+require "json"
+require "openssl"
+require "cgi"
 require "calendly/version"
 
 module Calendly

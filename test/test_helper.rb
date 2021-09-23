@@ -1,19 +1,24 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "calendly"
-require "minitest/autorun"
-require "faraday"
+require "net/http"
+require "uri"
 require "json"
+require "openssl"
+require "minitest/autorun"
+require "webmock/minitest"
 
 class Minitest::Test
-  def stub_response(fixture:, status: 200, headers: {"Content-Type" => "application/json"})
-    [status, headers, File.read("test/fixtures/#{fixture}.json")]
+  def client
+    Calendly::Client.new(api_key: "fake")
   end
 
-  def stub_request(path, response:, method: :get, body: {})
-    Faraday::Adapter::Test::Stubs.new do |stub|
-      arguments = [method, path]
-      arguments << body.to_json if [:post, :put, :patch].include?(method)
-      stub.send(*arguments) { |env| response }
-    end
+  def fixture_file(fixture)
+    File.read("test/fixtures/#{fixture}.json")
+  end
+
+  def stub(path:, method: :get, body: {}, response: {})
+    stub_req = stub_request(method, "#{Calendly::Client::BASE_URL}/#{path}")
+    stub_req.with(body: body) if [:post, :put, :patch].include?(method)
+    stub_req.to_return(**response)
   end
 end

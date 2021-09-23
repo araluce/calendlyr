@@ -5,8 +5,8 @@ require "test_helper"
 class EventInviteesResourceTest < Minitest::Test
   def test_list
     event_uuid = "ABCDABCDABCDABCD"
-    stub = stub_request("scheduled_events/#{event_uuid}/invitees", response: stub_response(fixture: "event_invitees/list"))
-    client = Calendly::Client.new(api_key: "fake", adapter: :test, stubs: stub)
+    response = {body: fixture_file("event_invitees/list"), status: 200}
+    stub(path: "scheduled_events/#{event_uuid}/invitees", response: response)
     event_invitees = client.event_invitees.list(event_uuid: event_uuid)
 
     assert_equal Calendly::Collection, event_invitees.class
@@ -18,8 +18,8 @@ class EventInviteesResourceTest < Minitest::Test
   def test_retrieve
     event_uuid = "AAAAAAAAAAAAAAAA"
     invitee_uuid = "AAAAAAAAAAAAAAAA"
-    stub = stub_request("scheduled_events/#{event_uuid}/invitees/#{invitee_uuid}", response: stub_response(fixture: "event_invitees/retrieve"))
-    client = Calendly::Client.new(api_key: "fake", adapter: :test, stubs: stub)
+    response = {body: fixture_file("event_invitees/retrieve"), status: 200}
+    stub(path: "scheduled_events/#{event_uuid}/invitees/#{invitee_uuid}", response: response)
     event_invitee = client.event_invitees.retrieve(event_uuid: event_uuid, invitee_uuid: invitee_uuid)
 
     assert_equal Calendly::EventInvitee, event_invitee.class
