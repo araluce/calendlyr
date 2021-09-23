@@ -150,7 +150,7 @@ client.data_compliance.delete_invitee_data
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-When adding methods, add to the list of DEFINITIONS in lib/calendly.rb. Additionally, write a spec and add it to the list in the README.
+When adding resources, add to the list of resources in lib/calendly.rb. Additionally, write a spec and add it to the list in the README.
 
 ## Thanks
 
