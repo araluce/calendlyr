@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.4]
+* Renaming variables and directories Calendly to Calendlyr
+
 ## [0.3.3]
 * Fix - Error when trying to send an invitation through the organization
 * More testing = More coverage

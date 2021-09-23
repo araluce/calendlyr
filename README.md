@@ -25,10 +25,10 @@ Or install it yourself as:
 
 ## Usage
 
-To access the API, you'll need to create a `Calendly::Client` and pass in your API key. You can generate your Personal Access Token at [https://calendly.com/integrations/api_webhooks](https://calendly.com/integrations/api_webhooks)
+To access the API, you'll need to create a `Calendlyr::Client` and pass in your API key. You can generate your Personal Access Token at [https://calendly.com/integrations/api_webhooks](https://calendly.com/integrations/api_webhooks)
 
 ```ruby
-client = Calendly::Client.new(api_key: ENV["CALENDLY_API_KEY"])
+client = Calendlyr::Client.new(api_key: ENV["CALENDLY_API_KEY"])
 ```
 
 The client then gives you access to each of the resources.
@@ -37,7 +37,7 @@ The client then gives you access to each of the resources.
 
 The gem maps as closely as we can to the Calendly API so you can easily convert API examples to gem code.
 
-Responses are created as objects like `Calendly::Event`. Having types like `Calendly::User` is handy for understanding what type of object you're working with. They're built using OpenStruct so you can easily access data in a Ruby-ish way.
+Responses are created as objects like `Calendlyr::Event`. Having types like `Calendly::User` is handy for understanding what type of object you're working with. They're built using OpenStruct so you can easily access data in a Ruby-ish way.
 
 ##### Pagination
 
@@ -45,20 +45,20 @@ Responses are created as objects like `Calendly::Event`. Having types like `Cale
 
 ```ruby
 results = client.me.events(count: 5)
-#=> Calendly::Collection
+#=> Calendlyr::Collection
 
 results.count
 #=> 5
 
 results.data
-#=> [#<Calendly::Event>, #<Calendly::Event>]
+#=> [#<Calendlyr::Event>, #<Calendlyr::Event>]
 
 results.next_page_token
 #=> "KfKBetd7bS0wsFINjYky9mp8ZJXv76aL"
 
 # Retrieve the next page
 client.me.events(count: 5, next_page_token: results.next_page_token)
-#=> Calendly::Collection
+#=> Calendlyr::Collection
 ```
 
 ### Users
@@ -68,16 +68,16 @@ client.users.me
 client.retrieve(user_uuid: "uuid")
 
 client.organization
-#=> #<Calendly::Organization>
+#=> #<Calendlyr::Organization>
 
 client.me.event_types
-#=> Calendly::Collection @data=[#<Calendly::EventType>, #<Calendly::EventType>]
+#=> Calendlyr::Collection @data=[#<Calendlyr::EventType>, #<Calendlyr::EventType>]
 
 client.me.events
-#=> Calendly::Collection @data=[#<Calendly::Event>, #<Calendly::Event>]
+#=> Calendlyr::Collection @data=[#<Calendlyr::Event>, #<Calendlyr::Event>]
 
 client.me.memberships
-#=> Calendly::Collection @data=[#<Calendly::MemberShip>, #<Calendly::MemberShip>]
+#=> Calendlyr::Collection @data=[#<Calendlyr::MemberShip>, #<Calendlyr::MemberShip>]
 ```
 
 ### Event Types
@@ -146,13 +146,13 @@ client.data_compliance.delete_invitee_data
 
 ## Contributing
 
-1. Fork it ( https://github.com/araluce/calendly.rb/fork )
+1. Fork it ( https://github.com/araluce/calendlyr/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-When adding resources, add to the list of resources in lib/calendly.rb. Additionally, write a spec and add it to the list in the README.
+When adding resources, add to the list of resources in lib/calendlyr. Additionally, write a spec and add it to the list in the README.
 
 ## Thanks
 

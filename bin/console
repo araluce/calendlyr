@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "calendly"
+require "calendlyr"
 
-client = Calendly::Client.new(api_key: ENV["CALENDLY_API_KEY"])
+client = Calendlyr::Client.new(api_key: ENV["CALENDLY_API_KEY"])
 
 puts
-puts "We've created a 'client' variable as a Calendly::Client using ENV['CALENDLY_API_KEY'] as the API key."
+puts "We've created a 'client' variable as a Calendlyr::Client using ENV['CALENDLY_API_KEY'] as the API key."
 puts
 
 require "irb"
