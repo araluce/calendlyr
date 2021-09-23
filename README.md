@@ -10,7 +10,7 @@ Easy and complete rubygem for [Calendly](https://calendly.com/). Currently suppo
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rcalendly', github: "araluce/calendly.rb"
+gem 'calendlyr', github: "araluce/calendly.rb"
 ```
 
 And then execute:
@@ -19,7 +19,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install rcalendly
+    $ gem install calendlyr
 
 ## Usage
 

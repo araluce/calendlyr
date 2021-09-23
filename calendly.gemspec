@@ -1,7 +1,7 @@
 require "./lib/calendly/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "rcalendly"
+  spec.name = "calendlyr"
   spec.version = Calendly::VERSION
   spec.authors = ["araluce"]
   spec.email = ["araluce11@gmail.com"]
