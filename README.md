@@ -1,7 +1,7 @@
 [![](https://img.shields.io/github/license/araluce/calendly.rb)](https://github.com/araluce/calendly.rb/blob/master/LICENSE.txt)
 ![](https://github.com/araluce/calendly.rb/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/gh/araluce/calendly.rb/branch/master/graph/badge.svg?token=YSUU4PHM6Y)](https://codecov.io/gh/araluce/calendly.rb)
-[![GitHub version](https://badge.fury.io/gh/araluce%2Fcalendly.rb.svg)](https://badge.fury.io/gh/araluce%2Fcalendly.rb)
+[![Gem Version](https://badge.fury.io/rb/calendlyr.svg)](https://badge.fury.io/rb/calendlyr)
 
 # Calendly API Rubygem
 
