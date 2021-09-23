@@ -2,11 +2,10 @@ module Calendlyr
   class Client
     BASE_URL = "https://api.calendly.com"
 
-    attr_reader :api_key
+    attr_reader :token
 
-    def initialize(api_key:)
-      @api_key = api_key
-      raise Error, "Add an api_key to use Calendlyr. Calendlyr::Client.new(api_key: 'your_api_key')" unless api_key
+    def initialize(token:)
+      @token = token
     end
 
     def me
@@ -49,7 +48,7 @@ module Calendlyr
       DataComplianceResource.new(self)
     end
 
-    # Avoid returning #<Calendlyr::Client @api_key="api_key" ...>
+    # Avoid returning #<Calendlyr::Client @token="token" ...>
     def inspect
       "#<Calendlyr::Client>"
     end

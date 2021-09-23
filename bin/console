@@ -3,10 +3,10 @@
 require "bundler/setup"
 require "calendlyr"
 
-client = Calendlyr::Client.new(api_key: ENV["CALENDLY_API_KEY"])
+client = Calendlyr::Client.new(token: ENV["CALENDLY_TOKEN"])
 
 puts
-puts "We've created a 'client' variable as a Calendlyr::Client using ENV['CALENDLY_API_KEY'] as the API key."
+puts "We've created a 'client' variable as a Calendlyr::Client using ENV['CALENDLY_TOKEN'] as the Personal Access Token."
 puts
 
 require "irb"

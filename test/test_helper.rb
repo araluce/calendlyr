@@ -12,7 +12,7 @@ require "webmock/minitest"
 
 class Minitest::Test
   def client
-    Calendlyr::Client.new(api_key: "fake")
+    Calendlyr::Client.new(token: "fake")
   end
 
   def fixture_file(fixture)

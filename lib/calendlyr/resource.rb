@@ -42,7 +42,7 @@ module Calendlyr
 
       request = req_type.new(uri)
       request["Content-Type"] = "application/json"
-      request["Authorization"] = "Bearer #{client.api_key}"
+      request["Authorization"] = "Bearer #{client.token}"
       request.body = body.to_json if body.any?
 
       http.request(request)
