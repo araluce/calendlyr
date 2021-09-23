@@ -1,9 +1,5 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "calendly"
-require "net/http"
-require "uri"
-require "json"
-require "openssl"
 require "minitest/autorun"
 require "webmock/minitest"
 
