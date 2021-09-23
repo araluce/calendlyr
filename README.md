@@ -12,7 +12,7 @@ Easy and complete rubygem for [Calendly](https://calendly.com/). Currently suppo
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'calendlyr', github: "araluce/calendly.rb"
+gem 'calendlyr'
 ```
 
 And then execute:
