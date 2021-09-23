@@ -75,4 +75,66 @@ class OrganizationsResourceTest < Minitest::Test
     stub(method: :delete, path: "organization_memberships/#{membership_uuid}", response: response)
     assert client.organizations.remove_user(membership_uuid: membership_uuid)
   end
+
+  def test_organization_invite_user
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+
+    email = "email@example.com"
+    response = {body: fixture_file("organizations/invite"), status: 201}
+    stub(method: :post, path: "organizations/#{client.organization.uuid}/invitations", body: {email: email}, response: response)
+
+    invitation = client.organization.invite_user(email: email)
+
+    assert_equal Calendly::Invitation, invitation.class
+    assert_equal email, invitation.email
+  end
+
+  def test_organization_list_invitations
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    stub(path: "organizations/#{client.organization.uuid}/invitations", response: {body: fixture_file("organizations/list_invitations"), status: 200})
+    invitations = client.organization.list_invitations
+
+    assert_equal Calendly::Collection, invitations.class
+    assert_equal Calendly::Invitation, invitations.data.first.class
+    assert_equal 1, invitations.count
+    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", invitations.next_page_token
+  end
+
+  def test_organization_revoke_invitation
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    stub(method: :delete, path: "organizations/#{client.organization.uuid}/invitations/AAAAAAAAAAAAAAAA", response: {body: fixture_file("organizations/revoke_invitation")})
+    assert client.organization.revoke_invitation(invitation_uuid: "AAAAAAAAAAAAAAAA")
+  end
+
+  def test_organization_invitation
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    response = {body: fixture_file("organizations/retrieve_invitation"), status: 200}
+    stub(path: "organizations/#{client.organization.uuid}/invitations/AAAAAAAAAAAAAAAA", response: response)
+    invitation = client.organization.invitation(invitation_uuid: "AAAAAAAAAAAAAAAA")
+
+    assert_equal Calendly::Invitation, invitation.class
+    assert_equal "test@example.com", invitation.email
+  end
+
+  def test_organization_events
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    stub(path: "scheduled_events?organization=#{client.organization.uri}", response: {body: fixture_file("events/list"), status: 200})
+    events = client.organization.events
+
+    assert_equal Calendly::Collection, events.class
+    assert_equal Calendly::Event, events.data.first.class
+    assert_equal 1, events.count
+    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", events.next_page_token
+  end
+
+  def test_organization_memberships
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    stub(path: "organization_memberships?organization=#{client.organization.uri}", response: {body: fixture_file("organizations/list_memberships"), status: 200})
+    memberships = client.organization.memberships
+
+    assert_equal Calendly::Collection, memberships.class
+    assert_equal Calendly::Membership, memberships.data.first.class
+    assert_equal 1, memberships.count
+    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", memberships.next_page_token
+  end
 end

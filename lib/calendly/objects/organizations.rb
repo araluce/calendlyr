@@ -1,7 +1,7 @@
 module Calendly
   class Organization < Object
     def invite_user(email:)
-      client.organizations.invite uuid: uuid, email: email
+      client.organizations.invite organization_uuid: uuid, email: email
     end
 
     def list_invitations(**params)
@@ -16,8 +16,8 @@ module Calendly
       client.organizations.retrieve_invitation(organization_uuid: uuid, invitation_uuid: invitation_uuid)
     end
 
-    def events(**params)
-      client.events.list user_uri: nil, organization_uri: uri, **params
+    def events(user_uri: nil, **params)
+      client.events.list user_uri: user_uri, organization_uri: uri, **params
     end
 
     def memberships(user_uri: nil, **params)
