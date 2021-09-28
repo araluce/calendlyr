@@ -8,8 +8,9 @@ module Calendlyr
       @token = token
     end
 
-    def me
-      users.me
+    def me(force_reload: false)
+      @me = nil if force_reload
+      @me ||= users.me
     end
 
     def organization
