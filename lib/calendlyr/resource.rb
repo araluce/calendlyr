@@ -1,3 +1,8 @@
+require "net/http"
+require "json"
+require "openssl"
+require "uri"
+
 module Calendlyr
   class Resource
     attr_reader :client

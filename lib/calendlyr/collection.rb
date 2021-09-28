@@ -1,3 +1,6 @@
+require "uri"
+require "cgi"
+
 module Calendlyr
   class Collection
     attr_reader :data, :count, :next_page, :next_page_token, :client

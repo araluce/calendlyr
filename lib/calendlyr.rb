@@ -1,8 +1,3 @@
-require "net/http"
-require "uri"
-require "json"
-require "openssl"
-require "cgi"
 require "calendlyr/version"
 
 module Calendlyr
