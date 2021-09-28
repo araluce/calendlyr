@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.5]
+* User caching
+
 ## [0.3.4]
 * Renaming variables and directories Calendly to Calendlyr
 
@@ -28,6 +31,7 @@ All notable changes to this project will be documented in this file.
 ## 0.1.0
 * Birthday!
 
+[0.3.5]: https://github.com/araluce/calendlyr/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/araluce/calendlyr/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/araluce/calendlyr/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/araluce/calendlyr/compare/v0.3.0...v0.3.2

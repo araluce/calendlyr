@@ -28,6 +28,22 @@ class UsersResourceTest < Minitest::Test
     assert_equal "test@example.com", me.email
   end
 
+  def test_me_caching
+    response = {body: fixture_file("users/retrieve"), status: 200}
+    stub = stub(path: "users/me", response: response)
+    me = client.me
+    remove_request_stub(stub)
+    assert_equal client.me, me
+  end
+
+  def test_me_caching_reload
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    me = client.me
+    stub(path: "users/me", response: {body: fixture_file("users/reload"), status: 200})
+    reloaded_me = client.me(force_reload: true)
+    assert me.name != reloaded_me.name
+  end
+
   def test_organization
     response = {body: fixture_file("users/retrieve"), status: 200}
     stub(path: "users/me", response: response)

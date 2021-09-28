@@ -12,7 +12,7 @@ require "webmock/minitest"
 
 class Minitest::Test
   def client
-    Calendlyr::Client.new(token: "fake")
+    @client ||= Calendlyr::Client.new(token: "fake")
   end
 
   def fixture_file(fixture)
@@ -23,5 +23,6 @@ class Minitest::Test
     stub_req = stub_request(method, "#{Calendlyr::Client::BASE_URL}/#{path}")
     stub_req.with(body: body) if [:post, :put, :patch].include?(method)
     stub_req.to_return(**response)
+    stub_req
   end
 end
