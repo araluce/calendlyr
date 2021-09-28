@@ -160,4 +160,6 @@ When adding resources, add to the list of resources in lib/calendlyr. Additional
 
 ## Thanks
 
+Many thanks [@markets](https://github.com/markets) for all comments, details and tips for this rubygem project and for made me grow professionally in my day by day :raised_hands:
+
 Thanks [@excid3](https://github.com/excid3) and his [Vultr.rb](https://github.com/excid3/vultr.rb) rubygem project.
