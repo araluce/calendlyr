@@ -118,7 +118,7 @@ client.organization.list_invitations
 # Get invitation
 client.organizations.retrieve_invitation(organization_uuid: "organization_uuid", invitation_uuid: "invitation_uuid")
 client.organization.invitation(invitation_uuid: "invitation_uuid")
-#Revoke invitation
+# Revoke invitation
 client.organizations.revoke_invitation(organization_uuid: "organization_uuid", invitation_uuid: "organization_uuid")
 client.organization.revoke_invitation(invitation_uuid: "organization_uuid")
 invitation = client.organization.invitation(invitation_uuid: "invitation_uuid")
