@@ -7,9 +7,13 @@
 
 Easy and complete rubygem for [Calendly](https://calendly.com/). Currently supports [API v2](https://calendly.stoplight.io/docs/api-docs).
 
-No dependencies, just needed a Personal Access Token.
+Just needed a Personal Access Token.
 
 > If you need a Oauth authentication maybe you need [calendly-api-ruby-client](https://github.com/koshilife/calendly-api-ruby-client)
+
+## Dependencies
+
+No dependencies :tada:. We know about the importance of not add dependencies that you don't want.
 
 ## Installation
 
