@@ -13,7 +13,9 @@ Just needed a Personal Access Token.
 
 ## Dependencies
 
-No dependencies :tada:. We know about the importance of not add dependencies that you don't want.
+No dependencies :tada:
+
+We know about the importance of not add dependencies that you don't want.
 
 ## Installation
 
