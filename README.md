@@ -150,12 +150,16 @@ client.organizations.retrieve_membership(membership_uuid: "membership_uuid")
 client.organizations.remove_user(membership_uuid: "membership_uuid")
 
 client.organization.events
+
+# List/Creaete webhooks
+client.organization.list_webhooks(scope: "scope")
+client.organization.create_webhook(url: "post_callback_url", events: ["invitee.canceled", "invitee.created"], scope: "scope")
 ````
 
 ### Webhooks
 ```ruby
 client.webhooks.list(organization_uri: "organization_uri", scope: "scope")
-client.webhooks.create(resource_uri: "resource_uri", events: ["invitee.canceled", "invitee.created"], organization_uri: "organization_uri", scope: "scope")
+client.webhooks.create(url: "post_callback_url", events: ["invitee.canceled", "invitee.created"], organization_uri: "organization_uri", scope: "scope")
 client.webhooks.retrieve(webhook_uuid: "webhook_uuid")
 client.webhooks.delete(webhook_uuid: "webhook_uuid")
 ```
