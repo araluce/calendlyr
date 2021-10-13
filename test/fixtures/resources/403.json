@@ -1,0 +1,10 @@
+{
+  "title": "Permission Denied",
+  "message": "This user is not in your organization",
+  "details": [
+    {
+      "parameter": "string",
+      "message": "string"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 module Calendlyr
   class OrganizationResource < Resource
     def invite(organization_uuid:, email:)
-      Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: {email: email}).merge(client: client)
+      Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: {email: email}).dig("resource").merge(client: client)
     end
 
     def list_invitations(organization_uuid:, **params)

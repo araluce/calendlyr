@@ -1,0 +1,10 @@
+{
+  "title": "Invalid Argument",
+  "message": "The supplied parameters are invalid.",
+  "details": [
+    {
+      "parameter": "string",
+      "message": "string"
+    }
+  ]
+}

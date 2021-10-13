@@ -37,7 +37,6 @@ class UsersResourceTest < Minitest::Test
   end
 
   def test_me_caching_reload
-    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
     me = client.me
     stub(path: "users/me", response: {body: fixture_file("users/reload"), status: 200})
     reloaded_me = client.me(force_reload: true)
@@ -55,7 +54,6 @@ class UsersResourceTest < Minitest::Test
   end
 
   def test_event_types
-    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
     me = client.me
 
     stub(path: "event_types?user=#{me.uri}&organization=#{me.organization.uri}", response: {body: fixture_file("event_types/list"), status: 200})
@@ -68,7 +66,6 @@ class UsersResourceTest < Minitest::Test
   end
 
   def test_events
-    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
     me = client.me
 
     stub(path: "scheduled_events?user=#{me.uri}&organization=#{me.organization.uri}", response: {body: fixture_file("events/list"), status: 200})
@@ -81,7 +78,6 @@ class UsersResourceTest < Minitest::Test
   end
 
   def test_memberships
-    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
     me = client.me
 
     stub(path: "organization_memberships?user=#{me.uri}&organization=#{me.organization.uri}", response: {body: fixture_file("organizations/list_memberships"), status: 200})

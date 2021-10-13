@@ -1,0 +1,10 @@
+{
+  "title": "Unauthenticated",
+  "message": "The access token is invalid",
+  "details": [
+    {
+      "parameter": "string",
+      "message": "string"
+    }
+  ]
+}

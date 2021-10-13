@@ -1,6 +1,6 @@
 {
   "resource": {
-    "uri": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA/invitations",
+    "uri": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA/invitations/AAAAAAAAAAAAAAAA",
     "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
     "email": "test@example.com",
     "status": "accepted",

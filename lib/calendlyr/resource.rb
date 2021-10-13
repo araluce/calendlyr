@@ -7,7 +7,7 @@ module Calendlyr
   class Resource
     attr_reader :client
 
-    ERROR_CODES = %w[400 401 403 404 429 500 503]
+    ERROR_CODES = %w[400 401 403 404 409 500]
 
     def initialize(client)
       @client = client
@@ -48,6 +48,8 @@ module Calendlyr
     end
 
     def handle_response(response)
+      return true unless response.read_body
+
       body = JSON.parse(response.read_body)
       if ERROR_CODES.include? response.code
         raise Error, "[Error #{response.code}] #{body["title"]}. #{body["message"]}"

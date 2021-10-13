@@ -1,9 +1,11 @@
 {
-  "created_at": "2020-01-01T20:30:00Z",
-  "email": "email@example.com",
-  "last_sent_at": "2020-01-01T20:30:00Z",
-  "organization": "https://api.calendly.com/organizations/ABCDABCDABCDABCD",
-  "status": "pending",
-  "updated_at": "2020-01-01T20:30:00Z",
-  "uri": "https://api.calendly.com/organizations/ABCDABCDABCDABCD/invitations/DCBADCBADCBADCBA"
+  "resource": {
+    "created_at": "2020-01-01T20:30:00Z",
+    "email": "email@example.com",
+    "last_sent_at": "2020-01-01T20:30:00Z",
+    "organization": "https://api.calendly.com/organizations/ABCDABCDABCDABCD",
+    "status": "pending",
+    "updated_at": "2020-01-01T20:30:00Z",
+    "uri": "https://api.calendly.com/organizations/ABCDABCDABCDABCD/invitations/DCBADCBADCBADCBA"
+  }
 }

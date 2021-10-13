@@ -21,16 +21,20 @@ class WebhooksResourceTest < Minitest::Test
     stub(method: :post, path: "webhook_subscriptions", body: body, response: {body: fixture_file("webhooks/create"), status: 201})
 
     assert client.webhooks.create(url: body[:url], events: body[:events], organization_uri: body[:organization], scope: body[:scope], user_uri: body[:user])
+    assert client.organization.create_webhook(url: body[:url], events: body[:events], scope: body[:scope], user_uri: body[:user])
   end
 
   def test_retrieve
     webhook_uuid = "AAAAAAAAAAAAAAAA"
-    response = {body: fixture_file("webhooks/retrieve"), status: 200}
-    stub(path: "webhook_subscriptions/#{webhook_uuid}", response: response)
+    stub(path: "webhook_subscriptions/#{webhook_uuid}", response: {body: fixture_file("webhooks/retrieve"), status: 200})
+    stub(path: "users/AAAAAAAAAAAAAAAA", response: {body: fixture_file("users/retrieve"), status: 200})
     webhook = client.webhooks.retrieve(webhook_uuid: webhook_uuid)
 
     assert_equal Calendlyr::Webhook, webhook.class
     assert_equal "user", webhook.scope
+    assert_equal webhook.associated_user, client.users.retrieve(user_uuid: "AAAAAAAAAAAAAAAA")
+    assert_equal webhook.associated_organization, client.users.retrieve(user_uuid: "AAAAAAAAAAAAAAAA").organization
+
   end
 
   def test_delete

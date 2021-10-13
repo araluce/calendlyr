@@ -11,6 +11,11 @@ require "minitest/autorun"
 require "webmock/minitest"
 
 class Minitest::Test
+  def initialize(name)
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    super
+  end
+
   def client
     @client ||= Calendlyr::Client.new(token: "fake")
   end
