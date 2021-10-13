@@ -34,7 +34,6 @@ class WebhooksResourceTest < Minitest::Test
     assert_equal "user", webhook.scope
     assert_equal webhook.associated_user, client.users.retrieve(user_uuid: "AAAAAAAAAAAAAAAA")
     assert_equal webhook.associated_organization, client.users.retrieve(user_uuid: "AAAAAAAAAAAAAAAA").organization
-
   end
 
   def test_delete
