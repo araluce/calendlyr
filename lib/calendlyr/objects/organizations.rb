@@ -8,6 +8,14 @@ module Calendlyr
       client.organizations.list_invitations organization_uuid: uuid, **params
     end
 
+    def list_webhooks(**params)
+      client.webhooks.list(organization_uri: uri, **params)
+    end
+
+    def create_webhook(**params)
+      client.webhooks.create(organization_uri: uri, **params)
+    end
+
     def revoke_invitation(invitation_uuid:)
       client.organizations.revoke_invitation(organization_uuid: uuid, invitation_uuid: invitation_uuid)
     end

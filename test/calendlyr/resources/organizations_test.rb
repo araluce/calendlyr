@@ -40,6 +40,25 @@ class OrganizationsResourceTest < Minitest::Test
     assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", memberships.next_page_token
   end
 
+  def test_list_webhooks
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    stub(path: "webhook_subscriptions?organization=#{client.organization.uri}&scope=user", response: {body: fixture_file("webhooks/list"), status: 200})
+    webhooks = client.organization.list_webhooks(scope: "user")
+
+    assert_equal Calendlyr::Collection, webhooks.class
+    assert_equal Calendlyr::Webhook, webhooks.data.first.class
+    assert_equal 1, webhooks.count
+    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", webhooks.next_page_token
+  end
+
+  def test_create_webhook
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    body = {url: "https://blah.foo/bar", events: ["invitee.created"], organization: client.organization.uri, scope: "user", user: client.me.uri}
+    stub(method: :post, path: "webhook_subscriptions", body: body, response: {body: fixture_file("webhooks/create"), status: 201})
+
+    assert client.webhooks.create(url: body[:url], events: body[:events], organization_uri: body[:organization], scope: body[:scope], user_uri: body[:user])
+  end
+
   def test_retrieve_invitation
     organization_uuid = "AAAAAAAAAAAAAAAA"
     invitation_uuid = "AAAAAAAAAAAAAAAA"
