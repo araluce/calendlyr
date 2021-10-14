@@ -6,7 +6,7 @@ module Calendlyr
     end
 
     def retrieve(event_uuid:, invitee_uuid:)
-      EventInvitee.new get_request("scheduled_events/#{event_uuid}/invitees/#{invitee_uuid}").merge(client: client)
+      EventInvitee.new get_request("scheduled_events/#{event_uuid}/invitees/#{invitee_uuid}").dig("resource").merge(client: client)
     end
   end
 end

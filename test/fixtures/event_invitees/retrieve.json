@@ -1,38 +1,40 @@
 {
-  "cancel_url": "https://calendly.com/cancellations/AAAAAAAAAAAAAAAA",
-  "created_at": "2020-01-01T20:30:00Z",
-  "email": "email@example.com",
-  "reschedule_url": "https://calendly.com/reschedulings/AAAAAAAAAAAAAAAA",
-  "event": "https://api.calendly.com/scheduled_events/ABCDABCDABCDABCD",
-  "name": "John Doe",
-  "status": "active",
-  "timezone": "America/New_York",
-  "updated_at": "2020-01-01T20:30:00Z",
-  "uri": "https://api.calendly.com/api/v2/scheduled_events/ABCDABCDABCDABCD/invitees/ABCDABCDABCDABCD",
-  "questions_and_answers": [
-    {
-      "answer": "radio button answer",
-      "position": 0,
-      "question": "Question with Radio Buttons answer type"
-    },
-    {
-      "answer": "Multiple line\nAnswer",
-      "position": 1,
-      "question": "Question with Multiple Lines answer type"
-    },
-    {
-      "answer": "Answer 1\nAnswer 2\nAnswer 3",
-      "position": 2,
-      "question": "Question with Checkboxes answer type"
+  "resource": {
+    "cancel_url": "https://calendly.com/cancellations/AAAAAAAAAAAAAAAA",
+    "created_at": "2020-01-01T20:30:00Z",
+    "email": "email@example.com",
+    "reschedule_url": "https://calendly.com/reschedulings/AAAAAAAAAAAAAAAA",
+    "event": "https://api.calendly.com/scheduled_events/ABCDABCDABCDABCD",
+    "name": "John Doe",
+    "status": "active",
+    "timezone": "America/New_York",
+    "updated_at": "2020-01-01T20:30:00Z",
+    "uri": "https://api.calendly.com/api/v2/scheduled_events/ABCDABCDABCDABCD/invitees/ABCDABCDABCDABCD",
+    "questions_and_answers": [
+      {
+        "answer": "radio button answer",
+        "position": 0,
+        "question": "Question with Radio Buttons answer type"
+      },
+      {
+        "answer": "Multiple line\nAnswer",
+        "position": 1,
+        "question": "Question with Multiple Lines answer type"
+      },
+      {
+        "answer": "Answer 1\nAnswer 2\nAnswer 3",
+        "position": 2,
+        "question": "Question with Checkboxes answer type"
+      }
+    ],
+    "canceled": false,
+    "payment": {
+      "external_id": "ch_AAAAAAAAAAAAAAAAAAAAAAAA",
+      "provider": "stripe",
+      "amount": 1234.56,
+      "currency": "USD",
+      "terms": "sample terms of payment (up to 1,024 characters)",
+      "successful": true
     }
-  ],
-  "canceled": false,
-  "payment": {
-    "external_id": "ch_AAAAAAAAAAAAAAAAAAAAAAAA",
-    "provider": "stripe",
-    "amount": 1234.56,
-    "currency": "USD",
-    "terms": "sample terms of payment (up to 1,024 characters)",
-    "successful": true
   }
 }
