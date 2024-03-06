@@ -4,10 +4,19 @@ require "test_helper"
 
 class ResourceTest < Minitest::Test
   def test_handle_response_error
-    error_code = Calendlyr::Resource::ERROR_CODES.sample
-    stub(path: "users/me", response: {body: fixture_file("resources/#{error_code}"), status: error_code.to_i})
+    Calendlyr::ResponseErrorHandler::ERROR_TYPES.each do |error_code, error_class|
+      stub(path: "users/me", response: {body: fixture_file("resources/#{error_code}"), status: error_code.to_i})
 
-    assert_raises Calendlyr::Error do
+      assert_raises "Calendlyr::#{error_class}" do
+        client.me
+      end
+    end
+  end
+
+  def test_handle_response_error_payment
+    stub(path: "users/me", response: {body: fixture_file("resources/403_payment_required"), status: 403})
+
+    assert_raises Calendlyr::PaymentRequired do
       client.me
     end
   end
