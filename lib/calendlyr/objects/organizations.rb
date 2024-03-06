@@ -31,5 +31,9 @@ module Calendlyr
     def memberships(user_uri: nil, **params)
       client.organizations.list_memberships user_uri: user_uri, organization_uri: uri, **params
     end
+
+    def activity_log(**params)
+      client.organizations.activity_log organization_uri: uri, **params
+    end
   end
 end

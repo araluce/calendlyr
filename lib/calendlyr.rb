@@ -27,4 +27,5 @@ module Calendlyr
   autoload :SchedulingLink, "calendlyr/objects/scheduling_links"
   autoload :Membership, "calendlyr/objects/memberships"
   autoload :Webhook, "calendlyr/objects/webhooks"
+  autoload :ActivityLog, "calendlyr/objects/activity_log"
 end

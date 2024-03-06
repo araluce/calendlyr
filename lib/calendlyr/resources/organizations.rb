@@ -14,6 +14,11 @@ module Calendlyr
       Collection.from_response(response, type: Membership, client: client)
     end
 
+    def activity_log(organization_uri: nil, **params)
+      response = get_request("activity_log_entries", params: {organization: organization_uri}.merge(params).compact)
+      Collection.from_response(response, type: ActivityLog, client: client)
+    end
+
     def retrieve_invitation(organization_uuid:, invitation_uuid:)
       Invitation.new get_request("organizations/#{organization_uuid}/invitations/#{invitation_uuid}").dig("resource").merge(client: client)
     end
