@@ -1,6 +1,6 @@
 {
   "title": "Permission Denied",
-  "message": "This user is not in your organization",
+  "message": "You do not have permission to access this resource.",
   "details": [
     {
       "parameter": "string",

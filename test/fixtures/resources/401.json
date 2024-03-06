@@ -1,6 +1,6 @@
 {
-  "title": "Invalid Argument",
-  "message": "The supplied parameters are invalid.",
+  "title": "Unauthenticated",
+  "message": "The access token is invalid",
   "details": [
     {
       "parameter": "string",

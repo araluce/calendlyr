@@ -3,9 +3,19 @@ require "calendlyr/version"
 module Calendlyr
   autoload :Client, "calendlyr/client"
   autoload :Collection, "calendlyr/collection"
-  autoload :Error, "calendlyr/error"
   autoload :Resource, "calendlyr/resource"
   autoload :Object, "calendlyr/object"
+
+  # Errors
+  autoload :ResponseErrorHandler, "calendlyr/error"
+  autoload :Error, "calendlyr/error"
+  autoload :PermissionDenied, "calendlyr/error"
+  autoload :BadRequest, "calendlyr/error"
+  autoload :PaymentRequired, "calendlyr/error"
+  autoload :Unauthenticated, "calendlyr/error"
+  autoload :NotFound, "calendlyr/error"
+  autoload :ExternalCalendarEror, "calendlyr/error"
+  autoload :InternalServerError, "calendlyr/error"
 
   # High-level categories of Calendly API calls
   autoload :UserResource, "calendlyr/resources/users"
