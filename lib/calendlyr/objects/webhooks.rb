@@ -7,5 +7,13 @@ module Calendlyr
     def associated_organization
       @associated_organization ||= Organization.new({"uri" => organization}.merge(client: client))
     end
+
+    def active?
+      state == "active"
+    end
+
+    def disabled?
+      state == "disabled"
+    end
   end
 end
