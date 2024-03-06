@@ -5,9 +5,9 @@ module Calendlyr
   class Collection
     attr_reader :data, :count, :next_page, :next_page_token, :client
 
-    def self.from_response(response, key:, type:, client:)
+    def self.from_response(response, type:, client:)
       new(
-        data: response[key].map { |attrs| type.new(attrs.merge(client: client)) },
+        data: response["collection"].map { |attrs| type.new(attrs.merge(client: client)) },
         count: response.dig("pagination", "count"),
         next_page: response.dig("pagination", "next_page"),
         client: client

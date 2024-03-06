@@ -6,12 +6,12 @@ module Calendlyr
 
     def list_invitations(organization_uuid:, **params)
       response = get_request("organizations/#{organization_uuid}/invitations", params: params)
-      Collection.from_response(response, key: "collection", type: Invitation, client: client)
+      Collection.from_response(response, type: Invitation, client: client)
     end
 
     def list_memberships(user_uri: nil, organization_uri: nil, **params)
       response = get_request("organization_memberships", params: {user: user_uri, organization: organization_uri}.merge(params).compact)
-      Collection.from_response(response, key: "collection", type: Membership, client: client)
+      Collection.from_response(response, type: Membership, client: client)
     end
 
     def retrieve_invitation(organization_uuid:, invitation_uuid:)
