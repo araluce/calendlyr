@@ -3,7 +3,7 @@ require "ostruct"
 module Calendlyr
   class Object < OpenStruct
     def initialize(attributes)
-      super to_ostruct(attributes.merge(uuid: extract_uuid(attributes)))
+      super(to_ostruct(attributes.merge(uuid: extract_uuid(attributes))))
     end
 
     def to_ostruct(obj)

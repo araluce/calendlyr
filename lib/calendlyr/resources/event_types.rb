@@ -2,7 +2,7 @@ module Calendlyr
   class EventTypeResource < Resource
     def list(user_uri:, organization_uri:, **params)
       response = get_request("event_types", params: {user: user_uri, organization: organization_uri}.merge(params))
-      Collection.from_response(response, key: "collection", type: EventType, client: client)
+      Collection.from_response(response, type: EventType, client: client)
     end
 
     def retrieve(event_type_uuid:)

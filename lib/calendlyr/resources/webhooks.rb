@@ -2,7 +2,7 @@ module Calendlyr
   class WebhookResource < Resource
     def list(organization_uri:, scope:, **params)
       response = get_request("webhook_subscriptions", params: {organization: organization_uri, scope: scope}.merge(params).compact)
-      Collection.from_response(response, key: "collection", type: Webhook, client: client)
+      Collection.from_response(response, type: Webhook, client: client)
     end
 
     def create(url:, events:, organization_uri:, scope:, signing_key: nil, user_uri: nil)

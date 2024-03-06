@@ -2,7 +2,7 @@ module Calendlyr
   class EventInviteeResource < Resource
     def list(event_uuid:, **params)
       response = get_request("scheduled_events/#{event_uuid}/invitees", params: params.compact)
-      Collection.from_response(response, key: "collection", type: EventInvitee, client: client)
+      Collection.from_response(response, type: EventInvitee, client: client)
     end
 
     def retrieve(event_uuid:, invitee_uuid:)

@@ -50,6 +50,16 @@ class OrganizationsResourceTest < Minitest::Test
     assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", webhooks.next_page_token
   end
 
+  def test_activity_log
+    stub(path: "activity_log_entries?organization=#{client.organization.uri}", response: {body: fixture_file("activity_log/list"), status: 200})
+    activity_log = client.organization.activity_log
+
+    assert_equal Calendlyr::Collection, activity_log.class
+    assert_equal Calendlyr::ActivityLog, activity_log.data.first.class
+    assert_equal 20, activity_log.count
+    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", activity_log.next_page_token
+  end
+
   def test_create_webhook
     body = {url: "https://blah.foo/bar", events: ["invitee.created"], organization: client.organization.uri, scope: "user", user: client.me.uri}
     stub(method: :post, path: "webhook_subscriptions", body: body, response: {body: fixture_file("webhooks/create"), status: 201})

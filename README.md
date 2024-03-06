@@ -154,6 +154,9 @@ client.organization.events
 # List/Creaete webhooks
 client.organization.list_webhooks(scope: "scope")
 client.organization.create_webhook(url: "post_callback_url", events: ["invitee.canceled", "invitee.created"], scope: "scope")
+
+# List activity log
+client.organization.activity_log
 ````
 
 ### Webhooks
