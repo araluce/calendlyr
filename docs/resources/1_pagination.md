@@ -22,4 +22,4 @@ client.me.events(count: 5, next_page_token: results.next_page_token)
 
 ## Next
 
-See [User](resources/2_user.md)
+See [User](2_user.md)
