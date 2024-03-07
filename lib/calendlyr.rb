@@ -26,11 +26,13 @@ module Calendlyr
   autoload :SchedulingLinkResource, "calendlyr/resources/scheduling_links"
   autoload :WebhookResource, "calendlyr/resources/webhooks"
   autoload :DataComplianceResource, "calendlyr/resources/data_compliance"
+  autoload :UserBusyTimeResource, "calendlyr/resources/user_busy_times"
+  autoload :UserAvailabilityScheduleResource, "calendlyr/resources/user_availability_schedules"
 
   # Classes used to return a nicer object wrapping the response data
   autoload :User, "calendlyr/objects/users"
   autoload :EventType, "calendlyr/objects/event_types"
-  autoload :Event, "calendlyr/objects/events"
+  autoload :Event, "calendlyr/objects/event"
   autoload :Organization, "calendlyr/objects/organizations"
   autoload :Invitation, "calendlyr/objects/invitations"
   autoload :EventInvitee, "calendlyr/objects/event_invitees"
@@ -38,4 +40,7 @@ module Calendlyr
   autoload :Membership, "calendlyr/objects/memberships"
   autoload :Webhook, "calendlyr/objects/webhooks"
   autoload :ActivityLog, "calendlyr/objects/activity_log"
+  autoload :AvailabilityRule, "calendlyr/objects/availability_rule"
+  autoload :UserAvailabilitySchedule, "calendlyr/objects/user_availability_schedule"
+  autoload :UserBusyTime, "calendlyr/objects/user_busy_time"
 end
