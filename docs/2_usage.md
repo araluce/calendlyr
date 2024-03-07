@@ -10,4 +10,4 @@ The client then gives you access to each of the resources.
 
 ## Next
 
-See [Resources](3_resources.md)
+See [Resources](/docs/3_resources.md)

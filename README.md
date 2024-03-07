@@ -22,11 +22,12 @@ We know about the importance of not add dependencies that you don't want.
 * [Installation](docs/1_installation.md)
 * [Usage](docs/2_usage.md)
 * **Resources**
+  * [Pagination](/docs/resources/1_pagination.md)
   * **Availability**
-    * [UserBusyTime](docs/resources/availabily/1_user_busy_time.md)
-    * [UserAvailabilitySchedule](docs/resources/availabily/2_user_availability_schedule.md)
-  * [Pagination](docs/resources/1_pagination.md)
-  * [User](docs/resources/2_user.md)
+    * [UserBusyTime](/docs/resources/availability/1_user_busy_time.md)
+    * [UserAvailabilitySchedule](/docs/resources/availability/2_user_availability_schedule.md)
+  * [Data Compliance](/docs/resources/2_data_compliance.md)
+  * [User](/docs/resources/user.md)
 
 ### Event Types
 ````ruby
