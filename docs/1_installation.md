@@ -18,4 +18,4 @@ Or install it yourself as:
 
 ## Next
 
-See [Usage](2_usage.md)
+See [Usage](/docs/2_usage.md)

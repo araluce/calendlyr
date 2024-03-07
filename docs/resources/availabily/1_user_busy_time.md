@@ -15,4 +15,4 @@ client.user_busy_times.list(user_uri: `user_uri`, start_time: `start_time`, end_
 
 ## Next
 
-[User Availability Schedule](2_user_availability_schedule.md)
+[User Availability Schedule](/docs/resources/availability/2_user_availability_schedule.md)

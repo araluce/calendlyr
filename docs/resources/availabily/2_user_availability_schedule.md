@@ -29,4 +29,4 @@ client.me.availability_schedules
 
 ## Next
 
-[User Availability Schedule](2_user_availability_schedule.md)
+[User Availability Schedule](/docs/resources/2_data_compliance.md)
