@@ -17,7 +17,7 @@ module Calendlyr
     end
 
     def busy_times(start_time:, end_time:, **params)
-       client.user_busy_times.list(user_uri: uri, start_time: start_time, end_time: end_time, **params)
+      client.user_busy_times.list(user_uri: uri, start_time: start_time, end_time: end_time, **params)
     end
 
     def availability_schedules
