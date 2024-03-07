@@ -24,8 +24,8 @@ We know about the importance of not add dependencies that you don't want.
 * **Resources**
   * [Pagination](/docs/resources/1_pagination.md)
   * **Availability**
-    * [UserBusyTime](/docs/resources/availabily/1_user_busy_time.md)
-    * [UserAvailabilitySchedule](/docs/resources/availabily/2_user_availability_schedule.md)
+    * [UserBusyTime](/docs/resources/availability/1_user_busy_time.md)
+    * [UserAvailabilitySchedule](/docs/resources/availability/2_user_availability_schedule.md)
   * [Data Compliance](/docs/resources/2_data_compliance.md)
   * [User](/docs/resources/user.md)
 
