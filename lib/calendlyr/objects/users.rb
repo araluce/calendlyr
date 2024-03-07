@@ -15,5 +15,13 @@ module Calendlyr
     def memberships(organization_uri: nil, **params)
       client.organizations.list_memberships user_uri: uri, organization_uri: organization_uri, **params
     end
+
+    def busy_times(start_time:, end_time:, **params)
+      client.user_busy_times.list(user_uri: uri, start_time: start_time, end_time: end_time, **params)
+    end
+
+    def availability_schedules
+      client.user_availability_schedules.list(user_uri: uri)
+    end
   end
 end

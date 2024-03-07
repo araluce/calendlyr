@@ -49,6 +49,14 @@ module Calendlyr
       DataComplianceResource.new(self)
     end
 
+    def user_busy_times
+      UserBusyTimeResource.new(self)
+    end
+
+    def user_availability_schedules
+      UserAvailabilityScheduleResource.new(self)
+    end
+
     # Avoid returning #<Calendlyr::Client @token="token" ...>
     def inspect
       "#<Calendlyr::Client>"

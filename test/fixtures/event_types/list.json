@@ -1,7 +1,7 @@
 {
   "collection": [
     {
-      "uri": "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
+      "uri": "https://api.calendly.com/event_types/abc123",
       "name": "15 Minute Meeting",
       "active": true,
       "slug": "acmesales",
@@ -19,7 +19,7 @@
       "profile": {
         "type": "User",
         "name": "Tamara Jones",
-        "owner": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
+        "owner": "https://api.calendly.com/users/abc123"
       },
       "secret": true,
       "custom_questions": [

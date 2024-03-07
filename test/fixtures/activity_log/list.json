@@ -22,7 +22,7 @@
       },
       "fully_qualified_name": "User.Add",
       "details": {},
-      "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAA"
+      "organization": "https://api.calendly.com/organizations/abc123"
     }
   ],
   "pagination": {

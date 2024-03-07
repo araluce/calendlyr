@@ -1,9 +1,9 @@
 {
   "resource": {
-    "uri": "https://api.calendly.com/organization_memberships/AAAAAAAAAAAAAAAA",
+    "uri": "https://api.calendly.com/organization_memberships/abc123",
     "role": "admin",
     "user": {
-      "uri": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA",
+      "uri": "https://api.calendly.com/users/abc123",
       "name": "John Doe",
       "slug": "acmesales",
       "email": "test@example.com",
@@ -13,7 +13,7 @@
       "created_at": "2019-01-02T03:04:05.678Z",
       "updated_at": "2019-08-07T06:05:04.321Z"
     },
-    "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+    "organization": "https://api.calendly.com/organizations/abc123",
     "updated_at": "2019-08-07T06:05:04.321Z",
     "created_at": "2019-01-02T03:04:05.678Z"
   }

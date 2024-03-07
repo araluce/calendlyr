@@ -16,7 +16,7 @@ class OrganizationsResourceTest < Minitest::Test
   end
 
   def test_list_invitations
-    organization_uuid = "AAAAAAAAAAAAAAAA"
+    organization_uuid = "abc123"
     response = {body: fixture_file("organizations/list_invitations"), status: 200}
     stub(path: "organizations/#{organization_uuid}/invitations", response: response)
     invitations = client.organizations.list_invitations(organization_uuid: organization_uuid)
@@ -28,8 +28,8 @@ class OrganizationsResourceTest < Minitest::Test
   end
 
   def test_list_memberships
-    user_uri = "AAAAAAAAAAAAAAAA"
-    organization_uri = "AAAAAAAAAAAAAAAA"
+    user_uri = "abc123"
+    organization_uri = "abc123"
     response = {body: fixture_file("organizations/list_memberships"), status: 200}
     stub(path: "organization_memberships?user=#{user_uri}&organization=#{organization_uri}", response: response)
     memberships = client.organizations.list_memberships(user_uri: user_uri, organization_uri: organization_uri)
@@ -68,7 +68,7 @@ class OrganizationsResourceTest < Minitest::Test
   end
 
   def test_retrieve_invitation
-    invitation_uuid = "AAAAAAAAAAAAAAAA"
+    invitation_uuid = "abc123"
 
     stub(path: "organizations/#{client.organization.uuid}/invitations/#{invitation_uuid}", response: {body: fixture_file("organizations/retrieve_invitation"), status: 200})
     stub(method: :delete, path: "organizations/#{client.organization.uuid}/invitations/#{invitation_uuid}", response: {body: fixture_file("organizations/revoke_invitation")})
@@ -82,7 +82,7 @@ class OrganizationsResourceTest < Minitest::Test
   end
 
   def test_retrieve_membership
-    membership_uuid = "AAAAAAAAAAAAAAAA"
+    membership_uuid = "abc123"
     response = {body: fixture_file("organizations/retrieve_membership"), status: 200}
     stub(path: "organization_memberships/#{membership_uuid}", response: response)
     stub(path: "users/#{membership_uuid}", response: {body: fixture_file("users/retrieve"), status: 200})
@@ -94,15 +94,15 @@ class OrganizationsResourceTest < Minitest::Test
   end
 
   def test_revoke_invitation
-    organization_uuid = "AAAAAAAAAAAAAAAA"
-    invitation_uuid = "AAAAAAAAAAAAAAAA"
+    organization_uuid = "abc123"
+    invitation_uuid = "abc123"
     response = {body: fixture_file("organizations/revoke_invitation")}
     stub(method: :delete, path: "organizations/#{organization_uuid}/invitations/#{invitation_uuid}", response: response)
     assert client.organizations.revoke_invitation(organization_uuid: organization_uuid, invitation_uuid: invitation_uuid)
   end
 
   def test_remove_user
-    membership_uuid = "AAAAAAAAAAAAAAAA"
+    membership_uuid = "abc123"
     response = {body: fixture_file("organizations/remove_user")}
     stub(method: :delete, path: "organization_memberships/#{membership_uuid}", response: response)
     assert client.organizations.remove_user(membership_uuid: membership_uuid)
@@ -130,14 +130,14 @@ class OrganizationsResourceTest < Minitest::Test
   end
 
   def test_organization_revoke_invitation
-    stub(method: :delete, path: "organizations/#{client.organization.uuid}/invitations/AAAAAAAAAAAAAAAA", response: {body: fixture_file("organizations/revoke_invitation")})
-    assert client.organization.revoke_invitation(invitation_uuid: "AAAAAAAAAAAAAAAA")
+    stub(method: :delete, path: "organizations/#{client.organization.uuid}/invitations/abc123", response: {body: fixture_file("organizations/revoke_invitation")})
+    assert client.organization.revoke_invitation(invitation_uuid: "abc123")
   end
 
   def test_organization_invitation
     response = {body: fixture_file("organizations/retrieve_invitation"), status: 200}
-    stub(path: "organizations/#{client.organization.uuid}/invitations/AAAAAAAAAAAAAAAA", response: response)
-    invitation = client.organization.invitation(invitation_uuid: "AAAAAAAAAAAAAAAA")
+    stub(path: "organizations/#{client.organization.uuid}/invitations/abc123", response: response)
+    invitation = client.organization.invitation(invitation_uuid: "abc123")
 
     assert_equal Calendlyr::Invitation, invitation.class
     assert_equal "test@example.com", invitation.email

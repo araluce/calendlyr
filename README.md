@@ -17,89 +17,16 @@ No dependencies :tada:
 
 We know about the importance of not add dependencies that you don't want.
 
-## Installation
+## 📚 Docs
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'calendlyr'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install calendlyr
-
-## Usage
-
-To access the API, you'll need to create a `Calendlyr::Client` and pass in your token. You can generate your Personal Access Token at [https://calendly.com/integrations/api_webhooks](https://calendly.com/integrations/api_webhooks)
-
-```ruby
-client = Calendlyr::Client.new(token: ENV["CALENDLY_TOKEN"])
-```
-
-The client then gives you access to each of the resources.
-
-## Resources
-
-The gem maps as closely as we can to the Calendly API so you can easily convert API examples to gem code.
-
-Responses are created as objects like `Calendlyr::Event`. Having types like `Calendlyr::User` is handy for understanding what type of object you're working with. They're built using OpenStruct so you can easily access data in a Ruby-ish way.
-
-##### Pagination
-
-`collection` endpoints return pages of results. The result object will have a `data` key to access the results, as well as pagination like `next_page` for retrieving the next pages. You may also specify the
-
-```ruby
-results = client.me.events(count: 5)
-#=> Calendlyr::Collection
-
-results.count
-#=> 5
-
-results.data
-#=> [#<Calendlyr::Event>, #<Calendlyr::Event>]
-
-results.next_page_token
-#=> "KfKBetd7bS0wsFINjYky9mp8ZJXv76aL"
-
-# Retrieve the next page
-client.me.events(count: 5, next_page_token: results.next_page_token)
-#=> Calendlyr::Collection
-```
-
-### Users
-```ruby
-client.me
-client.users.me
-client.retrieve(user_uuid: "uuid")
-
-client.organization
-#=> #<Calendlyr::Organization>
-
-client.me.event_types
-#=> Calendlyr::Collection @data=[#<Calendlyr::EventType>, #<Calendlyr::EventType>]
-
-client.me.events
-#=> Calendlyr::Collection @data=[#<Calendlyr::Event>, #<Calendlyr::Event>]
-
-client.me.memberships
-#=> Calendlyr::Collection @data=[#<Calendlyr::MemberShip>, #<Calendlyr::MemberShip>]
-```
-
-#### Me (Cached)
-
-Probably you need to make many calls through `client.me`, so we decided to not make calls for every `client.me` reference by caching it the first time. However, if you need to reload the content of `me` you can `force_relaod` to force a new call.
-
-```ruby
-client.me # makes a call and caches the response
-client.me # no call, value cached
-client.me(force_reload: true) # makes a new call and update cache value
-```
-
+* [Installation](docs/1_installation.md)
+* [Usage](docs/2_usage.md)
+* **Resources**
+  * **Availability**
+    * [UserBusyTime](docs/resources/availabily/1_user_busy_time.md)
+    * [UserAvailabilitySchedule](docs/resources/availabily/2_user_availability_schedule.md)
+  * [Pagination](docs/resources/1_pagination.md)
+  * [User](docs/resources/2_user.md)
 
 ### Event Types
 ````ruby

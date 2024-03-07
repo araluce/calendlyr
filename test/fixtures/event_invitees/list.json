@@ -1,10 +1,10 @@
 {
   "collection": [
     {
-      "cancel_url": "https://calendly.com/cancellations/AAAAAAAAAAAAAAAA",
+      "cancel_url": "https://calendly.com/cancellations/abc123",
       "created_at": "2020-11-23T17:51:18.327602Z",
       "email": "test@example.com",
-      "event": "https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA",
+      "event": "https://api.calendly.com/scheduled_events/abc123",
       "name": "John Doe",
       "new_invitee": null,
       "old_invitee": null,
@@ -25,7 +25,7 @@
           "question": "Question with Checkboxes answer type"
         }
       ],
-      "reschedule_url": "https://calendly.com/reschedulings/AAAAAAAAAAAAAAAA",
+      "reschedule_url": "https://calendly.com/reschedulings/abc123",
       "rescheduled": false,
       "status": "active",
       "text_reminder_number": null,
@@ -39,10 +39,10 @@
         "salesforce_uuid": null
       },
       "updated_at": "2020-11-23T17:51:18.341657Z",
-      "uri": "https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/AAAAAAAAAAAAAAAA",
+      "uri": "https://api.calendly.com/scheduled_events/abc123/invitees/abc123",
       "canceled": false,
       "payment": {
-        "external_id": "ch_AAAAAAAAAAAAAAAAAAAAAAAA",
+        "external_id": "ch_abc123",
         "provider": "stripe",
         "amount": 1234.56,
         "currency": "USD",
@@ -53,6 +53,6 @@
   ],
   "pagination": {
     "count": 1,
-    "next_page": "https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees?count=1&page_token=sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    "next_page": "https://calendly.com/scheduled_events/abc123/invitees?count=1&page_token=sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
   }
 }

@@ -1,0 +1,29 @@
+{
+  "collection": [
+    {
+      "type": "calendly",
+      "start_time": "2020-01-02T20:00:00.000000Z",
+      "end_time": "2020-01-02T20:30:00.000000Z",
+      "buffered_start_time": "2020-01-02T19:30:00.000000Z",
+      "buffered_end_time": "2020-01-02T21:00:00.000000Z",
+      "event": {
+        "uri": "https://api.calendly.com/scheduled_events/abc123"
+      }
+    },
+    {
+      "type": "calendly",
+      "start_time": "2020-01-05T20:00:00.000000Z",
+      "end_time": "2020-01-05T20:30:00.000000Z",
+      "buffered_start_time": "2020-01-05T19:30:00.000000Z",
+      "buffered_end_time": "2020-01-05T21:00:00.000000Z",
+      "event": {
+        "uri": "https://api.calendly.com/scheduled_events/abc12345"
+      }
+    },
+    {
+      "type": "external",
+      "start_time": "2020-01-07T20:00:00.000000Z",
+      "end_time": "2020-01-07T20:30:00.000000Z"
+    }
+  ]
+}
