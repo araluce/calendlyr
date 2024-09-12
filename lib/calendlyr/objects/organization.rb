@@ -12,6 +12,15 @@ module Calendlyr
       client.event_types.list(**params.merge(organization: uri))
     end
 
+    def routing_forms(**params)
+      client.routing_forms.list(**params.merge(organization: uri))
+    end
+
+    # Groups
+    def groups(**params)
+      client.groups.list(**params.merge(organization: uri))
+    end
+
     def group_relationships(**params)
       client.groups.list_relationships(**params.merge(organization: uri))
     end
@@ -32,6 +41,10 @@ module Calendlyr
 
     def create_webhook(**params)
       client.webhooks.create(**params.merge(organization: uri))
+    end
+
+    def sample_webhook_data(event:, scope:, **params)
+      client.webhooks.sample_webhook_data(event: event, scope: scope, organization: uri, **params)
     end
 
     # Invitations

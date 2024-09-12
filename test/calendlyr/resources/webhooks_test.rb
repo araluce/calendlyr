@@ -43,4 +43,12 @@ class WebhooksResourceTest < Minitest::Test
     stub(method: :delete, path: "webhook_subscriptions/#{webhook_uuid}", response: response)
     assert client.webhooks.delete(webhook_uuid: webhook_uuid)
   end
+
+  def test_sample_webhook_data
+    stub(path: "sample_webhook_data?event=invitee.created&scope=organization&organization=https://api.calendly.com/organizations/abc123", response: {body: fixture_file("webhooks/sample"), status: 200})
+    webhook_data = client.webhooks.sample_webhook_data(event: "invitee.created", scope: "organization", organization: "https://api.calendly.com/organizations/abc123")
+
+    assert_equal Calendlyr::Object, webhook_data.class
+    assert_equal "invitee.created", webhook_data.event
+  end
 end

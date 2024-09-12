@@ -42,4 +42,35 @@ class EventTypesResourceTest < Minitest::Test
     assert_equal "acmesales", event_type.slug
     assert_equal 30, event_type.duration
   end
+
+  def test_create_one_off
+    body = {
+      name: "My Meeting",
+      host: "https://api.calendly.com/users/AAAAAAAAAAAAAAAA",
+      co_hosts: [
+        "https://api.calendly.com/users/BBBBBBBBBBBBBBBB",
+        "https://api.calendly.com/users/CCCCCCCCCCCCCCCC"
+      ],
+      duration: 30,
+      timezone: "string",
+      date_setting: {
+        type: "date_range",
+        start_date: "2020-01-07",
+        end_date: "2020-01-09"
+      },
+      location: {
+        kind: "physical",
+        location: "Main Office",
+        additonal_info: "string"
+      }
+    }
+    stub(method: :post, path: "one_off_event_types", response: {body: fixture_file("event_types/create_one_off"), status: 201})
+    event_type = client.event_types.create_one_off(**body)
+
+    assert_equal Calendlyr::EventType, event_type.class
+    assert_equal "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA", event_type.uri
+    assert_equal "15 Minute Meeting", event_type.name
+    assert_equal "acmesales", event_type.slug
+    assert_equal 30, event_type.duration
+  end
 end

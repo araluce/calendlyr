@@ -13,4 +13,14 @@ class RoutingFormObjectTest < Minitest::Test
 
     assert_equal Calendlyr::Organization, organization.class
   end
+
+  def test_submissions
+    response = {body: fixture_file("routing_forms/list_routing_form_submission"), status: 200}
+    stub(path: "routing_form_submissions?form=#{@routing_form.uri}", response: response)
+
+    submissions = @routing_form.submissions
+
+    assert_equal 1, submissions.data.size
+    assert_instance_of Calendlyr::RoutingForms::Submission, submissions.data.first
+  end
 end

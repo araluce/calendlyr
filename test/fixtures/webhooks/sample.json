@@ -1,0 +1,105 @@
+{
+  "event": "invitee.created",
+  "created_at": "2019-08-24T14:15:22Z",
+  "created_by": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA",
+  "payload": {
+    "uri": "https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/AAAAAAAAAAAAAAAA",
+    "email": "test@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "name": "John Doe",
+    "status": "active",
+    "questions_and_answers": [
+      {
+        "question": "string",
+        "answer": "string",
+        "position": 0
+      }
+    ],
+    "timezone": "string",
+    "event": "https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA",
+    "created_at": "2019-01-02T03:04:05.678123Z",
+    "updated_at": "2019-08-07T06:05:04.321123Z",
+    "tracking": {
+      "utm_campaign": "string",
+      "utm_source": "string",
+      "utm_medium": "string",
+      "utm_content": "string",
+      "utm_term": "string",
+      "salesforce_uuid": "string"
+    },
+    "text_reminder_number": "+1 404-555-1234",
+    "rescheduled": true,
+    "old_invitee": "http://example.com",
+    "new_invitee": "http://example.com",
+    "cancel_url": "http://example.com",
+    "reschedule_url": "http://example.com",
+    "routing_form_submission": "https://api.calendly.com/routing_form_submissions/AAAAAAAAAAAAAAAA",
+    "cancellation": {
+      "canceled_by": "string",
+      "reason": "string",
+      "canceler_type": "host",
+      "created_at": "2019-01-02T03:04:05.678123Z"
+    },
+    "payment": {
+      "external_id": "string",
+      "provider": "stripe",
+      "amount": 0,
+      "currency": "AUD",
+      "terms": "sample terms of payment (up to 1,024 characters)",
+      "successful": true
+    },
+    "no_show": {
+      "uri": "string",
+      "created_at": "2019-01-02T03:04:05.678123Z"
+    },
+    "reconfirmation": {
+      "created_at": "2020-11-23T17:51:18.341657Z",
+      "confirmed_at": "2020-11-23T17:51:18.341657Z"
+    },
+    "scheduling_method": "instant_book",
+    "invitee_scheduled_by": "http://example.com",
+    "scheduled_event": {
+      "uri": "https://api.calendly.com/scheduled_events/GBGBDCAADAEDCRZ2",
+      "name": "15 Minute Meeting",
+      "meeting_notes_plain": "15 Minute Meeting",
+      "meeting_notes_html": "<p>15 Minute Meeting</p>",
+      "status": "active",
+      "start_time": "2019-08-24T14:15:22Z",
+      "end_time": "2019-08-24T14:15:22Z",
+      "event_type": "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2",
+      "location": {
+        "type": "physical",
+        "location": "Calendly Office",
+        "additional_info": "Please check in at the main lobby."
+      },
+      "invitees_counter": {
+        "total": 0,
+        "active": 0,
+        "limit": 0
+      },
+      "created_at": "2019-01-02T03:04:05.678123Z",
+      "updated_at": "2019-01-02T03:04:05.678123Z",
+      "event_memberships": [
+        {
+          "user": "https://api.calendly.com/users/GBGBDCAADAEDCRZ2",
+          "user_email": "user@example.com",
+          "user_name": "John Smith"
+        }
+      ],
+      "event_guests": [
+        {
+          "email": "user@example.com",
+          "created_at": "2019-08-24T14:15:22Z",
+          "updated_at": "2019-08-24T14:15:22Z"
+        }
+      ],
+      "cancellation": {
+        "canceled_by": "string",
+        "reason": "string",
+        "canceler_type": "host",
+        "created_at": "2019-01-02T03:04:05.678123Z"
+      }
+    }
+  }
+}

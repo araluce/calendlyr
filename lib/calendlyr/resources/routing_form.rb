@@ -11,7 +11,7 @@ module Calendlyr
 
     # Routing Form Submission
     def list_submissions(form:, **params)
-      response = get_request("routing_form_submissions/", params: {form: form}.merge(params))
+      response = get_request("routing_form_submissions", params: {form: form}.merge(params))
       Collection.from_response(response, type: RoutingForms::Submission, client: client)
     end
 

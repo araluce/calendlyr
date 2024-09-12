@@ -11,10 +11,12 @@ module Groups
       group_uuid = "AAAAAAAAAAAAAAAA"
       response = {body: fixture_file("groups/retrieve"), status: 200}
       stub(path: "groups/#{group_uuid}", response: response)
+    end
 
-      organization_membership_uuid = "AAAAAAAAAAAAAAAA"
-      response = {body: fixture_file("organization_memberships/retrieve"), status: 200}
-      stub(path: "organization_memberships/#{organization_membership_uuid}", response: response)
+    def test_associated_organization
+      organization = @relationship.associated_organization
+
+      assert_equal Calendlyr::Organization, organization.class
     end
 
     def test_associated_group
@@ -23,10 +25,19 @@ module Groups
       assert_equal "Sales Team", group.name
     end
 
-    def associated_owner
+    def test_associated_owner
+      organization_membership_uuid = "AAAAAAAAAAAAAAAA"
+      response = {body: fixture_file("organization_memberships/retrieve"), status: 200}
+      stub(path: "organization_memberships/#{organization_membership_uuid}", response: response)
+
+      response = {body: fixture_file("users/retrieve"), status: 200}
+      stub(path: "users/AAAAAAAAAAAAAAAA", response: response)
+
       owner = @relationship.associated_owner
 
-      assert_equal "John Doe", owner.name
+      assert_equal Calendlyr::Organizations::Membership, owner.class
+      assert_equal Calendlyr::User, owner.associated_user.class
+      assert_equal "John Doe", owner.associated_user.name
     end
   end
 end

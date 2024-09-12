@@ -18,7 +18,7 @@ class OrganizatonObjectTest < Minitest::Test
     activity_logs = @organization.activity_logs
 
     assert_equal 1, activity_logs.data.size
-    assert_equal Calendlyr::ActivityLog, activity_logs.data.first.class
+    assert_instance_of Calendlyr::ActivityLog, activity_logs.data.first
   end
 
   def test_events
@@ -28,7 +28,7 @@ class OrganizatonObjectTest < Minitest::Test
     events = @organization.events
 
     assert_equal 1, events.data.size
-    assert_equal Calendlyr::Event, events.data.first.class
+    assert_instance_of Calendlyr::Event, events.data.first
   end
 
   def test_event_types
@@ -38,7 +38,27 @@ class OrganizatonObjectTest < Minitest::Test
     event_types = @organization.event_types
 
     assert_equal 1, event_types.data.size
-    assert_equal Calendlyr::EventType, event_types.data.first.class
+    assert_instance_of Calendlyr::EventType, event_types.data.first
+  end
+
+  def test_routing_forms
+    response = {body: fixture_file("routing_forms/list"), status: 200}
+    stub(path: "routing_forms?organization=#{@organization.uri}", response: response)
+
+    routing_forms = @organization.routing_forms
+
+    assert_equal 1, routing_forms.data.size
+    assert_instance_of Calendlyr::RoutingForm, routing_forms.data.first
+  end
+
+  def test_groups
+    response = {body: fixture_file("groups/list"), status: 200}
+    stub(path: "groups?organization=#{@organization.uri}", response: response)
+
+    groups = @organization.groups
+
+    assert_equal 1, groups.data.size
+    assert_instance_of Calendlyr::Group, groups.data.first
   end
 
   def test_group_relationships
@@ -48,7 +68,7 @@ class OrganizatonObjectTest < Minitest::Test
     group_relationships = @organization.group_relationships
 
     assert_equal 3, group_relationships.data.size
-    assert_equal Calendlyr::Groups::Relationship, group_relationships.data.first.class
+    assert_instance_of Calendlyr::Groups::Relationship, group_relationships.data.first
   end
 
   def test_memberships
@@ -58,7 +78,7 @@ class OrganizatonObjectTest < Minitest::Test
     memberships = @organization.memberships
 
     assert_equal 1, memberships.data.size
-    assert_equal Calendlyr::Organizations::Membership, memberships.data.first.class
+    assert_instance_of Calendlyr::Organizations::Membership, memberships.data.first
   end
 
   def test_membership
@@ -67,8 +87,8 @@ class OrganizatonObjectTest < Minitest::Test
 
     membership = @organization.membership(uuid: "AAAAAAAAAAAAAAAA")
 
-    assert_equal Calendlyr::User, membership.associated_user.class
-    assert_equal Calendlyr::Organizations::Membership, membership.class
+    assert_instance_of Calendlyr::User, membership.associated_user
+    assert_instance_of Calendlyr::Organizations::Membership, membership
   end
 
   def test_webhooks
@@ -77,8 +97,8 @@ class OrganizatonObjectTest < Minitest::Test
     stub(path: "webhook_subscriptions?organization=#{@organization.uri}&scope=#{scope}", response: response)
     webhooks = @organization.webhooks(scope: scope)
 
-    assert_equal Calendlyr::Collection, webhooks.class
-    assert_equal Calendlyr::Webhooks::Subscription, webhooks.data.first.class
+    assert_instance_of Calendlyr::Collection, webhooks
+    assert_instance_of Calendlyr::Webhooks::Subscription, webhooks.data.first
     assert_equal 1, webhooks.data.count
     assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", webhooks.next_page_token
   end
@@ -91,13 +111,21 @@ class OrganizatonObjectTest < Minitest::Test
     assert @organization.create_webhook(**body)
   end
 
+  def test_sample_webhook_data
+    stub(path: "sample_webhook_data?event=invitee.created&scope=organization&organization=https://api.calendly.com/organizations/012345678901234567890", response: {body: fixture_file("webhooks/sample"), status: 200})
+    webhook_data = @organization.sample_webhook_data(event: "invitee.created", scope: "organization")
+
+    assert_instance_of Calendlyr::Object, webhook_data
+    assert_equal "invitee.created", webhook_data.event
+  end
+
   def test_invite_user
     email = "email@example.com"
     response = {body: fixture_file("organizations/invite"), status: 201}
     stub(method: :post, path: "organizations/#{@organization.uuid}/invitations", body: {email: email}, response: response)
     invitation = @organization.invite_user(email: email)
 
-    assert_equal Calendlyr::Organizations::Invitation, invitation.class
+    assert_instance_of Calendlyr::Organizations::Invitation, invitation
     assert_equal email, invitation.email
   end
 
@@ -106,8 +134,8 @@ class OrganizatonObjectTest < Minitest::Test
     stub(path: "organizations/#{@organization.uuid}/invitations", response: response)
     invitations = @organization.invitations
 
-    assert_equal Calendlyr::Collection, invitations.class
-    assert_equal Calendlyr::Organizations::Invitation, invitations.data.first.class
+    assert_instance_of Calendlyr::Collection, invitations
+    assert_instance_of Calendlyr::Organizations::Invitation, invitations.data.first
     assert_equal 1, invitations.count
     assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", invitations.next_page_token
   end
@@ -117,7 +145,7 @@ class OrganizatonObjectTest < Minitest::Test
     stub(path: "organizations/#{@organization.uuid}/invitations/abc123", response: response)
     invitation = @organization.invitation(invitation_uuid: "abc123")
 
-    assert_equal Calendlyr::Organizations::Invitation, invitation.class
+    assert_instance_of Calendlyr::Organizations::Invitation, invitation
     assert_equal "test@example.com", invitation.email
   end
 
