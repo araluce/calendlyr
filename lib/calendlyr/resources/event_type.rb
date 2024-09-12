@@ -20,8 +20,8 @@ module Calendlyr
     end
 
     # Available Times
-    def list_available_times(event_type:, start_time:, end_time:,**params)
-      response = get_request("event_type_available_times", params: { event_type: event_type, start_time: start_time, end_time: end_time }.merge(params))
+    def list_available_times(event_type:, start_time:, end_time:, **params)
+      response = get_request("event_type_available_times", params: {event_type: event_type, start_time: start_time, end_time: end_time}.merge(params))
       Collection.from_response(response, type: EventTypes::AvailableTime, client: client)
     end
   end

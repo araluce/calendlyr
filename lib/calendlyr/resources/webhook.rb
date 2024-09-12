@@ -6,7 +6,7 @@ module Calendlyr
     end
 
     def create(url:, events:, organization:, scope:, **params)
-      body = { url: url, events: events, organization: organization, scope: scope}.merge(params)
+      body = {url: url, events: events, organization: organization, scope: scope}.merge(params)
       Webhooks::Subscription.new post_request("webhook_subscriptions", body: body).dig("resource").merge(client: client)
     end
 

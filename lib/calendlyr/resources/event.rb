@@ -35,7 +35,7 @@ module Calendlyr
 
     # Cancellations
     def cancel_event(uuid:, reason:)
-      Events::Cancellation.new post_request("scheduled_events/#{uuid}/cancellation", body: { reason: reason }).dig("resource").merge(client: client)
+      Events::Cancellation.new post_request("scheduled_events/#{uuid}/cancellation", body: {reason: reason}).dig("resource").merge(client: client)
     end
   end
 end
