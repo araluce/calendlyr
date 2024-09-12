@@ -10,6 +10,6 @@ class SchedulingLinksResourceTest < Minitest::Test
     response = {body: fixture_file("scheduling_links/create"), status: 201}
     stub(method: :post, path: "scheduling_links", body: {owner: owner_uri, max_event_count: max_event_count, owner_type: owner_type}, response: response)
 
-    assert client.scheduling_links.create(owner_uri: owner_uri, max_event_count: max_event_count, owner_type: owner_type)
+    assert client.scheduling_links.create(owner: owner_uri, max_event_count: max_event_count, owner_type: owner_type)
   end
 end

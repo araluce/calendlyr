@@ -1,0 +1,10 @@
+{
+  "type": "wday",
+  "intervals": [
+    {
+      "from": "08:30",
+      "to": "09:30"
+    }
+  ],
+  "wday": "sunday"
+}

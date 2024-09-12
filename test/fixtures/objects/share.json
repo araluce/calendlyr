@@ -1,0 +1,43 @@
+{
+  "scheduling_links": [
+    {
+      "booking_url": "https://calendly.com/d/abcd-brv8/15-minute-meeting",
+      "owner": "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
+      "owner_type": "EventType"
+    }
+  ],
+  "share_override": {
+    "name": "15 Minute Meeting",
+    "duration": 60,
+    "period_type": "available_moving",
+    "start_date": "2019-01-02",
+    "end_date": "2019-01-03",
+    "max_booking_time": 300,
+    "hide_location": true,
+    "location_configurations": [
+      {
+        "location": "123 Abc St.",
+        "additional_info": "Example additional info",
+        "phone_number": "+1 888-888-8888",
+        "position": 0,
+        "kind": "physical"
+      }
+    ],
+    "availability_rule": {
+      "rules": [
+        {
+          "type": "wday",
+          "wday": "sunday",
+          "date": "2019-01-02",
+          "intervals": [
+            {
+              "from": "07:00",
+              "to": "11:00"
+            }
+          ]
+        }
+      ],
+      "timezone": "America/New_York"
+    }
+  }
+}

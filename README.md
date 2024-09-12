@@ -3,13 +3,11 @@
 [![codecov](https://codecov.io/gh/araluce/calendlyr/branch/master/graph/badge.svg?token=YSUU4PHM6Y)](https://codecov.io/gh/araluce/calendlyr)
 [![Gem Version](https://badge.fury.io/rb/calendlyr.svg)](https://badge.fury.io/rb/calendlyr)
 
-# Calendly API Rubygem LITE version
+# Calendly API Rubygem
 
 Easy and complete rubygem for [Calendly](https://calendly.com/). Currently supports [API v2](https://calendly.stoplight.io/docs/api-docs).
 
 Just needed a Personal Access Token.
-
-> If you need a Oauth authentication maybe you need [calendly-api-ruby-client](https://github.com/koshilife/calendly-api-ruby-client)
 
 ## Dependencies
 
@@ -23,9 +21,10 @@ We know about the importance of not add dependencies that you don't want.
 * [Usage](docs/2_usage.md)
 * **Resources**
   * [Pagination](/docs/resources/1_pagination.md)
-  * **Availability**
-    * [UserBusyTime](/docs/resources/availability/1_user_busy_time.md)
-    * [UserAvailabilitySchedule](/docs/resources/availability/2_user_availability_schedule.md)
+  * **Availabilities**
+    * [Availabilities::Rule](/docs/resources/availabilities/1_rule.md)
+    * [Availabilities::UserSchedule](/docs/resources/availabilities/2_user_busy_time.md)
+    * [Availabilities::UserSchedule](/docs/resources/availabilities/3_user_availability_schedule.md)
   * [Data Compliance](/docs/resources/2_data_compliance.md)
   * [User](/docs/resources/user.md)
 
@@ -37,19 +36,19 @@ client.event_types.retrieve event_type_uuid: "id"
 
 ### Events
 ````ruby
-client.events.list user_uri: "user_uri", organization_uri: "organization_uri"
-client.events.retrieve event_uuid: "event_uuid"
+client.events.list user: "user_uri", organization: "organization_uri", group: "group_uri"
+client.events.retrieve event: "event_uuid"
 ````
 
 ### Event Invitees
 ````ruby
-client.event_invitees.list event_uuid: "event_uuid"
-client.event_invitees.retrieve event_uuid: "event_uuid", invitee_uuid: "invitee_uuid"
+client.events.list_invitees uuid: "event_uuid"
+client.events.retrieve_invitee event_uuid: "event_uuid", invitee_uuid: "invitee_uuid"
 ````
 
 ### Scheduling Links
 ````ruby
-client.scheduling_links.create owner_uri: "owner_uri", max_event_count: 1, owner_type: "EventType"
+client.scheduling_links.create owner: "owner_uri", max_event_count: 1, owner_type: "EventType"
 ````
 
 ### Organizations
@@ -80,7 +79,7 @@ client.organizations.remove_user(membership_uuid: "membership_uuid")
 client.organization.events
 
 # List/Creaete webhooks
-client.organization.list_webhooks(scope: "scope")
+client.organization.webhooks(scope: "scope")
 client.organization.create_webhook(url: "post_callback_url", events: ["invitee.canceled", "invitee.created"], scope: "scope")
 
 # List activity log

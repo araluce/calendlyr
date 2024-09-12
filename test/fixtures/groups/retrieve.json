@@ -1,0 +1,9 @@
+{
+  "resource": {
+    "uri": "https://api.calendly.com/groups/AAAAAAAAAAAAAAAA",
+    "name": "Sales Team",
+    "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+    "created_at": "2019-01-02T03:04:05.678123Z",
+    "updated_at": "2019-08-07T06:05:04.321123Z"
+  }
+}

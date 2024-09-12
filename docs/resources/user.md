@@ -3,7 +3,7 @@
 ```ruby
 client.me
 client.users.me
-client.retrieve(user_uuid: "uuid")
+client.users.retrieve(uuid: "uuid")
 #=> #<Calendlyr::User avatar_url=nil, created_at="2021-01-20T15:46:27.251298Z", current_organization="https://api.calendly.com/organizations/123abc", email="test@email.org", name="John Doe", resource_type="User", scheduling_url="https://calendly.com/john-doe", slug="john-doe", timezone="Europe/Berlin", updated_at="2024-01-21T11:39:27.889254Z", uri="https://api.calendly.com/users/123abc", client=#<Calendlyr::Client>, uuid="123abc">
 
 client.organization

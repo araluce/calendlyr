@@ -8,10 +8,10 @@ class WebhooksResourceTest < Minitest::Test
     scope = "user"
     response = {body: fixture_file("webhooks/list"), status: 200}
     stub(path: "webhook_subscriptions?organization=#{organization_uri}&scope=#{scope}", response: response)
-    webhooks = client.webhooks.list(organization_uri: organization_uri, scope: scope)
+    webhooks = client.webhooks.list(organization: organization_uri, scope: scope)
 
     assert_equal Calendlyr::Collection, webhooks.class
-    assert_equal Calendlyr::Webhook, webhooks.data.first.class
+    assert_equal Calendlyr::Webhooks::Subscription, webhooks.data.first.class
     assert_equal 1, webhooks.data.count
     assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", webhooks.next_page_token
   end
@@ -20,8 +20,8 @@ class WebhooksResourceTest < Minitest::Test
     body = {url: "https://blah.foo/bar", events: ["invitee.created"], organization: "https://api.calendly.com/organizations/abc123", scope: "user", user: "https://api.calendly.com/users/abc123"}
     stub(method: :post, path: "webhook_subscriptions", body: body, response: {body: fixture_file("webhooks/create"), status: 201})
 
-    assert client.webhooks.create(url: body[:url], events: body[:events], organization_uri: body[:organization], scope: body[:scope], user_uri: body[:user])
-    assert client.organization.create_webhook(url: body[:url], events: body[:events], scope: body[:scope], user_uri: body[:user])
+    assert client.webhooks.create(**body)
+    assert client.organization.create_webhook(**body)
   end
 
   def test_retrieve
@@ -30,10 +30,10 @@ class WebhooksResourceTest < Minitest::Test
     stub(path: "users/abc123", response: {body: fixture_file("users/retrieve"), status: 200})
     webhook = client.webhooks.retrieve(webhook_uuid: webhook_uuid)
 
-    assert_equal Calendlyr::Webhook, webhook.class
+    assert_equal Calendlyr::Webhooks::Subscription, webhook.class
     assert_equal "user", webhook.scope
-    assert_equal webhook.associated_user, client.users.retrieve(user_uuid: "abc123")
-    assert_equal webhook.associated_organization, client.users.retrieve(user_uuid: "abc123").organization
+    assert_equal webhook.associated_user, client.users.retrieve(uuid: "abc123")
+    assert_equal webhook.associated_organization, client.users.retrieve(uuid: "abc123").organization
     assert_equal webhook.active?, true
   end
 

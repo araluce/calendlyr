@@ -1,0 +1,10 @@
+{
+  "uri": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA/invitations/BBBBBBBBBBBBBBBB",
+  "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+  "email": "test@example.com",
+  "status": "accepted",
+  "created_at": "2019-08-07T06:05:04.321123Z",
+  "updated_at": "2019-01-02T03:04:05.678123Z",
+  "last_sent_at": "2019-01-02T03:04:05.678123Z",
+  "user": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
+}
