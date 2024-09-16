@@ -1,8 +1,9 @@
 {
   "resource": {
-    "uri": "https://api.calendly.com/event_types/abc123",
+    "uri": "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
     "name": "15 Minute Meeting",
     "active": true,
+    "booking_method": "instant",
     "slug": "acmesales",
     "scheduling_url": "https://calendly.com/acmesales",
     "duration": 30,
@@ -10,17 +11,27 @@
     "pooling_type": "round_robin",
     "type": "StandardEventType",
     "color": "#fff200",
-    "created_at": "2019-01-02T03:04:05.678Z",
-    "updated_at": "2019-08-07T06:05:04.321Z",
+    "created_at": "2019-01-02T03:04:05.678123Z",
+    "updated_at": "2019-08-07T06:05:04.321123Z",
     "internal_note": "Internal note",
     "description_plain": "15 Minute Meeting",
     "description_html": "<p>15 Minute Meeting</p>",
     "profile": {
       "type": "User",
       "name": "Tamara Jones",
-      "owner": "https://api.calendly.com/users/abc123"
+      "owner": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
     },
     "secret": true,
+    "deleted_at": null,
+    "admin_managed": false,
+    "locations": [
+      {
+        "kind": "inbound_call",
+        "phone_number": 380934567654,
+        "additional_info": "Additional information about location"
+      }
+    ],
+    "position": 0,
     "custom_questions": [
       {
         "name": "Company Name",

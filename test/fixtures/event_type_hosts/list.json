@@ -1,0 +1,76 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/event_type_memberships/AAAAAAAAAAAAAAAA",
+      "event_type": {
+        "uri": "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
+        "name": "15 Minute Meeting",
+        "active": true,
+        "slug": "acmesales",
+        "scheduling_url": "https://calendly.com/acmesales",
+        "duration": 30,
+        "kind": "solo",
+        "pooling_type": "round_robin",
+        "type": "StandardEventType",
+        "color": "#fff200",
+        "created_at": "2019-01-02T03:04:05.678123Z",
+        "updated_at": "2019-08-07T06:05:04.321123Z",
+        "internal_note": "Internal note",
+        "description_plain": "15 Minute Meeting",
+        "description_html": "<p>15 Minute Meeting</p>",
+        "profile": {
+          "type": "User",
+          "name": "Tamara Jones",
+          "owner": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
+        },
+        "secret": true,
+        "booking_method": "poll",
+        "custom_questions": [
+          {
+            "name": "string",
+            "type": "string",
+            "position": 0,
+            "enabled": true,
+            "required": true,
+            "answer_choices": [
+              "string"
+            ],
+            "include_other": true
+          }
+        ],
+        "deleted_at": "2019-01-02T03:04:05.678123Z",
+        "admin_managed": true,
+        "locations": [
+          {
+            "kind": "inbound_call",
+            "phone_number": 380934567654,
+            "additional_info": "Additional information about location"
+          }
+        ],
+        "position": 0
+      },
+      "member": {
+        "uri": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA",
+        "name": "John Doe",
+        "slug": "acmesales",
+        "email": "test@example.com",
+        "scheduling_url": "https://calendly.com/acmesales",
+        "timezone": "America/New York",
+        "avatar_url": "https://01234567890.cloudfront.net/uploads/user/avatar/0123456/a1b2c3d4.png",
+        "created_at": "2019-01-02T03:04:05.678123Z",
+        "updated_at": "2019-08-07T06:05:04.321123Z",
+        "current_organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+        "resource_type": "User"
+      },
+      "updated_at": "2019-01-02T03:04:05.678123Z",
+      "created_at": "2019-01-02T03:04:05.678123Z"
+    }
+  ],
+  "pagination": {
+    "count": 20,
+    "next_page": "https://api.calendly.com/event_types?count=1&page_token=sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi",
+    "previous_page": "https://api.calendly.com/event_types?count=1&page_token=VJs2rfDYeY8ahZpq0QI1O114LJkNjd7H",
+    "next_page_token": "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi",
+    "previous_page_token": "VJs2rfDYeY8ahZpq0QI1O114LJkNjd7H"
+  }
+}

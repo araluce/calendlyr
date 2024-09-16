@@ -1,0 +1,38 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/routing_form_submissions/AAAAAAAAAAAAAAAA",
+      "routing_form": "https://api.calendly.com/routing_forms/AAAAAAAAAAAAAAAA",
+      "questions_and_answers": [
+        {
+          "question_uuid": "123e4567-e89b-12d3-a456-426614174000",
+          "question": "What is your industry?",
+          "answer": "IT & Software"
+        }
+      ],
+      "tracking": {
+        "utm_campaign": null,
+        "utm_source": null,
+        "utm_medium": null,
+        "utm_content": null,
+        "utm_term": null,
+        "salesforce_uuid": null
+      },
+      "result": {
+        "type": "event_type",
+        "value": "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2"
+      },
+      "submitter": "https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/AAAAAAAAAAAAAAAA",
+      "submitter_type": "Invitee",
+      "created_at": "2022-05-15T03:04:05.678Z",
+      "updated_at": "2022-05-15T06:05:04.321Z"
+    }
+  ],
+  "pagination": {
+    "count": 20,
+    "next_page": "https://api.calendly.com/routing_form_submissions?count=1&page_token=d8T0LKQ1XsC2utmPlI7TFPpHX4SSfoGl",
+    "previous_page": "https://api.calendly.com/routing_form_submissions?count=1&page_token=VJs2rfDYeY8ahZpq0QI1O114LJkNjd7H",
+    "next_page_token": "d8T0LKQ1XsC2utmPlI7TFPpHX4SSfoGl",
+    "previous_page_token": "VJs2rfDYeY8ahZpq0QI1O114LJkNjd7H"
+  }
+}

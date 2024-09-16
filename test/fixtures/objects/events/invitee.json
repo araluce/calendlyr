@@ -1,0 +1,46 @@
+{
+  "cancel_url": "https://calendly.com/cancellations/AAAAAAAAAAAAAAAA",
+  "created_at": "2020-11-23T17:51:18.327602Z",
+  "email": "test@example.com",
+  "event": "https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA",
+  "first_name": "John",
+  "last_name": "Doe",
+  "name": "John Doe",
+  "new_invitee": null,
+  "old_invitee": null,
+  "questions_and_answers": [],
+  "reschedule_url": "https://calendly.com/reschedulings/AAAAAAAAAAAAAAAA",
+  "rescheduled": false,
+  "status": "active",
+  "text_reminder_number": null,
+  "timezone": "America/New_York",
+  "tracking": {
+    "utm_campaign": null,
+    "utm_source": null,
+    "utm_medium": null,
+    "utm_content": null,
+    "utm_term": null,
+    "salesforce_uuid": null
+  },
+  "updated_at": "2020-11-23T17:51:18.341657Z",
+  "uri": "https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/AAAAAAAAAAAAAAAA",
+  "routing_form_submission": "https://api.calendly.com/routing_form_submissions/AAAAAAAAAAAAAAAA",
+  "payment": {
+    "external_id": "ch_AAAAAAAAAAAAAAAAAAAAAAAA",
+    "provider": "stripe",
+    "amount": 1234.56,
+    "currency": "USD",
+    "terms": "sample terms of payment (up to 1,024 characters)",
+    "successful": true
+  },
+  "no_show": {
+    "uri": "https://api.calendly.com/invitee_no_shows/6ee96ed4-83a3-4966-a278-cd19b3c02e09",
+    "created_at": "2020-11-23T17:51:18.341657Z"
+  },
+  "reconfirmation": {
+    "created_at": "2020-11-23T17:51:18.341657Z",
+    "confirmed_at": "2020-11-23T20:01:18.341657Z"
+  },
+  "scheduling_method": null,
+  "invitee_scheduled_by": null
+}

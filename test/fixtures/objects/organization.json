@@ -1,0 +1,8 @@
+{
+  "uri": "https://api.calendly.com/organizations/012345678901234567890",
+  "name": "Sales Team",
+  "plan": "basic",
+  "stage": "trial",
+  "created_at": "2019-01-02T03:04:05.678123Z",
+  "updated_at": "2019-08-07T06:05:04.321123Z"
+}

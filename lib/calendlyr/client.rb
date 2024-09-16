@@ -8,6 +8,10 @@ module Calendlyr
       @token = token
     end
 
+    def availability
+      AvailabilityResource.new(self)
+    end
+
     def me(force_reload: false)
       @me = nil if force_reload
       @me ||= users.me
@@ -33,12 +37,24 @@ module Calendlyr
       EventResource.new(self)
     end
 
-    def event_invitees
-      EventInviteeResource.new(self)
+    def groups
+      GroupResource.new(self)
+    end
+
+    def outgoing_communications
+      OutgoingCommunicationResource.new(self)
+    end
+
+    def routing_forms
+      RoutingFormResource.new(self)
     end
 
     def scheduling_links
       SchedulingLinkResource.new(self)
+    end
+
+    def shares
+      ShareResource.new(self)
     end
 
     def webhooks
@@ -47,14 +63,6 @@ module Calendlyr
 
     def data_compliance
       DataComplianceResource.new(self)
-    end
-
-    def user_busy_times
-      UserBusyTimeResource.new(self)
-    end
-
-    def user_availability_schedules
-      UserAvailabilityScheduleResource.new(self)
     end
 
     # Avoid returning #<Calendlyr::Client @token="token" ...>

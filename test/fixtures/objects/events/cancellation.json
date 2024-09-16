@@ -1,0 +1,6 @@
+{
+  "canceled_by": "string",
+  "reason": "string",
+  "canceler_type": "host",
+  "created_at": "2019-01-02T03:04:05.678123Z"
+}

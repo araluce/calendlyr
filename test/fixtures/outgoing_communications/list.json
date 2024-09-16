@@ -1,0 +1,26 @@
+{
+  "collection": [
+    {
+      "type": "sms",
+      "to": "+14047549876",
+      "from": "+14042916667",
+      "subject": "",
+      "body": "Your scheduled event is coming up.",
+      "sender_uri": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA",
+      "sender_email": "user@example.com",
+      "event_type_uri": "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
+      "event_uri": "https://api.calendly.com/scheduled_events/ABCDABCDABCDABCD",
+      "sent_at": "2023-09-24T11:12:13.145Z",
+      "created_at": "2023-09-24T11:12:13.145Z",
+      "scheduling_url": "https://calendly.com/event/name"
+    }
+  ],
+  "pagination": {
+    "count": 20,
+    "next_page": "https://api.calendly.com/event_types?count=1&page_token=sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi",
+    "previous_page": "https://api.calendly.com/event_types?count=1&page_token=VJs2rfDYeY8ahZpq0QI1O114LJkNjd7H",
+    "next_page_token": "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi",
+    "previous_page_token": "VJs2rfDYeY8ahZpq0QI1O114LJkNjd7H"
+  },
+  "total_count": 0
+}

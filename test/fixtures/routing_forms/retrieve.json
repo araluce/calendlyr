@@ -1,0 +1,30 @@
+{
+  "resource": {
+    "uri": "https://api.calendly.com/routing_forms/AAAAAAAAAAAAAAAA",
+    "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+    "name": "ACME Demo",
+    "status": "published",
+    "questions": [
+      {
+        "uuid": "123e4567-e89b-12d3-a456-426614174000",
+        "name": "What is your industry?",
+        "type": "select",
+        "required": true,
+        "answer_choices": [
+          "IT & Software",
+          "Financial Services",
+          "Entertainment"
+        ]
+      },
+      {
+        "uuid": "1213f8f1-57fd-45ee-88e9-1978d35b5cad",
+        "name": "Email",
+        "type": "email",
+        "required": true,
+        "answer_choices": null
+      }
+    ],
+    "created_at": "2022-05-15T03:04:05.678Z",
+    "updated_at": "2022-05-15T06:05:04.321Z"
+  }
+}

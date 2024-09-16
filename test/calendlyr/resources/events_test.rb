@@ -14,7 +14,7 @@ class EventsResourceTest < Minitest::Test
   end
 
   def test_list
-    events = client.events.list(user_uri: @user_uri, organization_uri: @organization_uri)
+    events = client.events.list(user: @user_uri, organization: @organization_uri)
 
     assert_equal Calendlyr::Collection, events.class
     assert_equal Calendlyr::Event, events.data.first.class
@@ -23,7 +23,7 @@ class EventsResourceTest < Minitest::Test
   end
 
   def test_list_from_user
-    events = client.me.events(user_uri: @user_uri, organization_uri: @organization_uri)
+    events = client.me.events
 
     assert_equal Calendlyr::Collection, events.class
     assert_equal Calendlyr::Event, events.data.first.class
@@ -32,7 +32,7 @@ class EventsResourceTest < Minitest::Test
   end
 
   def test_retrieve
-    event = client.events.retrieve(event_uuid: @event_uuid)
+    event = client.events.retrieve(uuid: @event_uuid)
 
     assert_equal Calendlyr::Event, event.class
     assert_equal "https://api.calendly.com/scheduled_events/GBGBDCAADAEDCRZ2", event.uri

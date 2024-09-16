@@ -7,7 +7,7 @@ class UsersResourceTest < Minitest::Test
     user_uuid = "abc123"
     response = {body: fixture_file("users/retrieve"), status: 200}
     stub(path: "users/#{user_uuid}", response: response)
-    user = client.users.retrieve(user_uuid: user_uuid)
+    user = client.users.retrieve(uuid: user_uuid)
 
     assert_equal Calendlyr::User, user.class
     assert_equal "https://api.calendly.com/users/abc123", user.uri
@@ -57,10 +57,10 @@ class UsersResourceTest < Minitest::Test
     me = client.me
 
     stub(path: "organization_memberships?user=#{me.uri}&organization=#{me.organization.uri}", response: {body: fixture_file("organizations/list_memberships"), status: 200})
-    memberships = client.me.memberships(organization_uri: me.organization.uri)
+    memberships = client.me.memberships(organization: me.organization.uri)
 
     assert_equal Calendlyr::Collection, memberships.class
-    assert_equal Calendlyr::Membership, memberships.data.first.class
+    assert_equal Calendlyr::Organizations::Membership, memberships.data.first.class
     assert_equal 1, memberships.data.count
     assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", memberships.next_page_token
   end

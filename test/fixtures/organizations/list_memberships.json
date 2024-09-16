@@ -11,16 +11,19 @@
         "scheduling_url": "https://calendly.com/acmesales",
         "timezone": "America/New York",
         "avatar_url": "https://01234567890.cloudfront.net/uploads/user/avatar/0123456/a1b2c3d4.png",
-        "created_at": "2019-01-02T03:04:05.678Z",
-        "updated_at": "2019-08-07T06:05:04.321Z"
+        "created_at": "2019-01-02T03:04:05.678123Z",
+        "updated_at": "2019-08-07T06:05:04.321123Z"
       },
       "organization": "https://api.calendly.com/organizations/abc123",
-      "updated_at": "2019-08-07T06:05:04.321Z",
-      "created_at": "2019-01-02T03:04:05.678Z"
+      "updated_at": "2019-08-07T06:05:04.321123Z",
+      "created_at": "2019-01-02T03:04:05.678123Z"
     }
   ],
   "pagination": {
-    "count": 1,
-    "next_page": "https://api.calendly.com/organization_memberships/abc123?count=1&page_token=sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    "count": 20,
+    "next_page": "https://api.calendly.com/organization_memberships/abc123?count=1&page_token=sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi",
+    "previous_page": "https://api.calendly.com/organization_memberships/abc123?count=1&page_token=VJs2rfDYeY8ahZpq0QI1O114LJkNjd7H",
+    "next_page_token": "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi",
+    "previous_page_token": "VJs2rfDYeY8ahZpq0QI1O114LJkNjd7H"
   }
 }

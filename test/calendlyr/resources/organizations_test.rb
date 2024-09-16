@@ -11,7 +11,7 @@ class OrganizationsResourceTest < Minitest::Test
 
     invitation = client.organizations.invite(organization_uuid: organization_uuid, email: email)
 
-    assert_equal Calendlyr::Invitation, invitation.class
+    assert_equal Calendlyr::Organizations::Invitation, invitation.class
     assert_equal email, invitation.email
   end
 
@@ -19,52 +19,19 @@ class OrganizationsResourceTest < Minitest::Test
     organization_uuid = "abc123"
     response = {body: fixture_file("organizations/list_invitations"), status: 200}
     stub(path: "organizations/#{organization_uuid}/invitations", response: response)
-    invitations = client.organizations.list_invitations(organization_uuid: organization_uuid)
+    invitations = client.organizations.list_invitations(uuid: organization_uuid)
 
     assert_equal Calendlyr::Collection, invitations.class
-    assert_equal Calendlyr::Invitation, invitations.data.first.class
+    assert_equal Calendlyr::Organizations::Invitation, invitations.data.first.class
     assert_equal 1, invitations.count
     assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", invitations.next_page_token
-  end
-
-  def test_list_memberships
-    user_uri = "abc123"
-    organization_uri = "abc123"
-    response = {body: fixture_file("organizations/list_memberships"), status: 200}
-    stub(path: "organization_memberships?user=#{user_uri}&organization=#{organization_uri}", response: response)
-    memberships = client.organizations.list_memberships(user_uri: user_uri, organization_uri: organization_uri)
-
-    assert_equal Calendlyr::Collection, memberships.class
-    assert_equal Calendlyr::Membership, memberships.data.first.class
-    assert_equal 1, memberships.count
-    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", memberships.next_page_token
-  end
-
-  def test_list_webhooks
-    stub(path: "webhook_subscriptions?organization=#{client.organization.uri}&scope=user", response: {body: fixture_file("webhooks/list"), status: 200})
-    webhooks = client.organization.list_webhooks(scope: "user")
-
-    assert_equal Calendlyr::Collection, webhooks.class
-    assert_equal Calendlyr::Webhook, webhooks.data.first.class
-    assert_equal 1, webhooks.count
-    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", webhooks.next_page_token
-  end
-
-  def test_activity_log
-    stub(path: "activity_log_entries?organization=#{client.organization.uri}", response: {body: fixture_file("activity_log/list"), status: 200})
-    activity_log = client.organization.activity_log
-
-    assert_equal Calendlyr::Collection, activity_log.class
-    assert_equal Calendlyr::ActivityLog, activity_log.data.first.class
-    assert_equal 20, activity_log.count
-    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", activity_log.next_page_token
   end
 
   def test_create_webhook
     body = {url: "https://blah.foo/bar", events: ["invitee.created"], organization: client.organization.uri, scope: "user", user: client.me.uri}
     stub(method: :post, path: "webhook_subscriptions", body: body, response: {body: fixture_file("webhooks/create"), status: 201})
 
-    assert client.webhooks.create(url: body[:url], events: body[:events], organization_uri: body[:organization], scope: body[:scope], user_uri: body[:user])
+    assert client.webhooks.create(**body)
   end
 
   def test_retrieve_invitation
@@ -72,25 +39,13 @@ class OrganizationsResourceTest < Minitest::Test
 
     stub(path: "organizations/#{client.organization.uuid}/invitations/#{invitation_uuid}", response: {body: fixture_file("organizations/retrieve_invitation"), status: 200})
     stub(method: :delete, path: "organizations/#{client.organization.uuid}/invitations/#{invitation_uuid}", response: {body: fixture_file("organizations/revoke_invitation")})
-    invitation = client.organizations.retrieve_invitation(organization_uuid: client.organization.uuid, invitation_uuid: invitation_uuid)
+    invitation = client.organizations.retrieve_invitation(org_uuid: client.organization.uuid, uuid: invitation_uuid)
 
-    assert_equal Calendlyr::Invitation, invitation.class
+    assert_equal Calendlyr::Organizations::Invitation, invitation.class
     assert_equal "test@example.com", invitation.email
 
     assert invitation.associated_organization
     assert invitation.revoke
-  end
-
-  def test_retrieve_membership
-    membership_uuid = "abc123"
-    response = {body: fixture_file("organizations/retrieve_membership"), status: 200}
-    stub(path: "organization_memberships/#{membership_uuid}", response: response)
-    stub(path: "users/#{membership_uuid}", response: {body: fixture_file("users/retrieve"), status: 200})
-    membership = client.organizations.retrieve_membership(membership_uuid: membership_uuid)
-
-    assert_equal Calendlyr::Membership, membership.class
-    assert_equal "test@example.com", membership.user.email
-    assert_equal membership.associated_user, client.users.retrieve(user_uuid: membership_uuid)
   end
 
   def test_revoke_invitation
@@ -98,68 +53,39 @@ class OrganizationsResourceTest < Minitest::Test
     invitation_uuid = "abc123"
     response = {body: fixture_file("organizations/revoke_invitation")}
     stub(method: :delete, path: "organizations/#{organization_uuid}/invitations/#{invitation_uuid}", response: response)
-    assert client.organizations.revoke_invitation(organization_uuid: organization_uuid, invitation_uuid: invitation_uuid)
+    assert client.organizations.revoke_invitation(org_uuid: organization_uuid, uuid: invitation_uuid)
+  end
+
+  # Memberships
+  def test_list_memberships
+    user_uri = "abc123"
+    organization_uri = "abc123"
+    response = {body: fixture_file("organizations/list_memberships"), status: 200}
+    stub(path: "organization_memberships?user=#{user_uri}&organization=#{organization_uri}", response: response)
+    memberships = client.organizations.list_memberships(user: user_uri, organization: organization_uri)
+
+    assert_equal Calendlyr::Collection, memberships.class
+    assert_equal Calendlyr::Organizations::Membership, memberships.data.first.class
+    assert_equal 1, memberships.data.count
+    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", memberships.next_page_token
+  end
+
+  def test_retrieve_membership
+    membership_uuid = "abc123"
+    response = {body: fixture_file("organizations/retrieve_membership"), status: 200}
+    stub(path: "organization_memberships/#{membership_uuid}", response: response)
+    stub(path: "users/#{membership_uuid}", response: {body: fixture_file("users/retrieve"), status: 200})
+    membership = client.organizations.retrieve_membership(uuid: membership_uuid)
+
+    assert_equal Calendlyr::Organizations::Membership, membership.class
+    assert_equal "test@example.com", membership.user.email
+    assert_equal membership.associated_user, client.users.retrieve(uuid: membership_uuid)
   end
 
   def test_remove_user
     membership_uuid = "abc123"
     response = {body: fixture_file("organizations/remove_user")}
     stub(method: :delete, path: "organization_memberships/#{membership_uuid}", response: response)
-    assert client.organizations.remove_user(membership_uuid: membership_uuid)
-  end
-
-  def test_organization_invite_user
-    email = "email@example.com"
-    response = {body: fixture_file("organizations/invite"), status: 201}
-    stub(method: :post, path: "organizations/#{client.organization.uuid}/invitations", body: {email: email}, response: response)
-
-    invitation = client.organization.invite_user(email: email)
-
-    assert_equal Calendlyr::Invitation, invitation.class
-    assert_equal email, invitation.email
-  end
-
-  def test_organization_list_invitations
-    stub(path: "organizations/#{client.organization.uuid}/invitations", response: {body: fixture_file("organizations/list_invitations"), status: 200})
-    invitations = client.organization.list_invitations
-
-    assert_equal Calendlyr::Collection, invitations.class
-    assert_equal Calendlyr::Invitation, invitations.data.first.class
-    assert_equal 1, invitations.count
-    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", invitations.next_page_token
-  end
-
-  def test_organization_revoke_invitation
-    stub(method: :delete, path: "organizations/#{client.organization.uuid}/invitations/abc123", response: {body: fixture_file("organizations/revoke_invitation")})
-    assert client.organization.revoke_invitation(invitation_uuid: "abc123")
-  end
-
-  def test_organization_invitation
-    response = {body: fixture_file("organizations/retrieve_invitation"), status: 200}
-    stub(path: "organizations/#{client.organization.uuid}/invitations/abc123", response: response)
-    invitation = client.organization.invitation(invitation_uuid: "abc123")
-
-    assert_equal Calendlyr::Invitation, invitation.class
-    assert_equal "test@example.com", invitation.email
-  end
-
-  def test_organization_events
-    stub(path: "scheduled_events?organization=#{client.organization.uri}", response: {body: fixture_file("events/list"), status: 200})
-    events = client.organization.events
-
-    assert_equal Calendlyr::Collection, events.class
-    assert_equal Calendlyr::Event, events.data.first.class
-    assert_equal 1, events.count
-    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", events.next_page_token
-  end
-
-  def test_organization_memberships
-    stub(path: "organization_memberships?organization=#{client.organization.uri}", response: {body: fixture_file("organizations/list_memberships"), status: 200})
-    memberships = client.organization.memberships
-
-    assert_equal Calendlyr::Collection, memberships.class
-    assert_equal Calendlyr::Membership, memberships.data.first.class
-    assert_equal 1, memberships.count
-    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", memberships.next_page_token
+    assert client.organizations.remove_user(uuid: membership_uuid)
   end
 end

@@ -1,0 +1,15 @@
+{
+  "uri": "https://api.calendly.com/webhook_subscriptions/AAAAAAAAAAAAAAAA",
+  "callback_url": "https://blah.foo/bar",
+  "created_at": "2019-08-24T14:15:22.123456Z",
+  "updated_at": "2019-08-24T14:15:22.123456Z",
+  "retry_started_at": "2019-08-24T14:15:22.123456Z",
+  "state": "active",
+  "events": [
+    "invitee.created"
+  ],
+  "scope": "user",
+  "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+  "user": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA",
+  "creator": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
+}
