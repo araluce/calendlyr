@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/araluce/calendlyr/branch/master/graph/badge.svg?token=YSUU4PHM6Y)](https://codecov.io/gh/araluce/calendlyr)
 ![example workflow](https://github.com/araluce/calendlyr/actions/workflows/ci.yml/badge.svg)
 [![Gem Version](https://badge.fury.io/rb/calendlyr.svg)](https://badge.fury.io/rb/calendlyr)
-![Gem Downloads (for specified version)](https://img.shields.io/gem/dv/calendlyr/0.7.0)
+![Gem Downloads (for specified version)](https://img.shields.io/gem/dv/calendlyr/0.7.1)
 
 # Calendly API Rubygem
 
