@@ -50,7 +50,12 @@ module Calendlyr
     def handle_response(response)
       return true unless response.read_body
 
-      body = JSON.parse(response.read_body) rescue {}
+      body = begin
+        JSON.parse(response.read_body)
+      rescue
+        {}
+      end
+
       if ERROR_CODES.include? response.code
         raise ResponseErrorHandler.new(response.code, body).error
       else
