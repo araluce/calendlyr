@@ -57,7 +57,7 @@ Responses are created as objects like `Calendlyr::Event`. Having types like `Cal
     * [Calendlyr::Availabilities::Rule](docs/resources/availabilities/availability_rule.md)
     * [Calendlyr::Availabilities::UserSchedule](docs/resources/availabilities/user_availability_schedule.md)
     * [Calendlyr::Availabilities::UserBusyTime](docs/resources/availabilities/user_busy_time.md)
-    * [Data Compliance](docs/resources/data_compliance.md)
+* [Data Compliance](docs/resources/data_compliance.md)
 * **Event Types**
     * [Calendlyr::EventType](docs/resources/event_types/event_type.md)
     * [Calendlyr::EventTypes::AvailableTime](docs/resources/event_types/available_time.md)
@@ -68,8 +68,8 @@ Responses are created as objects like `Calendlyr::Event`. Having types like `Cal
     * [Calendlyr::Groups::Relationship](docs/resources/groups/relationship.md)
 * **Organizations**
     * [Calendlyr::Organization](docs/resources/organizations/organization.md)
-    * [Calendlyr::Organizations::Invitation](docs/resources/organization/invitation.md)
-    * [Calendlyr::Organizations::Membership](docs/resources/organization/membership.md)
+    * [Calendlyr::Organizations::Invitation](docs/resources/organizations/invitation.md)
+    * [Calendlyr::Organizations::Membership](docs/resources/organizations/membership.md)
 * **Routing Forms**
     * [Calendlyr::RoutingForm](docs/resources/routing_forms/routing_form.md)
     * [Calendlyr::RoutingForms::Submission](docs/resources/routing_forms/submission.md)
@@ -80,7 +80,7 @@ Responses are created as objects like `Calendlyr::Event`. Having types like `Cal
     * [Calendlyr::Events::Invitee](docs/resources/events/invitee.md)
     * [Calendlyr::Events::InviteeNoShow](docs/resources/events/invitee_no_show.md)
 * [Scheduled Links](docs/resources/scheduling_link.md)
-* [Shares](docs/resources/shares.md)
+* [Shares](docs/resources/share.md)
 * [Users](docs/resources/user.md)
 * **Webhooks**
     * [Calendlyr::Webhooks::Subscription](docs/resources/webhooks/subscription.md)
