@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.3]
+* Fix: Prevent possible empty body response to fail
+
+[0.7.3]: https://github.com/araluce/calendlyr/compare/v0.7.1...v0.7.3
+
 ## [0.7.1]
 * Adding support for 429 responses from Calendly API
 
