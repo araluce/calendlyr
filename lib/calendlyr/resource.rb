@@ -7,7 +7,7 @@ module Calendlyr
   class Resource
     attr_reader :client
 
-    ERROR_CODES = %w[400 401 403 404 424 500]
+    ERROR_CODES = %w[400 401 403 404 424 429 500]
 
     def initialize(client)
       @client = client

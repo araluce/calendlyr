@@ -16,6 +16,6 @@ results.next_page_token
 #=> "KfKBetd7bS0wsFINjYky9mp8ZJXv76aL"
 
 # Retrieve the next page
-client.me.events(count: 5, next_page_token: results.next_page_token)
+client.me.events(count: 5, page_token: results.next_page_token)
 #=> Calendlyr::Collection
 ```
