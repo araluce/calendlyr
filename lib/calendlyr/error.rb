@@ -1,12 +1,20 @@
 module Calendlyr
   class Error < StandardError; end
+
   class PermissionDenied < StandardError; end
+
   class BadRequest < StandardError; end
+
   class PaymentRequired < StandardError; end
+
   class Unauthenticated < StandardError; end
+
   class NotFound < StandardError; end
+
   class ExternalCalendarEror < StandardError; end
+
   class InternalServerError < StandardError; end
+
   class TooManyRequestsEror < StandardError; end
 
   class ResponseErrorHandler
