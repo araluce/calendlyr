@@ -26,6 +26,8 @@ module Calendlyr
     end
 
     def error
+      return too_many_requests_error if @code == "429"
+
       error_type.new("[Error #{@code}] #{@body["title"]}. #{@body["message"]}")
     end
 
@@ -35,6 +37,10 @@ module Calendlyr
       return PaymentRequired if @code == "403" && @body["message"].include?("upgrade")
 
       ERROR_TYPES[@code]
+    end
+
+    def too_many_requests_error
+      error_type.new("[Error #{@code}] Too many requests, please try again later.")
     end
   end
 end
