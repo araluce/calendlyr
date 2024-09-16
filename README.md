@@ -1,9 +1,8 @@
-[![](https://img.shields.io/github/license/araluce/calendlyr)](https://github.com/araluce/calendlyr/blob/master/LICENSE.txt)
-[![](https://github.com/araluce/calendlyr/actions/workflows/ci.yml/badge.svg)](https://github.com/araluce/calendlyr/actions)
-[![codecov](https://codecov.io/gh/araluce/calendlyr/branch/master/graph/badge.svg?token=YSUU4PHM6Y)](https://codecov.io/gh/araluce/calendlyr)
-![example workflow](https://github.com/araluce/calendlyr/actions/workflows/ci.yml/badge.svg)
-[![Gem Version](https://badge.fury.io/rb/calendlyr.svg)](https://badge.fury.io/rb/calendlyr)
-![Gem Downloads (for specified version)](https://img.shields.io/gem/dv/calendlyr/0.7.1)
+[![](https://img.shields.io/github/license/araluce/calendlyr?kill_cache=1)](https://github.com/araluce/calendlyr/blob/master/LICENSE.txt)
+[![](https://github.com/araluce/calendlyr/actions/workflows/ci.yml/badge.svg?kill_cache=1)](https://github.com/araluce/calendlyr/actions)
+[![codecov](https://codecov.io/gh/araluce/calendlyr/branch/master/graph/badge.svg?token=YSUU4PHM6Y&kill_cache=1)](https://codecov.io/gh/araluce/calendlyr)
+[![Gem Version](https://badge.fury.io/rb/calendlyr.svg?kill_cache=1)](https://badge.fury.io/rb/calendlyr)
+![Gem Downloads (for specified version)](https://img.shields.io/gem/dv/calendlyr/0.7.2?kill_cache=1)
 
 # Calendly API Rubygem
 
@@ -24,7 +23,7 @@ We understand the importance of not adding unwanted dependencies.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'calendlyr', '0.7.1'
+gem 'calendlyr', '0.7.2'
 ```
 
 And then execute:
