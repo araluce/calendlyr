@@ -29,7 +29,7 @@ class EventTypeObjectTest < Minitest::Test
   def test_create_share
     share = @event_type.create_share
 
-    assert_equal Calendlyr::Share, share.class
+    assert_instance_of Calendlyr::Share, share
     assert_equal 1, share.scheduling_links.size
   end
 
@@ -38,6 +38,6 @@ class EventTypeObjectTest < Minitest::Test
 
     assert 3, available_times.data.size
     assert "available", available_times.data.first.status
-    assert Calendlyr::EventTypes::AvailableTime, available_times.data.first.class
+    assert_instance_of Calendlyr::EventTypes::AvailableTime, available_times.data.first
   end
 end

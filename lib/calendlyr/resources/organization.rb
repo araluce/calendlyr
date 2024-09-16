@@ -33,8 +33,8 @@ module Calendlyr
       Organizations::Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: {email: email}).dig("resource").merge(client: client)
     end
 
-    def revoke_invitation(organization_uuid:, invitation_uuid:)
-      delete_request("organizations/#{organization_uuid}/invitations/#{invitation_uuid}")
+    def revoke_invitation(org_uuid:, uuid:)
+      delete_request("organizations/#{org_uuid}/invitations/#{uuid}")
     end
   end
 end

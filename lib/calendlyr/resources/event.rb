@@ -5,8 +5,12 @@ module Calendlyr
       Collection.from_response(response, type: Event, client: client)
     end
 
-    def retrieve(event:)
-      Event.new get_request("scheduled_events/#{event}").dig("resource").merge(client: client)
+    def retrieve(uuid:)
+      Event.new get_request("scheduled_events/#{uuid}").dig("resource").merge(client: client)
+    end
+
+    def cancel(uuid:, reason: nil)
+      Events::Cancellation.new post_request("scheduled_events/#{uuid}/cancellation", body: {reason: reason}).dig("resource").merge(client: client)
     end
 
     # Invitee
@@ -31,11 +35,6 @@ module Calendlyr
 
     def delete_invitee_no_show(uuid:)
       delete_request("invitee_no_shows/#{uuid}")
-    end
-
-    # Cancellations
-    def cancel_event(uuid:, reason: nil)
-      Events::Cancellation.new post_request("scheduled_events/#{uuid}/cancellation", body: {reason: reason}).dig("resource").merge(client: client)
     end
   end
 end

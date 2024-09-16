@@ -5,7 +5,7 @@ module Calendlyr
     end
 
     def associated_group
-      client.groups.retrieve(group_uuid: get_slug(group))
+      client.groups.retrieve(uuid: get_slug(group))
     end
 
     def associated_owner

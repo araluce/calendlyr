@@ -19,7 +19,3 @@ results.next_page_token
 client.me.events(count: 5, next_page_token: results.next_page_token)
 #=> Calendlyr::Collection
 ```
-
-## Next
-
-See [UserBusyTime](/docs/resources/availability/1_user_busy_time.md)

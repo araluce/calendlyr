@@ -5,8 +5,8 @@ module Calendlyr
       Collection.from_response(response, type: Group, client: client)
     end
 
-    def retrieve(group_uuid:)
-      Group.new get_request("groups/#{group_uuid}").dig("resource").merge(client: client)
+    def retrieve(uuid:)
+      Group.new get_request("groups/#{uuid}").dig("resource").merge(client: client)
     end
 
     # Relationships

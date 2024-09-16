@@ -9,7 +9,7 @@ module Calendlyr
     end
 
     def revoke
-      client.organization.revoke_invitation(invitation_uuid: uuid)
+      associated_organization.revoke_invitation(invitation_uuid: uuid)
     end
   end
 end

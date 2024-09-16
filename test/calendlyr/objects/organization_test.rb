@@ -150,7 +150,8 @@ class OrganizatonObjectTest < Minitest::Test
   end
 
   def test_revoke_invitation
-    stub(method: :delete, path: "organizations/#{@organization.uuid}/invitations/abc123", response: {body: fixture_file("organizations/revoke_invitation")})
+    response = {body: fixture_file("organizations/revoke_invitation"), status: 200}
+    stub(method: :delete, path: "organizations/#{@organization.uuid}/invitations/abc123", response: response)
     assert @organization.revoke_invitation(invitation_uuid: "abc123")
   end
 end

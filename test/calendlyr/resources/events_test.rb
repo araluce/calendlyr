@@ -32,7 +32,7 @@ class EventsResourceTest < Minitest::Test
   end
 
   def test_retrieve
-    event = client.events.retrieve(event: @event_uuid)
+    event = client.events.retrieve(uuid: @event_uuid)
 
     assert_equal Calendlyr::Event, event.class
     assert_equal "https://api.calendly.com/scheduled_events/GBGBDCAADAEDCRZ2", event.uri

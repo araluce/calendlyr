@@ -11,7 +11,7 @@ class RoutingFormObjectTest < Minitest::Test
   def test_associated_organization
     organization = @routing_form.associated_organization
 
-    assert_equal Calendlyr::Organization, organization.class
+    assert_instance_of Calendlyr::Organization, organization
   end
 
   def test_submissions

@@ -39,8 +39,8 @@ module Calendlyr
       client.webhooks.list(**params.merge(organization: uri, scope: scope))
     end
 
-    def create_webhook(**params)
-      client.webhooks.create(**params.merge(organization: uri))
+    def create_webhook(url:, events:, scope:, **params)
+      client.webhooks.create(**params.merge(organization: uri, url: url, events: events, scope: scope))
     end
 
     def sample_webhook_data(event:, scope:, **params)
@@ -61,7 +61,7 @@ module Calendlyr
     end
 
     def revoke_invitation(invitation_uuid:)
-      client.organizations.revoke_invitation(organization_uuid: uuid, invitation_uuid: invitation_uuid)
+      client.organizations.revoke_invitation(org_uuid: uuid, uuid: invitation_uuid)
     end
   end
 end

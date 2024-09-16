@@ -8,10 +8,6 @@ module Calendlyr
       client.availability.list_user_schedules(**params.merge(user: uri))
     end
 
-    def organization_memberships(**params)
-      client.organization.memberships(**params.merge(user: uri))
-    end
-
     def event_types(**params)
       client.event_types.list(**params.merge(user: uri))
     end
@@ -20,12 +16,12 @@ module Calendlyr
       client.events.list(**params.merge(user: uri, organization: current_organization))
     end
 
-    def memberships(**params)
-      client.organizations.list_memberships(**params.merge(user: uri))
+    def membership(uuid:)
+      organization.membership(uuid: uuid)
     end
 
-    def membership(uuid:)
-      client.organizations.retrieve_membership(uuid: uuid)
+    def memberships(**params)
+      organization.memberships(**params.merge(user: uri))
     end
 
     def busy_times(start_time:, end_time:, **params)

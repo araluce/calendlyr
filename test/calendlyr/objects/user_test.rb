@@ -27,16 +27,6 @@ class UserObjectTest < Minitest::Test
     assert_equal Calendlyr::Availabilities::UserSchedule, availability_schedules.data.first.class
   end
 
-  def test_organization_memberships
-    response = {body: fixture_file("organization_memberships/list"), status: 200}
-    stub(path: "organization_memberships?user=#{@user.uri}&organization=https://api.calendly.com/organizations/abc123", response: response)
-
-    memberships = @user.organization_memberships
-
-    assert_equal 1, memberships.data.size
-    assert_equal Calendlyr::Organizations::Membership, memberships.data.first.class
-  end
-
   def test_event_types
     response = {body: fixture_file("event_types/list"), status: 200}
     stub(path: "event_types?user=#{@user.uri}", response: response)
@@ -59,7 +49,7 @@ class UserObjectTest < Minitest::Test
 
   def test_memberships
     response = {body: fixture_file("organization_memberships/list"), status: 200}
-    stub(path: "organization_memberships?user=#{@user.uri}", response: response)
+    stub(path: "organization_memberships?user=#{@user.uri}&organization=#{@user.organization.uri}", response: response)
 
     memberships = @user.memberships
 

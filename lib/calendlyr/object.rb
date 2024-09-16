@@ -2,6 +2,10 @@ require "ostruct"
 
 module Calendlyr
   class Object < OpenStruct
+    def self.get_slug(path)
+      path.split("/").last
+    end
+
     def initialize(attributes)
       super(to_ostruct(attributes.merge(uuid: extract_uuid(attributes))))
     end
@@ -21,7 +25,7 @@ module Calendlyr
     end
 
     def get_slug(path)
-      path.split("/").last
+      Calendlyr::Object.get_slug(path)
     end
   end
 end

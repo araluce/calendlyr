@@ -8,14 +8,11 @@ module Organizations
       json = JSON.parse(fixture_file("objects/organizations/invitation")).merge(client: client)
       @invitation = Calendlyr::Organizations::Invitation.new(json)
 
-      organization_uuid = "abc123"
-      invitation_uuid = "BBBBBBBBBBBBBBBB"
       response = {body: fixture_file("organizations/revoke_invitation"), status: 204}
-      stub(method: :delete, path: "organizations/#{organization_uuid}/invitations/#{invitation_uuid}", response: response)
+      stub(method: :delete, path: "organizations/#{@invitation.associated_organization.uuid}/invitations/#{@invitation.uuid}", response: response)
 
-      user_uuid = "AAAAAAAAAAAAAAAA"
       response = {body: fixture_file("users/retrieve"), status: 200}
-      stub(path: "users/#{user_uuid}", response: response)
+      stub(path: "users/#{Calendlyr::Object.get_slug(@invitation.user)}", response: response)
     end
 
     def test_associated_organization

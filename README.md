@@ -19,85 +19,43 @@ We know about the importance of not add dependencies that you don't want.
 
 * [Installation](docs/1_installation.md)
 * [Usage](docs/2_usage.md)
-* **Resources**
-  * [Pagination](/docs/resources/1_pagination.md)
+* [**Resources**](docs/3_resources.md)
+  * [Pagination](docs/resources/pagination.md)
+  * ** Activity Log**
+    * [Calendlyr::ActivityLog](docs/resources/activity_log/list_activity_log_entries.md)
   * **Availabilities**
-    * [Availabilities::Rule](/docs/resources/availabilities/1_rule.md)
-    * [Availabilities::UserSchedule](/docs/resources/availabilities/2_user_busy_time.md)
-    * [Availabilities::UserSchedule](/docs/resources/availabilities/3_user_availability_schedule.md)
-  * [Data Compliance](/docs/resources/2_data_compliance.md)
-  * [User](/docs/resources/user.md)
-
-### Event Types
-````ruby
-client.event_types.list user_uri: "user_uri", organization_uri: "organization_uri"
-client.event_types.retrieve event_type_uuid: "id"
-````
-
-### Events
-````ruby
-client.events.list user: "user_uri", organization: "organization_uri", group: "group_uri"
-client.events.retrieve event: "event_uuid"
-````
-
-### Event Invitees
-````ruby
-client.events.list_invitees uuid: "event_uuid"
-client.events.retrieve_invitee event_uuid: "event_uuid", invitee_uuid: "invitee_uuid"
-````
-
-### Scheduling Links
-````ruby
-client.scheduling_links.create owner: "owner_uri", max_event_count: 1, owner_type: "EventType"
-````
-
-### Organizations
-````ruby
-# Create invitation
-client.organizations.invite(organization_uuid: "organization_uuid", email: "test@test.com")
-client.organization.invite(email: "test@test.com")
-# List invitations
-client.organizations.list_invitations(organization_uuid: "organization_uuid")
-client.organization.list_invitations
-# Get invitation
-client.organizations.retrieve_invitation(organization_uuid: "organization_uuid", invitation_uuid: "invitation_uuid")
-client.organization.invitation(invitation_uuid: "invitation_uuid")
-# Revoke invitation
-client.organizations.revoke_invitation(organization_uuid: "organization_uuid", invitation_uuid: "organization_uuid")
-client.organization.revoke_invitation(invitation_uuid: "organization_uuid")
-invitation = client.organization.invitation(invitation_uuid: "invitation_uuid")
-invitation.revoke
-
-# List memberships
-client.organizations.list_memberships
-client.organization.memberships
-# Get membership
-client.organizations.retrieve_membership(membership_uuid: "membership_uuid")
-# Remove membership
-client.organizations.remove_user(membership_uuid: "membership_uuid")
-
-client.organization.events
-
-# List/Creaete webhooks
-client.organization.webhooks(scope: "scope")
-client.organization.create_webhook(url: "post_callback_url", events: ["invitee.canceled", "invitee.created"], scope: "scope")
-
-# List activity log
-client.organization.activity_log
-````
-
-### Webhooks
-```ruby
-client.webhooks.list(organization_uri: "organization_uri", scope: "scope")
-client.webhooks.create(url: "post_callback_url", events: ["invitee.canceled", "invitee.created"], organization_uri: "organization_uri", scope: "scope")
-client.webhooks.retrieve(webhook_uuid: "webhook_uuid")
-client.webhooks.delete(webhook_uuid: "webhook_uuid")
-```
-
-### Data Compliance
-```ruby
-client.data_compliance.delete_invitee_data
-```
+    * [Calendlyr::Availabilities::Rule](docs/resources/availabilities/availability_rule.md)
+    * [Calendlyr::Availabilities::UserSchedule](docs/resources/availabilities/user_availability_schedule.md)
+    * [Calendlyr::Availabilities::UserBusyTime](docs/resources/availabilities/user_busy_time.md)
+  * [Data Compliance](docs/resources/data_compliance.md)
+  * **Event Types**
+    * [Calendlyr::EventType](docs/resources/event_types/event_type.md)
+    * [Calendlyr::EventTypes::AvailableTime](docs/resources/event_types/available_time.md)
+    * [Calendlyr::EventTypes::Membership](docs/resources/event_types/membership.md)
+    * [Calendlyr::EventTypes::Profile](docs/resources/event_types/profile.md)
+  * **Groups**
+    * [Calendlyr::Group](docs/resources/groups/group.md)
+    * [Calendlyr::Groups::Relationship](docs/resources/groups/relationship.md)
+  * **Organizations**
+    * [Calendlyr::Organization](docs/resources/organizations/organization.md)
+    * [Calendlyr::Organizations::Invitation](docs/resources/organization/invitation.md)
+    * [Calendlyr::Organizations::Membership](docs/resources/organization/membership.md)
+  * **Routing Forms**
+    * [Calendlyr::RoutingForm](docs/resources/routing_forms/routing_form.md)
+    * [Calendlyr::RoutingForms::Submission](docs/resources/routing_forms/submission.md)
+  * **Schedule Events**
+    * [Calendlyr::Event](docs/resources/events/event.md)
+    * [Calendlyr::Events::Cancellation](docs/resources/events/cancellation.md)
+    * [Calendlyr::Events::Guest](docs/resources/events/guest.md)
+    * [Calendlyr::Events::Invitee](docs/resources/events/invitee.md)
+    * [Calendlyr::Events::InviteeNoShow](docs/resources/events/invitee_no_show.md)
+  * [Scheduled Links](docs/resources/scheduling_link.md)
+  * [Shares](docs/resources/shares.md)
+  * [Users](docs/resources/user.md)
+  * **Webhooks**
+    * [Calendlyr::Webhooks::Subscription](docs/resources/webhooks/subscription.md)
+    * [Calendlyr::Webhooks::Payload](docs/resources/webhooks/payload.md)
+    * [Calendlyr::Webhooks::InviteePayload](docs/resources/webhooks/invitee_payload.md)
 
 ## Contributing
 

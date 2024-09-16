@@ -53,7 +53,7 @@ class OrganizationsResourceTest < Minitest::Test
     invitation_uuid = "abc123"
     response = {body: fixture_file("organizations/revoke_invitation")}
     stub(method: :delete, path: "organizations/#{organization_uuid}/invitations/#{invitation_uuid}", response: response)
-    assert client.organizations.revoke_invitation(organization_uuid: organization_uuid, invitation_uuid: invitation_uuid)
+    assert client.organizations.revoke_invitation(org_uuid: organization_uuid, uuid: invitation_uuid)
   end
 
   # Memberships

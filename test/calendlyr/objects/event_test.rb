@@ -17,6 +17,16 @@ class EventObjectTest < Minitest::Test
 
     assert_equal 1, memberships.count
     assert_equal "John Doe", memberships.first.name
-    assert_equal Calendlyr::User, memberships.first.class
+    assert_instance_of Calendlyr::User, memberships.first
+  end
+
+  def test_cancel
+    response = {body: fixture_file("events/cancel_invitee"), status: 201}
+    stub(method: :post, path: "scheduled_events/#{@event.uuid}/cancellation", response: response)
+
+    cancellation = @event.cancel(reason: "I'm busy")
+
+    assert_instance_of Calendlyr::Events::Cancellation, cancellation
+    assert_equal "string", cancellation.reason
   end
 end

@@ -6,4 +6,4 @@ Responses are created as objects like `Calendlyr::Event`. Having types like `Cal
 
 ## Next
 
-See [Pagination](/docs/resources/1_pagination.md)
+See [Pagination](/docs/resources/pagination.md)

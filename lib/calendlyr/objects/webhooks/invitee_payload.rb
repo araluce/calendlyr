@@ -1,7 +1,7 @@
 module Calendlyr
   class Webhooks::InviteePayload < Object
     def associated_event
-      client.events.retrieve(event: get_slug(event))
+      client.events.retrieve(uuid: get_slug(event))
     end
 
     def associated_routing_form_submission
