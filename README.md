@@ -7,15 +7,15 @@
 
 # Calendly API Rubygem
 
-Easy and complete rubygem for [Calendly](https://calendly.com/). Currently supports [API v2](https://calendly.stoplight.io/docs/api-docs).
+Easy and comprehensive rubygem for [Calendly](https://calendly.com/). Currently supports [API v2](https://calendly.stoplight.io/docs/api-docs).
 
-Just needed a Personal Access Token.
+You just need a Personal Access Token.
 
 ## Dependencies
 
 No dependencies :tada:
 
-We know about the importance of not add dependencies that you don't want.
+We understand the importance of not adding unwanted dependencies.
 
 ## 📚 Docs
 
@@ -37,20 +37,19 @@ Or install it yourself as:
 
 ### Usage
 
-To access the API, you'll need to create a `Calendlyr::Client` and pass in your token. You can generate your Personal Access Token at [https://calendly.com/integrations/api_webhooks](https://calendly.com/integrations/api_webhooks)
+To access the API, you'll need to create a `Calendlyr::Client` and provide your token. You can generate your Personal Access Token at [https://calendly.com/integrations/api_webhooks](https://calendly.com/integrations/api_webhooks)
 
 ```ruby
 client = Calendlyr::Client.new(token: ENV["CALENDLY_TOKEN"])
 ```
 
-The client then gives you access to each of the resources.
-
+The client then provides access to all of the resources.
 
 ### Resources
 
-The gem maps as closely as we can to the Calendly API so you can easily convert API examples to gem code.
+The gem is designed to closely mirror the Calendly API, making it easy to convert API examples into gem code
 
-Responses are created as objects like `Calendlyr::Event`. Having types like `Calendlyr::User` is handy for understanding what type of object you're working with. They're built using OpenStruct so you can easily access data in a Ruby-ish way.
+Responses are created as objects, like `Calendlyr::Event`. Having types like `Calendlyr::User` is useful for understanding the type of object you're working with. These objects are built using `OpenStruct`, allowing you to access data in a Ruby-like way.
 
 * [Pagination](docs/resources/pagination.md)
 * **Activity Log**
@@ -97,10 +96,10 @@ Responses are created as objects like `Calendlyr::Event`. Having types like `Cal
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-When adding resources, add to the list of resources in lib/calendlyr. Additionally, write a spec and add it to the list in the README.
+When adding resources, update the list of resources in `lib/calendlyr`. Additionally, write a spec and include it in the list in the README
 
 ## Thanks
 
-Many thanks [@markets](https://github.com/markets) (our contributor in the shadows) for all comments, details and tips for this rubygem project and for made me grow professionally in my day by day :raised_hands:
+Many thanks to[@markets](https://github.com/markets) (our behind-the-scenes contributor) for all the comments, insights, and tips on this Ruby gem project, and for helping me grow professionally day by day :raised_hands:
 
-Thanks [@excid3](https://github.com/excid3) and his [Vultr.rb](https://github.com/excid3/vultr.rb) rubygem project.
+Thanks also to [@excid3](https://github.com/excid3) and his [Vultr.rb](https://github.com/excid3/vultr.rb) rubygem project.
