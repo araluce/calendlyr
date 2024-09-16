@@ -21,7 +21,7 @@ We know about the importance of not add dependencies that you don't want.
 * [Usage](docs/2_usage.md)
 * [**Resources**](docs/3_resources.md)
   * [Pagination](docs/resources/pagination.md)
-  * ** Activity Log**
+  * **Activity Log**
     * [Calendlyr::ActivityLog](docs/resources/activity_log/list_activity_log_entries.md)
   * **Availabilities**
     * [Calendlyr::Availabilities::Rule](docs/resources/availabilities/availability_rule.md)
