@@ -11,11 +11,11 @@ module Calendlyr
 
   class NotFound < StandardError; end
 
-  class ExternalCalendarEror < StandardError; end
+  class ExternalCalendarError < StandardError; end
 
   class InternalServerError < StandardError; end
 
-  class TooManyRequestsEror < StandardError; end
+  class TooManyRequests < StandardError; end
 
   class ResponseErrorHandler
     ERROR_TYPES = {
@@ -23,8 +23,8 @@ module Calendlyr
       "401" => Unauthenticated,
       "403" => PermissionDenied,
       "404" => NotFound,
-      "424" => ExternalCalendarEror,
-      "429" => TooManyRequestsEror,
+      "424" => ExternalCalendarError,
+      "429" => TooManyRequests,
       "500" => InternalServerError
     }
 
