@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rake", "~> 13.2"
   spec.add_development_dependency "minitest", "~> 5.25"
-  spec.add_development_dependency "standard", "~> 1.40"
+  spec.add_development_dependency "standard", "~> 1.37" # Max version that supports Ruby 2.7
   spec.add_development_dependency "webmock", "~> 3.23"
   spec.add_development_dependency "codecov", "~> 0.6"
   spec.add_development_dependency "simplecov", "~> 0.21"
