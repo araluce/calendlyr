@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.5]
+* Fix: Calendlyr::TooManyRequests was not included in autoloading list
+* Fix: Calendlyr::ExternalCalendarError typo in class name
+
+[0.7.5]: https://github.com/araluce/calendlyr/compare/v0.7.4...v0.7.5
+
 ## [0.7.4]
 * Fix: Error class name typo `ExternalCalendarEror` -> `ExternalCalendarError`
 * Fix: Error class name typo `TooManyRequestsEror` -> `TooManyRequests`

@@ -22,7 +22,7 @@ We understand the importance of not adding unwanted dependencies.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'calendlyr', '0.7.4'
+gem 'calendlyr', '0.7.5'
 ```
 
 And then execute:
