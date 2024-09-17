@@ -22,7 +22,7 @@ module Calendlyr
     #  UsersResource.new(self)
     # end
     def method_missing(method_name, *args, &block)
-      resource_name = method_name.to_s.split('_').collect(&:capitalize).join + "Resource"
+      resource_name = method_name.to_s.split("_").collect(&:capitalize).join + "Resource"
       if Calendlyr.const_defined?(resource_name)
         Calendlyr.const_get(resource_name).new(self)
       else
