@@ -8,10 +8,6 @@ module Calendlyr
       @token = token
     end
 
-    def availability
-      AvailabilityResource.new(self)
-    end
-
     def me(force_reload: false)
       @me = nil if force_reload
       @me ||= users.me
@@ -21,48 +17,13 @@ module Calendlyr
       me.organization
     end
 
-    def users
-      UserResource.new(self)
-    end
-
-    def organizations
-      OrganizationResource.new(self)
-    end
-
-    def event_types
-      EventTypeResource.new(self)
-    end
-
-    def events
-      EventResource.new(self)
-    end
-
-    def groups
-      GroupResource.new(self)
-    end
-
-    def outgoing_communications
-      OutgoingCommunicationResource.new(self)
-    end
-
-    def routing_forms
-      RoutingFormResource.new(self)
-    end
-
-    def scheduling_links
-      SchedulingLinkResource.new(self)
-    end
-
-    def shares
-      ShareResource.new(self)
-    end
-
-    def webhooks
-      WebhookResource.new(self)
-    end
-
-    def data_compliance
-      DataComplianceResource.new(self)
+    def method_missing(method_name, *args, &block)
+      resource_name = method_name.to_s.split('_').collect(&:capitalize).join + "Resource"
+      if Calendlyr.const_defined?(resource_name)
+        Calendlyr.const_get(resource_name).new(self)
+      else
+        super
+      end
     end
 
     # Avoid returning #<Calendlyr::Client @token="token" ...>

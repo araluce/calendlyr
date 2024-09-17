@@ -1,5 +1,5 @@
 module Calendlyr
-  class RoutingFormResource < Resource
+  class RoutingFormsResource < Resource
     def list(organization:, **params)
       response = get_request("routing_forms", params: {organization: organization}.merge(params))
       Collection.from_response(response, type: RoutingForm, client: client)

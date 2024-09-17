@@ -1,5 +1,5 @@
 module Calendlyr
-  class UserResource < Resource
+  class UsersResource < Resource
     def me
       retrieve(uuid: "me")
     end

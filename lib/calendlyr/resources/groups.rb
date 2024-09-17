@@ -1,5 +1,5 @@
 module Calendlyr
-  class GroupResource < Resource
+  class GroupsResource < Resource
     def list(organization:, **params)
       response = get_request("groups", params: params.merge(organization: organization))
       Collection.from_response(response, type: Group, client: client)
