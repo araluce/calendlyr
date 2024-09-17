@@ -17,6 +17,10 @@ module Calendlyr
       me.organization
     end
 
+    # Given a client.users, method_missing behaves like this:
+    # def users
+    #  UsersResource.new(self)
+    # end
     def method_missing(method_name, *args, &block)
       resource_name = method_name.to_s.split('_').collect(&:capitalize).join + "Resource"
       if Calendlyr.const_defined?(resource_name)
