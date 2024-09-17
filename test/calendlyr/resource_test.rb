@@ -20,4 +20,12 @@ class ResourceTest < Minitest::Test
       client.me
     end
   end
+
+  def test_handle_response_too_many_requests
+    stub(path: "users/me", response: {body: "", status: 429})
+
+    assert_raises Calendlyr::TooManyRequests do
+      client.me
+    end
+  end
 end
