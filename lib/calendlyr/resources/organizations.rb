@@ -1,5 +1,5 @@
 module Calendlyr
-  class OrganizationResource < Resource
+  class OrganizationsResource < Resource
     def activity_log(organization: nil, **params)
       response = get_request("activity_log_entries", params: {organization: organization}.merge(params).compact)
       Collection.from_response(response, type: ActivityLog, client: client)

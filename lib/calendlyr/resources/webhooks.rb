@@ -1,5 +1,5 @@
 module Calendlyr
-  class WebhookResource < Resource
+  class WebhooksResource < Resource
     def list(organization:, scope:, **params)
       response = get_request("webhook_subscriptions", params: params.merge(organization: organization, scope: scope).compact)
       Collection.from_response(response, type: Webhooks::Subscription, client: client)

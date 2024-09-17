@@ -1,5 +1,5 @@
 module Calendlyr
-  class EventResource < Resource
+  class EventsResource < Resource
     def list(**params)
       response = get_request("scheduled_events", params: params)
       Collection.from_response(response, type: Event, client: client)
