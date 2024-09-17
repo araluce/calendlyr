@@ -9,13 +9,14 @@ module Calendlyr
   # Errors
   autoload :BadRequest, "calendlyr/error"
   autoload :Error, "calendlyr/error"
-  autoload :ExternalCalendarEror, "calendlyr/error"
+  autoload :ExternalCalendarError, "calendlyr/error"
   autoload :InternalServerError, "calendlyr/error"
   autoload :NotFound, "calendlyr/error"
   autoload :PaymentRequired, "calendlyr/error"
   autoload :PermissionDenied, "calendlyr/error"
-  autoload :ResponseErrorHandler, "calendlyr/error"
   autoload :Unauthenticated, "calendlyr/error"
+  autoload :TooManyRequests, "calendlyr/error"
+  autoload :ResponseErrorHandler, "calendlyr/error"
 
   # High-level categories of Calendly API calls
   autoload :AvailabilityResource, "calendlyr/resources/availability"
