@@ -30,6 +30,12 @@ module Calendlyr
       end
     end
 
+    def respond_to_missing?(method_name, include_private = false)
+      resource_name = method_name.to_s.split("_").collect(&:capitalize).join + "Resource"
+
+      Calendlyr.const_defined?(resource_name) || super
+    end
+
     # Avoid returning #<Calendlyr::Client @token="token" ...>
     def inspect
       "#<Calendlyr::Client>"

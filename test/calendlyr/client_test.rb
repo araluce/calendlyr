@@ -14,4 +14,9 @@ class ClientTest < Minitest::Test
       client.useers
     end
   end
+
+  def test_respond_to_missing?
+    assert client.respond_to?(:users)
+    refute client.respond_to?(:useers)
+  end
 end
