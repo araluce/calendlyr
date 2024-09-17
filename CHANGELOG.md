@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.4]
+* Fix: Error class name typo `ExternalCalendarEror` -> `ExternalCalendarError`
+* Fix: Error class name typo `TooManyRequestsEror` -> `TooManyRequests`
+* Updating rubies versions in CI to add 3.3
+* Adding total rubygems downloads badge to README
+
+[0.7.4]: https://github.com/araluce/calendlyr/compare/v0.7.3...v0.7.4
+
 ## [0.7.3]
 * Fix: Prevent possible empty body response to fail
 
