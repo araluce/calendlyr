@@ -13,6 +13,6 @@ Cancels specified event.
 Visit official [API Doc](https://developer.calendly.com/api-docs/afb2e9fe3a0a0-cancel-event)
 
 ```ruby
-client.events.cancel(uuid: event_uuid, reason: "I'm bussy")
+client.events.cancel(uuid: event_uuid, reason: "I'm busy")
 #=> #<Calendlyr::Events::Cancellation>
 ```

@@ -1,4 +1,4 @@
-# Webhook Invitee Payload Calendlyr::Wehooks::InviteePayload
+# Webhooks Invitee Payload Calendlyr::Wehooks::InviteePayload
 
 The payload that is sent via Webhook when an invitee creates or schedules a meeting, and when an invitee cancels.
 

@@ -1,6 +1,6 @@
-# Share Calendlyr::Schare
+# Share Calendlyr::Share
 
-Schare Object.
+Share Object.
 
 Visit official [API Doc](https://developer.calendly.com/api-docs/0069948603238-share)
 
