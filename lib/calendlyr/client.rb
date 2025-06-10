@@ -9,8 +9,7 @@ module Calendlyr
     end
 
     def me(force_reload: false)
-      @me = nil if force_reload
-      @me ||= users.me
+      memoize(@me, force_reload: force_reload) { users.me }
     end
 
     def organization
@@ -39,6 +38,13 @@ module Calendlyr
     # Avoid returning #<Calendlyr::Client @token="token" ...>
     def inspect
       "#<Calendlyr::Client>"
+    end
+
+    private
+
+    def memoize(instance_variable, force_reload: false, &block)
+      return instance_variable if instance_variable && !force_reload
+      instance_variable = block.call
     end
   end
 end
