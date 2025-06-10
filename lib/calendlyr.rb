@@ -7,6 +7,7 @@ module Calendlyr
   autoload :Resource, "calendlyr/resource"
 
   # Errors
+  autoload :ERROR_TYPES, "calendlyr/error"
   autoload :BadRequest, "calendlyr/error"
   autoload :Error, "calendlyr/error"
   autoload :ExternalCalendarError, "calendlyr/error"

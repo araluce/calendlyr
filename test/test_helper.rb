@@ -12,7 +12,7 @@ require "webmock/minitest"
 
 class Minitest::Test
   def initialize(name)
-    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
+    stub_user_me_request
     super
   end
 
@@ -29,5 +29,11 @@ class Minitest::Test
     stub_req.with(body: body) if [:post, :put, :patch].include?(method)
     stub_req.to_return(**response)
     stub_req
+  end
+
+  private
+
+  def stub_user_me_request
+    stub(path: "users/me", response: {body: fixture_file("users/retrieve"), status: 200})
   end
 end
