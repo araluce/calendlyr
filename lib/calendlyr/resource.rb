@@ -48,19 +48,19 @@ module Calendlyr
     end
 
     def handle_response(response)
-      return true unless response.read_body
+      body_string = response.body.to_s
 
       body = begin
-        JSON.parse(response.read_body)
+        body_string.empty? ? {} : JSON.parse(body_string)
       rescue
         {}
       end
 
       if ERROR_CODES.include? response.code
         raise ResponseErrorHandler.new(response.code, body).error
-      else
-        body
       end
+
+      body.empty? ? true : body
     end
   end
 end
