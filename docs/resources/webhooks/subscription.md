@@ -1,4 +1,4 @@
-# Webhook Subscription Calendlyr::Wehooks::Subscription
+# Webhooks Subscription Calendlyr::Wehooks::Subscription
 
 Webhook Subscription Object.
 
