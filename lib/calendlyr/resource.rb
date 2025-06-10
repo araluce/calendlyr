@@ -60,7 +60,7 @@ module Calendlyr
         raise ResponseErrorHandler.new(response.code, body).error
       end
 
-      body.empty? ? true : body
+      body.empty? || body
     end
   end
 end
