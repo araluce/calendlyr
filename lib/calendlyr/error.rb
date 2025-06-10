@@ -1,33 +1,23 @@
 module Calendlyr
   class Error < StandardError; end
 
-  class PermissionDenied < StandardError; end
-
-  class BadRequest < StandardError; end
-
   class PaymentRequired < StandardError; end
 
-  class Unauthenticated < StandardError; end
+  ERROR_TYPES = {
+    "400" => "BadRequest",
+    "401" => "Unauthenticated",
+    "403" => "PermissionDenied",
+    "404" => "NotFound",
+    "424" => "ExternalCalendarError",
+    "429" => "TooManyRequests",
+    "500" => "InternalServerError"
+  }
 
-  class NotFound < StandardError; end
-
-  class ExternalCalendarError < StandardError; end
-
-  class InternalServerError < StandardError; end
-
-  class TooManyRequests < StandardError; end
+  ERROR_TYPES.values.each do |error_class|
+    Calendlyr.const_set(error_class, Class.new(Error))
+  end
 
   class ResponseErrorHandler
-    ERROR_TYPES = {
-      "400" => BadRequest,
-      "401" => Unauthenticated,
-      "403" => PermissionDenied,
-      "404" => NotFound,
-      "424" => ExternalCalendarError,
-      "429" => TooManyRequests,
-      "500" => InternalServerError
-    }
-
     def initialize(code, body)
       @code = code
       @body = body
@@ -44,7 +34,8 @@ module Calendlyr
     def error_type
       return PaymentRequired if @code == "403" && @body["message"].include?("upgrade")
 
-      ERROR_TYPES[@code]
+      klass = "Calendlyr::#{Calendlyr::ERROR_TYPES[@code]}"
+      Calendlyr.const_get(klass)
     end
 
     def too_many_requests_error

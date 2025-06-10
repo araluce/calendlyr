@@ -4,7 +4,7 @@ require "test_helper"
 
 class ResourceTest < Minitest::Test
   def test_handle_response_error
-    Calendlyr::ResponseErrorHandler::ERROR_TYPES.each do |error_code, error_class|
+    Calendlyr::ERROR_TYPES.each do |error_code, error_class|
       stub(path: "users/me", response: {body: fixture_file("resources/#{error_code}"), status: error_code.to_i})
 
       assert_raises "Calendlyr::#{error_class}" do
