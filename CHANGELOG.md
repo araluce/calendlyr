@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 * Updated `Event` fixtures with `buffered_start_time`, `buffered_end_time`, `meeting_notes_plain`, `meeting_notes_html`, and `cancellation` fields
 * Updated `Invitee` fixtures with `no_show`, `reconfirmation`, `scheduling_method`, and `invitee_scheduled_by` fields
+* Empty API responses (e.g., DELETE) now return `{}` instead of `true`
 
 ### Removed — Breaking
 * **`client.outgoing_communications`** — `OutgoingCommunicationsResource` removed (endpoint no longer in Calendly API docs)
