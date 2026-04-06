@@ -1,5 +1,4 @@
 require "uri"
-require "cgi"
 
 module Calendlyr
   class Collection
@@ -42,7 +41,9 @@ module Calendlyr
       return {} unless url
 
       uri = URI.parse(url)
-      CGI.parse(uri.query)
+      return {} unless uri.query
+
+      URI.decode_www_form(uri.query).to_h { |k, v| [k, [v]] }
     end
   end
 end
