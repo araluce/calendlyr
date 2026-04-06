@@ -2,12 +2,14 @@ module Calendlyr
   class AvailabilityResource < Resource
     # User Busy Time
     def list_user_busy_times(user:, start_time:, end_time:, **params)
+      user = expand_uri(user, "users")
       response = get_request("user_busy_times", params: {user: user, start_time: start_time, end_time: end_time}.merge(params).compact)
       Collection.from_response(response, type: Availabilities::UserBusyTime, client: client)
     end
 
     # User Schedule
     def list_user_schedules(user:, **params)
+      user = expand_uri(user, "users")
       response = get_request("user_availability_schedules", params: {user: user}.merge(params).compact)
       Collection.from_response(response, type: Availabilities::UserSchedule, client: client)
     end

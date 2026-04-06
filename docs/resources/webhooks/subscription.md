@@ -13,13 +13,14 @@ Create a Webhook Subscription for an Organization or User.
 Visit official [API Doc](https://developer.calendly.com/api-docs/c1ddc06ce1f1b-create-webhook-subscription)
 
 ```ruby
-client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: organization_uri, scope: 'organization')
+# organization: accepts a bare UUID or full Calendly URI
+client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: "ORG_UUID", scope: 'organization')
 #=> #<Calendlyr::Webhooks::Subscription>
 
-client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: organization_uri, user: user_uri, scope: 'user')
+client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: "ORG_UUID", user: "USER_UUID", scope: 'user')
 #=> #<Calendlyr::Webhooks::Subscription>
 
-client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: organization_uri, group: group_uri, scope: 'group')
+client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: "ORG_UUID", group: group_uri, scope: 'group')
 #=> #<Calendlyr::Webhooks::Subscription>
 ```
 
@@ -43,7 +44,8 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/faac832d7c57d-l
 For the example bellow we will use only required parameters, but you can use any other parameter as well.
 
 ```ruby
-client.webhooks.list(organization: organization_uri, scope: 'organization')
+# organization: accepts a bare UUID or full Calendly URI
+client.webhooks.list(organization: "ORG_UUID", scope: 'organization')
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::Webhooks::Subscription>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
 

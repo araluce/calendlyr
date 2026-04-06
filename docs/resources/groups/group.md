@@ -24,7 +24,8 @@ Returns a list of groups.
 Visit official [API Doc](https://developer.calendly.com/api-docs/6rb6dtdln74sy-list-groups)
 
 ```ruby
-client.groups.list(organization: organization_uri)
+# organization: accepts a bare UUID or full Calendly URI
+client.groups.list(organization: "ORG_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::Group>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
 

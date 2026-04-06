@@ -1,6 +1,8 @@
 module Calendlyr
   class EventTypesResource < Resource
     def list(**params)
+      params[:user] = expand_uri(params[:user], "users") if params[:user]
+      params[:organization] = expand_uri(params[:organization], "organizations") if params[:organization]
       response = get_request("event_types", params: params)
       Collection.from_response(response, type: EventType, client: client)
     end

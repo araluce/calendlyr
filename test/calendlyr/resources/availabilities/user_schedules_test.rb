@@ -33,5 +33,16 @@ module Availabilities
 
       assert_equal Calendlyr::Availabilities::UserSchedule, user_availability_schedule.class
     end
+
+    def test_list_with_bare_user_uuid
+      bare_uuid = "abc123"
+      expanded = "https://api.calendly.com/users/#{bare_uuid}"
+      stub(path: "user_availability_schedules?user=#{expanded}", response: {body: fixture_file("user_availability_schedules/list"), status: 200})
+
+      schedules = client.availability.list_user_schedules(user: bare_uuid)
+
+      assert_equal Calendlyr::Collection, schedules.class
+      assert_equal 2, schedules.data.count
+    end
   end
 end

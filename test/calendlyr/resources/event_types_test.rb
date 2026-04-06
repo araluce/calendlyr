@@ -99,6 +99,28 @@ class EventTypesResourceTest < Minitest::Test
     assert_equal 45, event_type.duration
   end
 
+  def test_list_with_bare_user_uuid
+    bare_uuid = "abc123"
+    expanded = "https://api.calendly.com/users/#{bare_uuid}"
+    stub(path: "event_types?user=#{expanded}", response: {body: fixture_file("event_types/list"), status: 200})
+
+    event_types = client.event_types.list(user: bare_uuid)
+
+    assert_equal Calendlyr::Collection, event_types.class
+    assert_equal 1, event_types.data.count
+  end
+
+  def test_list_with_bare_org_uuid
+    bare_uuid = "abc123"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    stub(path: "event_types?organization=#{expanded}", response: {body: fixture_file("event_types/list"), status: 200})
+
+    event_types = client.event_types.list(organization: bare_uuid)
+
+    assert_equal Calendlyr::Collection, event_types.class
+    assert_equal 1, event_types.data.count
+  end
+
   def test_list_availability_schedules
     stub(path: "event_type_availability_schedules?event_type_uuid=AAAAAAAAAAAAAAAA", response: {body: fixture_file("event_type_availability_schedules/list"), status: 200})
     schedules = client.event_types.list_availability_schedules(event_type_uuid: "AAAAAAAAAAAAAAAA")

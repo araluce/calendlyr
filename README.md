@@ -22,8 +22,8 @@ Then run `bundle install`. That's it.
 ```ruby
 client = Calendlyr::Client.new(token: ENV["CALENDLY_TOKEN"])
 
-# List your scheduled events
-events = client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
+# List your scheduled events — just pass the UUID, no full URI needed
+events = client.events.list(user: "YOUR_USER_UUID")
 events.data
 #=> [#<Calendlyr::Event>, #<Calendlyr::Event>, ...]
 
@@ -36,6 +36,16 @@ event.start_time  #=> "2024-01-15T10:00:00.000000Z"
 # List invitees for an event
 invitees = client.events.list_invitees(uuid: event.uuid)
 invitees.data.first.email  #=> "john@example.com"
+```
+
+### Bare UUIDs
+
+Every method that takes a Calendly resource reference (like `user:`, `organization:`, `event_type:`) accepts both bare UUIDs and full URIs. The gem expands bare UUIDs automatically:
+
+```ruby
+# Both are equivalent:
+client.events.list(user: "YOUR_USER_UUID")
+client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
 ```
 
 The gem mirrors the Calendly API closely, so converting API examples into gem code is straightforward. Responses are wrapped in Ruby objects with dot-access for every field.

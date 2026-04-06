@@ -13,7 +13,8 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/d37c7f031f339-l
 For the example bellow we will use only required parameters, but you can use any other parameter as well.
 
 ```ruby
-client.organizations.activity_log(organization: `organization_uri`)
+# organization: accepts a bare UUID or full Calendly URI
+client.organizations.activity_log(organization: "ORG_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::ActivityLog, ...], @client=#<Calendlyr::Client>>
 ```
 

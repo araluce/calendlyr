@@ -26,7 +26,8 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/17db5cb915a57-l
 For the example bellow we will use only required parameters, but you can use any other parameter as well.
 
 ```ruby
-client.routing_forms.list_submissions(form: routing_form_uri)
+# form: accepts a bare UUID or full Calendly URI
+client.routing_forms.list_submissions(form: "ROUTING_FORM_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::RoutingForms::Submission>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
 

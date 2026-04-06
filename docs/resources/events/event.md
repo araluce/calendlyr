@@ -24,13 +24,14 @@ Returns a list of Events.
 Visit official [API Doc](https://developer.calendly.com/api-docs/2d5ed9bbd2952-list-events)
 
 ```ruby
-client.events.list(organization: organization, user: user)
+# You can pass bare UUIDs or full Calendly URIs for user:, organization:, and group:
+client.events.list(organization: "ORG_UUID", user: "USER_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::Event>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 
-client.events.list(organization: organization, group: group)
+client.events.list(organization: "ORG_UUID", group: group)
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::Event>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 
-client.events.list(user: user)
+client.events.list(user: "USER_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::Event>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
 

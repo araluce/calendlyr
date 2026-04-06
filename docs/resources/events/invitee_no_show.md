@@ -24,7 +24,8 @@ Marks an Invitee as a No Show.
 Visit official [API Doc](https://developer.calendly.com/api-docs/cebd8c3170790-create-invitee-no-show)
 
 ```ruby
-client.events.create_invitee_no_show(invitee: invitee_uri)
+# invitee: accepts a bare UUID or full Calendly URI
+client.events.create_invitee_no_show(invitee: "INVITEE_UUID")
 #=> #<Calendlyr::Events::InviteeNoShow>
 ```
 

@@ -14,7 +14,8 @@ Endpoint for our Customize Once and Share feature. This allows you to customize 
 Visit official [API Doc](https://developer.calendly.com/api-docs/fdcac06abfc8c-create-share)
 
 ```ruby
-client.shares.create(create: event_type_uri, name: "15 minute meeting", duration: ...)
+# event_type: accepts a bare UUID or full Calendly URI
+client.shares.create(event_type: "EVENT_TYPE_UUID", name: "15 minute meeting", duration: ...)
 #=> #<Calendlyr::Share>
 ```
 

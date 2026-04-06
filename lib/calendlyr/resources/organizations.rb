@@ -1,12 +1,15 @@
 module Calendlyr
   class OrganizationsResource < Resource
     def activity_log(organization: nil, **params)
+      organization = expand_uri(organization, "organizations")
       response = get_request("activity_log_entries", params: {organization: organization}.merge(params).compact)
       Collection.from_response(response, type: ActivityLog, client: client)
     end
 
     # Memberships
     def list_memberships(**params)
+      params[:organization] = expand_uri(params[:organization], "organizations") if params[:organization]
+      params[:user] = expand_uri(params[:user], "users") if params[:user]
       response = get_request("organization_memberships", params: params)
       Collection.from_response(response, type: Organizations::Membership, client: client)
     end

@@ -24,10 +24,11 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/25a4ece03c1bc-l
 
 For the examples bellow we will use only required parameters, but you can use any other parameter as well.
 ```ruby
-client.event_types.list(user: @user)
+# user: and organization: accept bare UUIDs or full Calendly URIs
+client.event_types.list(user: "USER_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::EventType>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 
-client.event_types.list(organization: @organization)
+client.event_types.list(organization: "ORG_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::EventType>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
 
