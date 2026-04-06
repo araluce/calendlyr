@@ -10,7 +10,7 @@ module Events
     end
 
     def test_email
-      assert "user@example.com", @guest.email
+      assert_equal "user@example.com", @guest.email
     end
   end
 end

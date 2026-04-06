@@ -12,7 +12,7 @@ module Organizations
       stub(method: :delete, path: "organizations/#{@invitation.associated_organization.uuid}/invitations/#{@invitation.uuid}", response: response)
 
       response = {body: fixture_file("users/retrieve"), status: 200}
-      stub(path: "users/#{Calendlyr::Object.get_slug(@invitation.user)}", response: response)
+      stub(path: "users/#{@invitation.user.split("/").last}", response: response)
     end
 
     def test_associated_organization

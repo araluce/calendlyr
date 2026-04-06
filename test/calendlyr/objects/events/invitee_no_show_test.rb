@@ -10,7 +10,7 @@ module Events
     end
 
     def test_created_at
-      assert "2019-01-02T03:04:05.678123Z", @invitee_no_show.created_at
+      assert_equal "2019-01-02T03:04:05.678123Z", @invitee_no_show.created_at
     end
 
     def test_delete
