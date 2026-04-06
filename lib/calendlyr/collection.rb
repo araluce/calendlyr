@@ -3,7 +3,9 @@ require "cgi"
 
 module Calendlyr
   class Collection
-    attr_reader :data, :count, :next_page, :next_page_token, :client
+    include Enumerable
+
+    attr_reader :data, :next_page, :next_page_token, :client
 
     def self.from_response(response, type:, client:)
       new(
@@ -20,6 +22,18 @@ module Calendlyr
       @next_page = next_page
       @next_page_token = get_params(next_page)["page_token"]&.first
       @client = client
+    end
+
+    def each(&)
+      data.each(&)
+    end
+
+    def count(*args, &block)
+      if block || args.any?
+        super
+      else
+        @count
+      end
     end
 
     private
