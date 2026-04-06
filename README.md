@@ -50,6 +50,26 @@ client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
 
 The gem mirrors the Calendly API closely, so converting API examples into gem code is straightforward. Responses are wrapped in Ruby objects with dot-access for every field.
 
+### JSON Serialization
+
+All API objects support `#to_json` for easy serialization (caching, logging, API proxying):
+
+```ruby
+event = client.events.retrieve(uuid: "ABC123")
+
+event.to_json
+#=> '{"uri":"https://api.calendly.com/scheduled_events/ABC123","name":"30 Minute Meeting",...}'
+
+# Works with JSON.generate and nested objects
+JSON.generate(event)
+
+# Round-trip: parse back into an Object
+parsed = Calendlyr::Object.new(JSON.parse(event.to_json))
+parsed.name  #=> "30 Minute Meeting"
+```
+
+> **Note:** `#to_json` and `#to_h` exclude the internal `client` reference — only API data is serialized.
+
 ## Documentation
 
 For the full list of available resources and methods, check out the [API Reference](docs/resources/).

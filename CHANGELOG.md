@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [0.10.0]
 
 ### Added
+* `Object#to_json` — Serialize any API object to JSON. Works with `JSON.generate`, nested objects, and arrays. The internal `client` reference is automatically excluded from serialization.
 * `client.data_compliance.delete_scheduled_event_data` — Remove scheduled events data within a time range (`POST /data_compliance/deletion/events`)
 * `put_request` support in `Resource` base class for PUT HTTP verb
 * `Collection` now includes `Enumerable` — use `each`, `map`, `select` directly on collections
