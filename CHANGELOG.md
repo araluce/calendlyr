@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 * Requires Ruby >= 3.2.0 (dropped support for Ruby 2.4–3.1)
 
 ### Fixed
+* Error messages now include request context (`GET /path`) and expose structured attributes on `Calendlyr::Error` (`status`, `http_method`, `path`, `response_body`) for easier debugging
 * **Security:** Removed `OpenSSL::SSL::VERIFY_NONE` — SSL connections now properly verify certificates
 * **Security:** Bare `rescue` replaced with `rescue JSON::ParserError` — non-JSON errors are no longer silently swallowed
 * `Invitee#cancel` now correctly uses the event UUID instead of the invitee UUID
