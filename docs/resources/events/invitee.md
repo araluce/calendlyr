@@ -32,8 +32,9 @@ client.events.list_invitees(uuid: uuid)
 Creates and schedules an Invitee.
 
 ```ruby
+# event_type: accepts a bare UUID or full Calendly URI
 client.events.create_invitee(
-  event_type: event_type_uri,
+  event_type: "EVENT_TYPE_UUID",
   start_time: "2019-08-07T06:05:04.321123Z",
   invitee: {
     name: "John Doe",

@@ -26,10 +26,11 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/eaed2e61a6bc3-l
 For the example bellow we will use only required parameters, but you can use any other parameter as well.
 
 ```ruby
-client.organizations.list_memberships(user: user)
+# user: and organization: accept bare UUIDs or full Calendly URIs
+client.organizations.list_memberships(user: "USER_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::Organizations::Membership>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 
-client.organizations.list_memberships(organization: organization)
+client.organizations.list_memberships(organization: "ORG_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::Organizations::Membership>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
 

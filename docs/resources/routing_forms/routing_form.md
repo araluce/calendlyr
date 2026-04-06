@@ -26,7 +26,8 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/9fe7334bec6ad-l
 For the example bellow we will use only required parameters, but you can use any other parameter as well.
 
 ```ruby
-client.routing_forms.list(organization: organization_uri)
+# organization: accepts a bare UUID or full Calendly URI
+client.routing_forms.list(organization: "ORG_UUID")
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::RoutingForm>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
 
