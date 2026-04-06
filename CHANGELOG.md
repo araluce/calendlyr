@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.0]
+
+### Added
+* `client.data_compliance.delete_scheduled_event_data` — Remove scheduled events data within a time range (`POST /data_compliance/deletion/events`)
+* `put_request` support in `Resource` base class for PUT HTTP verb
+* `Collection` now includes `Enumerable` — use `each`, `map`, `select` directly on collections
+* Configurable HTTP timeouts via `Client.new(token:, open_timeout:, read_timeout:)` (default 30s)
+* Automatic retry with exponential backoff for 429 Too Many Requests (max 3 retries, respects `Retry-After` header)
+
+### Changed — Breaking
+* **`Calendlyr::Object`** no longer inherits from `OpenStruct`. Replaced with a zero-dependency hash-backed class. Dynamic dot-access for all API fields is preserved. If you were relying on `OpenStruct`-specific methods (e.g., `marshal_dump`), this is a breaking change.
+* Empty API responses (e.g., DELETE) now return `{}` instead of `true`
+* Requires Ruby >= 3.2.0 (dropped support for Ruby 2.4–3.1)
+
+### Fixed
+* **Security:** Removed `OpenSSL::SSL::VERIFY_NONE` — SSL connections now properly verify certificates
+* **Security:** Bare `rescue` replaced with `rescue JSON::ParserError` — non-JSON errors are no longer silently swallowed
+* `Invitee#cancel` now correctly uses the event UUID instead of the invitee UUID
+* `CGI.parse` replaced with `URI.decode_www_form` for Ruby 4.0 compatibility
+* Tautological test assertions (`assert` with string literal) replaced with `assert_equal`
+
+### Removed
+* `codecov` gem dependency (deprecated since Feb 2022, incompatible with Ruby 4.0). Coverage uploads now use `codecov-action` in CI.
+
+[0.10.0]: https://github.com/araluce/calendlyr/compare/v0.9.0...v0.10.0
+
 ## [0.9.0]
 
 ### Added
@@ -16,13 +42,11 @@ All notable changes to this project will be documented in this file.
 ### Changed
 * Updated `Event` fixtures with `buffered_start_time`, `buffered_end_time`, `meeting_notes_plain`, `meeting_notes_html`, and `cancellation` fields
 * Updated `Invitee` fixtures with `no_show`, `reconfirmation`, `scheduling_method`, and `invitee_scheduled_by` fields
-* Empty API responses (e.g., DELETE) now return `{}` instead of `true`
 
 ### Removed — Breaking
 * **`client.outgoing_communications`** — `OutgoingCommunicationsResource` removed (endpoint no longer in Calendly API docs)
 * **`client.scheduling_links`** — `SchedulingLinksResource` and `SchedulingLink` object removed (endpoint no longer in Calendly API docs)
 * **`client.webhooks.sample_webhook_data`** — Method removed (endpoint no longer in Calendly API docs)
-* **`client.data_compliance.delete_scheduled_event_data`** — Method removed (endpoint no longer in Calendly API docs). `delete_invitee_data` is still available.
 * **`client.event_types.list_available_times`** — Method and `EventTypes::AvailableTime` object removed (endpoint no longer in Calendly API docs)
 * **`client.event_types.list_memberships`** — Method and `EventTypes::Membership` object removed (endpoint no longer in Calendly API docs)
 * **`EventType#available_times`** — Convenience method removed (delegates to removed `list_available_times`)
