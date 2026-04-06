@@ -111,14 +111,6 @@ class OrganizatonObjectTest < Minitest::Test
     assert @organization.create_webhook(**body)
   end
 
-  def test_sample_webhook_data
-    stub(path: "sample_webhook_data?event=invitee.created&scope=organization&organization=https://api.calendly.com/organizations/012345678901234567890", response: {body: fixture_file("webhooks/sample"), status: 200})
-    webhook_data = @organization.sample_webhook_data(event: "invitee.created", scope: "organization")
-
-    assert_instance_of Calendlyr::Object, webhook_data
-    assert_equal "invitee.created", webhook_data.event
-  end
-
   def test_invite_user
     email = "email@example.com"
     response = {body: fixture_file("organizations/invite"), status: 201}

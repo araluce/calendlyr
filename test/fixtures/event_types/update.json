@@ -1,0 +1,30 @@
+{
+  "resource": {
+    "uri": "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
+    "name": "Updated Meeting",
+    "active": true,
+    "slug": "updated-meeting",
+    "scheduling_url": "https://calendly.com/acmesales/updated-meeting",
+    "duration": 45,
+    "kind": "solo",
+    "pooling_type": "round_robin",
+    "type": "StandardEventType",
+    "color": "#fff200",
+    "created_at": "2019-01-02T03:04:05.678123Z",
+    "updated_at": "2019-08-07T06:05:04.321123Z",
+    "internal_note": null,
+    "description_plain": "Updated Meeting",
+    "description_html": "<p>Updated Meeting</p>",
+    "profile": {
+      "type": "User",
+      "name": "Tamara Jones",
+      "owner": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
+    },
+    "secret": false,
+    "deleted_at": null,
+    "admin_managed": false,
+    "locations": [],
+    "position": 0,
+    "custom_questions": []
+  }
+}

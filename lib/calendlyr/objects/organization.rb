@@ -43,10 +43,6 @@ module Calendlyr
       client.webhooks.create(**params.merge(organization: uri, url: url, events: events, scope: scope))
     end
 
-    def sample_webhook_data(event:, scope:, **params)
-      client.webhooks.sample_webhook_data(event: event, scope: scope, organization: uri, **params)
-    end
-
     # Invitations
     def invite_user(email:, **params)
       client.organizations.invite(**params.merge(organization_uuid: uuid, email: email))

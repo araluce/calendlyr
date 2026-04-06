@@ -1,0 +1,16 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/locations/AAAAAAAAAAAAAAAA",
+      "type": "zoom",
+      "display_name": "Zoom"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": "https://api.calendly.com/locations?page_token=sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi",
+    "next_page_token": "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi",
+    "previous_page": null,
+    "previous_page_token": null
+  }
+}

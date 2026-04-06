@@ -73,4 +73,52 @@ class EventTypesResourceTest < Minitest::Test
     assert_equal "acmesales", event_type.slug
     assert_equal 30, event_type.duration
   end
+
+  def test_create
+    body = {
+      name: "30 Minute Meeting",
+      duration: 30,
+      pooling_type: "round_robin"
+    }
+    stub(method: :post, path: "event_types", response: {body: fixture_file("event_types/create"), status: 201})
+    event_type = client.event_types.create(**body)
+
+    assert_equal Calendlyr::EventType, event_type.class
+    assert_equal "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA", event_type.uri
+    assert_equal "30 Minute Meeting", event_type.name
+    assert_equal 30, event_type.duration
+  end
+
+  def test_update
+    stub(method: :patch, path: "event_types/#{@event_type_uuid}", response: {body: fixture_file("event_types/update"), status: 200})
+    event_type = client.event_types.update(uuid: @event_type_uuid, name: "Updated Meeting", duration: 45)
+
+    assert_equal Calendlyr::EventType, event_type.class
+    assert_equal "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA", event_type.uri
+    assert_equal "Updated Meeting", event_type.name
+    assert_equal 45, event_type.duration
+  end
+
+  def test_list_availability_schedules
+    stub(path: "event_type_availability_schedules?event_type_uuid=AAAAAAAAAAAAAAAA", response: {body: fixture_file("event_type_availability_schedules/list"), status: 200})
+    schedules = client.event_types.list_availability_schedules(event_type_uuid: "AAAAAAAAAAAAAAAA")
+
+    assert_equal Calendlyr::Collection, schedules.class
+    assert_equal Calendlyr::EventTypes::AvailabilitySchedule, schedules.data.first.class
+    assert_equal 1, schedules.data.count
+  end
+
+  def test_update_availability_schedule
+    body = {
+      event_type_uuid: "AAAAAAAAAAAAAAAA",
+      availability_schedules: [
+        {start_time: "2023-10-27T09:00:00Z", end_time: "2023-10-27T12:00:00Z"}
+      ]
+    }
+    stub(method: :patch, path: "event_type_availability_schedules", response: {body: fixture_file("event_type_availability_schedules/update"), status: 200})
+    result = client.event_types.update_availability_schedule(**body)
+
+    assert result
+    assert_equal "Availability schedules updated successfully.", result["message"]
+  end
 end

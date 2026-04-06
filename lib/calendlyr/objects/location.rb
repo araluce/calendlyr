@@ -1,4 +1,4 @@
 module Calendlyr
-  class Share < Object
+  class Location < Object
   end
 end

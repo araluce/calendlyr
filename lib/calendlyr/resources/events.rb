@@ -23,6 +23,11 @@ module Calendlyr
       Events::Invitee.new get_request("scheduled_events/#{event_uuid}/invitees/#{invitee_uuid}").dig("resource").merge(client: client)
     end
 
+    def create_invitee(event_type:, start_time:, invitee:, **params)
+      body = {event_type: event_type, start_time: start_time, invitee: invitee}.merge(params)
+      Events::Invitee.new post_request("invitees", body: body).dig("invitee").merge(client: client)
+    end
+
     # Invitee No Show
     def retrieve_invitee_no_show(uuid:)
       Events::InviteeNoShow.new get_request("invitee_no_shows/#{uuid}").dig("resource").merge(client: client)

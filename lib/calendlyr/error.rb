@@ -1,7 +1,7 @@
 module Calendlyr
   class Error < StandardError; end
 
-  class PaymentRequired < StandardError; end
+  class PaymentRequired < Error; end
 
   ERROR_TYPES = {
     "400" => "BadRequest",
