@@ -1,11 +1,15 @@
 module Calendlyr
   class Client
     BASE_URL = "https://api.calendly.com"
+    DEFAULT_OPEN_TIMEOUT = 30
+    DEFAULT_READ_TIMEOUT = 30
 
-    attr_reader :token
+    attr_reader :token, :open_timeout, :read_timeout
 
-    def initialize(token:)
+    def initialize(token:, open_timeout: DEFAULT_OPEN_TIMEOUT, read_timeout: DEFAULT_READ_TIMEOUT)
       @token = token
+      @open_timeout = open_timeout
+      @read_timeout = read_timeout
     end
 
     def me(force_reload: false)

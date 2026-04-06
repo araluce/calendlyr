@@ -8,6 +8,8 @@ module Calendlyr
     attr_reader :client
 
     ERROR_CODES = %w[400 401 403 404 424 429 500]
+    MAX_RETRIES = 3
+    RETRY_BACKOFF = [1, 2, 4]
 
     def initialize(client)
       @client = client
@@ -27,6 +29,10 @@ module Calendlyr
       handle_response request(url, Net::HTTP::Patch, body: body)
     end
 
+    def put_request(url, body:)
+      handle_response request(url, Net::HTTP::Put, body: body)
+    end
+
     def delete_request(url, params: {})
       handle_response request(url, Net::HTTP::Delete, params: params)
     end
@@ -41,14 +47,24 @@ module Calendlyr
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.open_timeout = client.open_timeout
+      http.read_timeout = client.read_timeout
 
       request = req_type.new(uri)
       request["Content-Type"] = "application/json"
       request["Authorization"] = "Bearer #{client.token}"
       request.body = body.to_json if body.any?
 
-      http.request(request)
+      attempts = 0
+
+      loop do
+        response = http.request(request)
+        return response unless response.code == "429"
+        return response if attempts >= MAX_RETRIES
+
+        sleep retry_after_seconds(response, attempts)
+        attempts += 1
+      end
     end
 
     def handle_response(response)
@@ -56,7 +72,7 @@ module Calendlyr
 
       body = begin
         body_string.empty? ? {} : JSON.parse(body_string)
-      rescue
+      rescue JSON::ParserError
         {}
       end
 
@@ -64,7 +80,14 @@ module Calendlyr
         raise ResponseErrorHandler.new(response.code, body).error
       end
 
-      body.empty? || body
+      body
+    end
+
+    def retry_after_seconds(response, attempt)
+      retry_after = response["Retry-After"]
+      return retry_after.to_i if retry_after&.match?(/^\d+$/)
+
+      RETRY_BACKOFF.fetch(attempt)
     end
   end
 end

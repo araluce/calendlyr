@@ -10,7 +10,7 @@ module Events
     end
 
     def test_canceled_by
-      assert "string", @cancellation.canceled_by
+      assert_equal "string", @cancellation.canceled_by
     end
   end
 end

@@ -1,9 +1,10 @@
 require "uri"
-require "cgi"
 
 module Calendlyr
   class Collection
-    attr_reader :data, :count, :next_page, :next_page_token, :client
+    include Enumerable
+
+    attr_reader :data, :next_page, :next_page_token, :client
 
     def self.from_response(response, type:, client:)
       new(
@@ -22,13 +23,27 @@ module Calendlyr
       @client = client
     end
 
+    def each(&)
+      data.each(&)
+    end
+
+    def count(*args, &block)
+      if block || args.any?
+        super
+      else
+        @count
+      end
+    end
+
     private
 
     def get_params(url)
       return {} unless url
 
       uri = URI.parse(url)
-      CGI.parse(uri.query)
+      return {} unless uri.query
+
+      URI.decode_www_form(uri.query).to_h { |k, v| [k, [v]] }
     end
   end
 end
