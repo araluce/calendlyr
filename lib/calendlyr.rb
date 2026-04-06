@@ -26,9 +26,8 @@ module Calendlyr
   autoload :EventTypesResource, "calendlyr/resources/event_types"
   autoload :GroupsResource, "calendlyr/resources/groups"
   autoload :OrganizationsResource, "calendlyr/resources/organizations"
-  autoload :OutgoingCommunicationsResource, "calendlyr/resources/outgoing_communications"
+  autoload :LocationsResource, "calendlyr/resources/locations"
   autoload :RoutingFormsResource, "calendlyr/resources/routing_forms"
-  autoload :SchedulingLinksResource, "calendlyr/resources/scheduling_links"
   autoload :SharesResource, "calendlyr/resources/shares"
   autoload :UsersResource, "calendlyr/resources/users"
   autoload :WebhooksResource, "calendlyr/resources/webhooks"
@@ -39,8 +38,8 @@ module Calendlyr
   autoload :EventType, "calendlyr/objects/event_type"
   autoload :Group, "calendlyr/objects/group"
   autoload :Organization, "calendlyr/objects/organization"
+  autoload :Location, "calendlyr/objects/location"
   autoload :RoutingForm, "calendlyr/objects/routing_form"
-  autoload :SchedulingLink, "calendlyr/objects/scheduling_link"
   autoload :Share, "calendlyr/objects/share"
   autoload :User, "calendlyr/objects/user"
 
@@ -58,8 +57,7 @@ module Calendlyr
   end
 
   module EventTypes
-    autoload :AvailableTime, "calendlyr/objects/event_types/available_time"
-    autoload :Membership, "calendlyr/objects/event_types/membership"
+    autoload :AvailabilitySchedule, "calendlyr/objects/event_types/availability_schedule"
     autoload :Profile, "calendlyr/objects/event_types/profile"
   end
 

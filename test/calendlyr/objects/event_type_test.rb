@@ -8,15 +8,8 @@ class EventTypeObjectTest < Minitest::Test
     @event_type = Calendlyr::EventType.new(json)
 
     event_type_uri = "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA"
-    @start_time = "2020-01-02T20:00:00.000000Z"
-    @end_time = "2020-01-07T24:00:00.000000Z"
-
-    response = {body: fixture_file("event_type_available_times/list"), status: 200}
-    stub(path: "event_type_available_times?event_type=#{event_type_uri}&start_time=#{@start_time}&end_time=#{@end_time}", response: response)
-
-    event_type_uri = "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA"
-    response = {body: fixture_file("shares/create"), status: 201}
-    stub(method: :post, path: "shares", body: {event_type: event_type_uri}, response: response)
+    response = { body: fixture_file("shares/create"), status: 201 }
+    stub(method: :post, path: "shares", body: { event_type: event_type_uri }, response: response)
   end
 
   def test_associated_profile
@@ -31,13 +24,5 @@ class EventTypeObjectTest < Minitest::Test
 
     assert_instance_of Calendlyr::Share, share
     assert_equal 1, share.scheduling_links.size
-  end
-
-  def test_available_times
-    available_times = @event_type.available_times(start_time: @start_time, end_time: @end_time)
-
-    assert 3, available_times.data.size
-    assert "available", available_times.data.first.status
-    assert_instance_of Calendlyr::EventTypes::AvailableTime, available_times.data.first
   end
 end

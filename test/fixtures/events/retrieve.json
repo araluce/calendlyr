@@ -19,7 +19,9 @@
     "updated_at": "2019-01-02T03:04:05.678Z",
     "event_memberships": [
       {
-        "user": "https://api.calendly.com/users/GBGBDCAADAEDCRZ2"
+        "user": "https://api.calendly.com/users/GBGBDCAADAEDCRZ2",
+        "buffered_start_time": "2019-08-24T14:10:00.000000Z",
+        "buffered_end_time": "2019-08-24T14:20:00.000000Z"
       }
     ],
     "event_guests": [
@@ -28,6 +30,14 @@
         "created_at": "2019-08-24T14:15:22Z",
         "updated_at": "2019-08-24T14:15:22Z"
       }
-    ]
+    ],
+    "cancellation": {
+      "canceled_by": "host",
+      "reason": "Rescheduled",
+      "canceler_type": "host",
+      "created_at": "2019-08-24T14:15:22.123456Z"
+    },
+    "meeting_notes_plain": "Internal meeting notes",
+    "meeting_notes_html": "<p>Internal meeting notes</p>"
   }
 }
