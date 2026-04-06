@@ -23,6 +23,10 @@ module Calendlyr
       handle_response request(url, Net::HTTP::Post, body: body)
     end
 
+    def patch_request(url, body:)
+      handle_response request(url, Net::HTTP::Patch, body: body)
+    end
+
     def delete_request(url, params: {})
       handle_response request(url, Net::HTTP::Delete, params: params)
     end
@@ -52,7 +56,7 @@ module Calendlyr
 
       body = begin
         body_string.empty? ? {} : JSON.parse(body_string)
-      rescue
+      rescue StandardError
         {}
       end
 

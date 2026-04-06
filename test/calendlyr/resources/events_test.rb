@@ -7,9 +7,9 @@ class EventsResourceTest < Minitest::Test
     @user_uri = "https://api.calendly.com/users/abc123"
     @organization_uri = "https://api.calendly.com/organizations/abc123"
     @event_uuid = "abc123"
-    list_response = {body: fixture_file("events/list"), status: 200}
+    list_response = { body: fixture_file("events/list"), status: 200 }
     stub(path: "scheduled_events?user=#{@user_uri}&organization=#{@organization_uri}", response: list_response)
-    retrieve_response = {body: fixture_file("events/retrieve"), status: 200}
+    retrieve_response = { body: fixture_file("events/retrieve"), status: 200 }
     stub(path: "scheduled_events/#{@event_uuid}", response: retrieve_response)
   end
 
@@ -37,5 +37,24 @@ class EventsResourceTest < Minitest::Test
     assert_equal Calendlyr::Event, event.class
     assert_equal "https://api.calendly.com/scheduled_events/GBGBDCAADAEDCRZ2", event.uri
     assert_equal "15 Minute Meeting", event.name
+  end
+
+  def test_create_invitee
+    body = {
+      event_type: "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
+      start_time: "2019-08-07T06:05:04.321123Z",
+      invitee: {
+        name: "John Doe",
+        email: "test@example.com",
+        timezone: "America/New_York"
+      }
+    }
+    stub(method: :post, path: "invitees", response: { body: fixture_file("events/create_invitee"), status: 201 })
+    invitee = client.events.create_invitee(**body)
+
+    assert_equal Calendlyr::Events::Invitee, invitee.class
+    assert_equal "test@example.com", invitee.email
+    assert_equal "John Doe", invitee.name
+    assert_equal "active", invitee.status
   end
 end

@@ -1,0 +1,6 @@
+{
+  "uri": "https://api.calendly.com/event_type_availability_schedules/AAAAAAAAAAAAAAAA",
+  "start_time": "2023-10-27T09:00:00Z",
+  "end_time": "2023-10-27T17:00:00Z",
+  "event_type": "https://api.calendly.com/event_types/BBBBBBBBBBBBBBBB"
+}

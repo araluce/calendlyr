@@ -10,19 +10,28 @@ module Calendlyr
     end
 
     def create_one_off(name:, host:, duration:, date_setting:, location:, **params)
-      body = {name: name, host: host, duration: duration, date_setting: date_setting, location: location}.merge(params)
+      body = { name: name, host: host, duration: duration, date_setting: date_setting, location: location }.merge(params)
       EventType.new post_request("one_off_event_types", body: body).dig("resource").merge(client: client)
     end
 
-    def list_memberships(event_type:, **params)
-      response = get_request("event_type_memberships", params: {event_type: event_type}.merge(params))
-      Collection.from_response(response, type: EventTypes::Membership, client: client)
+    def create(name:, duration:, pooling_type:, **params)
+      body = { name: name, duration: duration, pooling_type: pooling_type }.merge(params)
+      EventType.new post_request("event_types", body: body).dig("resource").merge(client: client)
     end
 
-    # Available Times
-    def list_available_times(event_type:, start_time:, end_time:, **params)
-      response = get_request("event_type_available_times", params: {event_type: event_type, start_time: start_time, end_time: end_time}.merge(params))
-      Collection.from_response(response, type: EventTypes::AvailableTime, client: client)
+    def update(uuid:, **params)
+      EventType.new patch_request("event_types/#{uuid}", body: params).dig("resource").merge(client: client)
+    end
+
+    # Availability Schedules
+    def list_availability_schedules(event_type_uuid:, **params)
+      response = get_request("event_type_availability_schedules", params: { event_type_uuid: event_type_uuid }.merge(params))
+      Collection.from_response(response, type: EventTypes::AvailabilitySchedule, client: client)
+    end
+
+    def update_availability_schedule(event_type_uuid:, availability_schedules:, **params)
+      body = { event_type_uuid: event_type_uuid, availability_schedules: availability_schedules }.merge(params)
+      patch_request("event_type_availability_schedules", body: body)
     end
   end
 end
