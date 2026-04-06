@@ -31,6 +31,24 @@ client.event_types.list(organization: @organization)
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::EventType>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
 
+### Create
+
+Creates a new Event Type.
+
+```ruby
+client.event_types.create(name: "30 Minute Meeting", duration: 30, pooling_type: "round_robin")
+#=> #<Calendlyr::EventType>
+```
+
+### Update
+
+Updates an Event Type.
+
+```ruby
+client.event_types.update(uuid: @uuid, name: "Updated Meeting", duration: 45)
+#=> #<Calendlyr::EventType>
+```
+
 ## Object methods
 
 ### Associated Profile
@@ -45,11 +63,4 @@ event_type.associated_profile
 ```ruby
 event_type.create_share
 #=> #<Calendlyr::Share>
-```
-
-### Available Times
-
-```ruby
-event_type.available_times(start_time: @start_time, end_time: @end_time, ...)
-#=> #<Calendlyr::Collection @data=[#<Calendlyr::EventTypes::AvailableTime>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```

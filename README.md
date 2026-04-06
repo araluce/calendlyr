@@ -59,12 +59,13 @@ Responses are created as objects, like `Calendlyr::Event`. Having types like `Ca
 * [Data Compliance](docs/resources/data_compliance.md)
 * **Event Types**
     * [Calendlyr::EventType](docs/resources/event_types/event_type.md)
-    * [Calendlyr::EventTypes::AvailableTime](docs/resources/event_types/available_time.md)
-    * [Calendlyr::EventTypes::Membership](docs/resources/event_types/membership.md)
+    * [Calendlyr::EventTypes::AvailabilitySchedule](docs/resources/event_types/availability_schedule.md)
     * [Calendlyr::EventTypes::Profile](docs/resources/event_types/profile.md)
 * **Groups**
     * [Calendlyr::Group](docs/resources/groups/group.md)
     * [Calendlyr::Groups::Relationship](docs/resources/groups/relationship.md)
+* **Locations**
+    * [Calendlyr::Location](docs/resources/locations/location.md)
 * **Organizations**
     * [Calendlyr::Organization](docs/resources/organizations/organization.md)
     * [Calendlyr::Organizations::Invitation](docs/resources/organizations/invitation.md)
@@ -78,7 +79,6 @@ Responses are created as objects, like `Calendlyr::Event`. Having types like `Ca
     * [Calendlyr::Events::Guest](docs/resources/events/guest.md)
     * [Calendlyr::Events::Invitee](docs/resources/events/invitee.md)
     * [Calendlyr::Events::InviteeNoShow](docs/resources/events/invitee_no_show.md)
-* [Scheduled Links](docs/resources/scheduling_link.md)
 * [Shares](docs/resources/share.md)
 * [Users](docs/resources/user.md)
 * **Webhooks**

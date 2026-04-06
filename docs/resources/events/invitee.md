@@ -26,3 +26,20 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/eb8ee72701f99-l
 client.events.list_invitees(uuid: uuid)
 #=> #<Calendlyr::Collection @data=[#<Calendlyr::Events::Invitee>, ...], @count=nil, @next_page=nil, @next_page_token=nil, @client=#<Calendlyr::Client>>
 ```
+
+### Create
+
+Creates and schedules an Invitee.
+
+```ruby
+client.events.create_invitee(
+  event_type: event_type_uri,
+  start_time: "2019-08-07T06:05:04.321123Z",
+  invitee: {
+    name: "John Doe",
+    email: "test@example.com",
+    timezone: "America/New_York"
+  }
+)
+#=> #<Calendlyr::Events::Invitee>
+```

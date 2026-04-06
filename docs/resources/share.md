@@ -19,10 +19,3 @@ client.shares.create(create: event_type_uri, name: "15 minute meeting", duration
 ```
 
 ## Object methods
-
-### Associated Scheduling Links
-
-```ruby
-share.associated_scheduling_links
-#=> [#<Calendlyr::SchedulingLink>]
-```

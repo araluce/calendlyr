@@ -103,15 +103,6 @@ organization.create_webhook(url:, url, events: events, scope: scope)
 #=> #<Calendlyr::Webhooks::Subscription>
 ```
 
-### Sample Webhook Data
-
-For the example bellow we will use only required parameters, but you can use any other parameter as well.
-
-```ruby
-organization.sample_webhook_data(event: event, scope: scope)
-#=> #<Calendlyr::Object>
-```
-
 ### Invite user
 
 For the example bellow we will use only required parameters, but you can use any other parameter as well.
