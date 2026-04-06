@@ -10,14 +10,21 @@ module Events
     end
 
     def test_email
-      assert "user@example.com", @invitee.email
+      assert_equal "test@example.com", @invitee.email
     end
 
     def test_cancel
+      invitee = Calendlyr::Events::Invitee.new(
+        JSON.parse(fixture_file("objects/events/invitee")).merge(
+          "event" => "https://api.calendly.com/scheduled_events/EVT123",
+          "uri" => "https://api.calendly.com/scheduled_events/EVT123/invitees/INV456",
+          :client => client
+        )
+      )
       response = {body: fixture_file("events/cancel_invitee"), status: 201}
-      stub(method: :post, path: "scheduled_events/#{@invitee.uuid}/cancellation", response: response)
+      stub(method: :post, path: "scheduled_events/EVT123/cancellation", response: response)
 
-      cancellation = @invitee.cancel(reason: "I'm busy")
+      cancellation = invitee.cancel(reason: "I'm busy")
 
       assert_instance_of Calendlyr::Events::Cancellation, cancellation
       assert_equal "host", cancellation.canceler_type

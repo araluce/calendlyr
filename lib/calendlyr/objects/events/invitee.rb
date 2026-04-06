@@ -1,7 +1,7 @@
 module Calendlyr
   class Events::Invitee < Object
     def cancel(reason: nil)
-      client.events.cancel(uuid: uuid, reason: reason)
+      client.events.cancel(uuid: get_slug(event), reason: reason)
     end
 
     def create_no_shows
