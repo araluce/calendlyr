@@ -1,7 +1,7 @@
 module Calendlyr
   class Error < StandardError; end
 
-  class PaymentRequired < StandardError; end
+  class PaymentRequired < Error; end
 
   ERROR_TYPES = {
     "400" => "BadRequest",
@@ -26,7 +26,7 @@ module Calendlyr
     def error
       return too_many_requests_error if @code == "429"
 
-      error_type.new("[Error #{@code}] #{@body["title"]}. #{@body["message"]}")
+      error_type.new("[Error #{@code}] #{@body['title']}. #{@body['message']}")
     end
 
     private

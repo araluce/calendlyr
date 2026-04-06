@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0]
+* **Breaking:** All error classes (`BadRequest`, `NotFound`, `Unauthenticated`, `PermissionDenied`, `ExternalCalendarError`, `TooManyRequests`, `InternalServerError`) now inherit from `Calendlyr::Error` instead of `StandardError`. Code using `rescue Calendlyr::Error` will now catch all API errors.
+* Fix: Response handling with empty body
+* Fix: Some doc typos
+
+[0.8.0]: https://github.com/araluce/calendlyr/compare/v0.7.5...v0.8.0
+
 ## [0.7.5]
 * Fix: Calendlyr::TooManyRequests was not included in autoloading list
 * Fix: Calendlyr::ExternalCalendarError typo in class name
