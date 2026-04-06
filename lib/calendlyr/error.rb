@@ -1,6 +1,10 @@
 module Calendlyr
   class Error < StandardError; end
 
+  class WebhookSignatureError < Error; end
+
+  class WebhookTimestampError < Error; end
+
   class PaymentRequired < Error; end
 
   ERROR_TYPES = {
@@ -26,7 +30,9 @@ module Calendlyr
     def error
       return too_many_requests_error if @code == "429"
 
-      error_type.new("[Error #{@code}] #{@body["title"]}. #{@body["message"]}")
+      title = @body["title"]
+      message = @body["message"]
+      error_type.new("[Error #{@code}] #{title}. #{message}")
     end
 
     private

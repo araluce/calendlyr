@@ -50,6 +50,26 @@ client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
 
 The gem mirrors the Calendly API closely, so converting API examples into gem code is straightforward. Responses are wrapped in Ruby objects with dot-access for every field.
 
+### Webhook signature verification
+
+`Calendlyr::Webhook` (singular) verifies signed webhook payloads. This is separate from `client.webhooks` / `Calendlyr::Webhooks` (plural), which are API resources for managing webhook subscriptions.
+
+```ruby
+payload = request.body.read
+header = request.get_header("HTTP_CALENDLY_WEBHOOK_SIGNATURE")
+
+if Calendlyr::Webhook.valid?(payload: payload, header: header, signing_key: ENV.fetch("CALENDLY_WEBHOOK_SIGNING_KEY"))
+  webhook = Calendlyr::Webhook.parse(
+    payload: payload,
+    header: header,
+    signing_key: ENV.fetch("CALENDLY_WEBHOOK_SIGNING_KEY")
+  )
+
+  webhook.event   #=> "invitee.created"
+  webhook.payload #=> Calendlyr::Webhooks::InviteePayload (for invitee events)
+end
+```
+
 ## Documentation
 
 For the full list of available resources and methods, check out the [API Reference](docs/resources/).

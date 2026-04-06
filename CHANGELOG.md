@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [0.10.0]
 
 ### Added
+* `Calendlyr::Webhook.verify!`, `valid?`, and `parse` — verify signed webhook payloads with HMAC-SHA256, optional timestamp tolerance, and typed payload parsing
 * `client.data_compliance.delete_scheduled_event_data` — Remove scheduled events data within a time range (`POST /data_compliance/deletion/events`)
 * `put_request` support in `Resource` base class for PUT HTTP verb
 * `Collection` now includes `Enumerable` — use `each`, `map`, `select` directly on collections

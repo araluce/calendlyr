@@ -18,6 +18,9 @@ module Calendlyr
   autoload :Unauthenticated, "calendlyr/error"
   autoload :TooManyRequests, "calendlyr/error"
   autoload :ResponseErrorHandler, "calendlyr/error"
+  autoload :WebhookSignatureError, "calendlyr/error"
+  autoload :WebhookTimestampError, "calendlyr/error"
+  autoload :Webhook, "calendlyr/webhook"
 
   # High-level categories of Calendly API calls
   autoload :AvailabilityResource, "calendlyr/resources/availability"
