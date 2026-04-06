@@ -50,6 +50,24 @@ client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
 
 The gem mirrors the Calendly API closely, so converting API examples into gem code is straightforward. Responses are wrapped in Ruby objects with dot-access for every field.
 
+### Error Context
+
+API errors now include the HTTP method and path in the message, and expose structured attributes for debugging:
+
+```ruby
+begin
+  client.events.retrieve(uuid: "INVALID_UUID")
+rescue Calendlyr::NotFound => error
+  error.message       #=> "[Error 404] GET /scheduled_events/INVALID_UUID — Not Found. The resource you requested does not exist."
+  error.status        #=> 404
+  error.http_method   #=> "GET"
+  error.path          #=> "/scheduled_events/INVALID_UUID"
+  error.response_body #=> { "title" => "Not Found", "message" => "..." }
+end
+```
+
+This makes debugging failed requests much easier without changing existing `rescue Calendlyr::Error` patterns.
+
 ## Documentation
 
 For the full list of available resources and methods, check out the [API Reference](docs/resources/).
