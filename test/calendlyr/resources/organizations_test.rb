@@ -58,8 +58,8 @@ class OrganizationsResourceTest < Minitest::Test
 
   # Memberships
   def test_list_memberships
-    user_uri = "abc123"
-    organization_uri = "abc123"
+    user_uri = "https://api.calendly.com/users/abc123"
+    organization_uri = "https://api.calendly.com/organizations/abc123"
     response = {body: fixture_file("organizations/list_memberships"), status: 200}
     stub(path: "organization_memberships?user=#{user_uri}&organization=#{organization_uri}", response: response)
     memberships = client.organizations.list_memberships(user: user_uri, organization: organization_uri)
@@ -68,6 +68,41 @@ class OrganizationsResourceTest < Minitest::Test
     assert_equal Calendlyr::Organizations::Membership, memberships.data.first.class
     assert_equal 1, memberships.data.count
     assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", memberships.next_page_token
+  end
+
+  def test_activity_log_with_bare_org_uuid
+    bare_uuid = "ORG-2"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    response = {body: fixture_file("activity_log/list"), status: 200}
+    stub(path: "activity_log_entries?organization=#{expanded}", response: response)
+
+    result = client.organizations.activity_log(organization: bare_uuid)
+
+    assert_equal Calendlyr::Collection, result.class
+  end
+
+  def test_list_memberships_with_bare_user_uuid
+    bare_uuid = "USER-1"
+    expanded = "https://api.calendly.com/users/#{bare_uuid}"
+    response = {body: fixture_file("organizations/list_memberships"), status: 200}
+    stub(path: "organization_memberships?user=#{expanded}", response: response)
+
+    memberships = client.organizations.list_memberships(user: bare_uuid)
+
+    assert_equal Calendlyr::Collection, memberships.class
+    assert_equal 1, memberships.data.count
+  end
+
+  def test_list_memberships_with_bare_org_uuid
+    bare_uuid = "ORG-1"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    response = {body: fixture_file("organizations/list_memberships"), status: 200}
+    stub(path: "organization_memberships?organization=#{expanded}", response: response)
+
+    memberships = client.organizations.list_memberships(organization: bare_uuid)
+
+    assert_equal Calendlyr::Collection, memberships.class
+    assert_equal 1, memberships.data.count
   end
 
   def test_retrieve_membership

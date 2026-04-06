@@ -37,6 +37,30 @@ class WebhooksResourceTest < Minitest::Test
     assert_equal webhook.active?, true
   end
 
+  def test_list_with_bare_org_uuid
+    bare_uuid = "abc123"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    scope = "organization"
+    response = {body: fixture_file("webhooks/list"), status: 200}
+    stub(path: "webhook_subscriptions?organization=#{expanded}&scope=#{scope}", response: response)
+
+    webhooks = client.webhooks.list(organization: bare_uuid, scope: scope)
+
+    assert_equal Calendlyr::Collection, webhooks.class
+    assert_equal 1, webhooks.data.count
+  end
+
+  def test_create_with_bare_org_uuid
+    bare_uuid = "abc123"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    body = {url: "https://blah.foo/bar", events: ["invitee.created"], organization: expanded, scope: "user", user: "https://api.calendly.com/users/abc123"}
+    stub(method: :post, path: "webhook_subscriptions", body: body, response: {body: fixture_file("webhooks/create"), status: 201})
+
+    result = client.webhooks.create(url: "https://blah.foo/bar", events: ["invitee.created"], organization: bare_uuid, scope: "user", user: "https://api.calendly.com/users/abc123")
+
+    assert result
+  end
+
   def test_delete
     webhook_uuid = "abc123"
     response = {body: fixture_file("webhooks/delete")}

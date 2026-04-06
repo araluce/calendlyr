@@ -1,6 +1,7 @@
 module Calendlyr
   class EventsResource < Resource
     def list(**params)
+      params[:user] = expand_uri(params[:user], "users") if params[:user]
       response = get_request("scheduled_events", params: params)
       Collection.from_response(response, type: Event, client: client)
     end
@@ -24,6 +25,7 @@ module Calendlyr
     end
 
     def create_invitee(event_type:, start_time:, invitee:, **params)
+      event_type = expand_uri(event_type, "event_types")
       body = {event_type: event_type, start_time: start_time, invitee: invitee}.merge(params)
       Events::Invitee.new post_request("invitees", body: body).dig("invitee").merge(client: client)
     end
@@ -34,6 +36,7 @@ module Calendlyr
     end
 
     def create_invitee_no_show(invitee:)
+      invitee = expand_uri(invitee, "invitees")
       body = {invitee: invitee}
       Events::InviteeNoShow.new post_request("invitee_no_shows", body: body).dig("resource").merge(client: client)
     end

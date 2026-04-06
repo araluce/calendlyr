@@ -27,5 +27,17 @@ module Availabilities
       assert_equal Calendlyr::Availabilities::UserBusyTime, user_busy_times.data.first.class
       assert_equal 5, user_busy_times.data.count
     end
+
+    def test_list_with_bare_user_uuid
+      bare_uuid = "abc123"
+      expanded = "https://api.calendly.com/users/#{bare_uuid}"
+      response = {body: fixture_file("user_busy_times/list"), status: 200}
+      stub(path: "user_busy_times?user=#{expanded}&start_time=#{@start_time}&end_time=#{@end_time}", response: response)
+
+      user_busy_times = client.availability.list_user_busy_times(user: bare_uuid, start_time: @start_time, end_time: @end_time)
+
+      assert_equal Calendlyr::Collection, user_busy_times.class
+      assert_equal 5, user_busy_times.data.count
+    end
   end
 end

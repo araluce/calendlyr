@@ -89,5 +89,11 @@ module Calendlyr
 
       RETRY_BACKOFF.fetch(attempt)
     end
+
+    def expand_uri(value, resource_type)
+      return value if value.nil? || value.start_with?("https://")
+
+      "#{Client::BASE_URL}/#{resource_type}/#{value}"
+    end
   end
 end

@@ -39,6 +39,17 @@ class EventsResourceTest < Minitest::Test
     assert_equal "15 Minute Meeting", event.name
   end
 
+  def test_list_with_bare_user_uuid
+    bare_uuid = "abc123"
+    expanded = "https://api.calendly.com/users/#{bare_uuid}"
+    stub(path: "scheduled_events?user=#{expanded}", response: {body: fixture_file("events/list"), status: 200})
+
+    events = client.events.list(user: bare_uuid)
+
+    assert_equal Calendlyr::Collection, events.class
+    assert_equal 1, events.data.count
+  end
+
   def test_create_invitee
     body = {
       event_type: "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
@@ -56,5 +67,35 @@ class EventsResourceTest < Minitest::Test
     assert_equal "test@example.com", invitee.email
     assert_equal "John Doe", invitee.name
     assert_equal "active", invitee.status
+  end
+
+  def test_create_invitee_with_bare_event_type_uuid
+    bare_uuid = "ET-456"
+    expanded = "https://api.calendly.com/event_types/#{bare_uuid}"
+    body = {
+      event_type: expanded,
+      start_time: "2019-08-07T06:05:04.321123Z",
+      invitee: {name: "John Doe", email: "test@example.com", timezone: "America/New_York"}
+    }
+    stub(method: :post, path: "invitees", body: body, response: {body: fixture_file("events/create_invitee"), status: 201})
+
+    invitee = client.events.create_invitee(
+      event_type: bare_uuid,
+      start_time: "2019-08-07T06:05:04.321123Z",
+      invitee: {name: "John Doe", email: "test@example.com", timezone: "America/New_York"}
+    )
+
+    assert_equal Calendlyr::Events::Invitee, invitee.class
+    assert_equal "test@example.com", invitee.email
+  end
+
+  def test_create_invitee_no_show_with_bare_invitee_uuid
+    bare_uuid = "INV-789"
+    expanded = "https://api.calendly.com/invitees/#{bare_uuid}"
+    stub(method: :post, path: "invitee_no_shows", body: {invitee: expanded}, response: {body: fixture_file("events/create_invitee_no_show"), status: 201})
+
+    no_show = client.events.create_invitee_no_show(invitee: bare_uuid)
+
+    assert_equal Calendlyr::Events::InviteeNoShow, no_show.class
   end
 end

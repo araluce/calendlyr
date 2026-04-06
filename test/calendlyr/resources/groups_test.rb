@@ -14,6 +14,29 @@ class GroupsResourceTest < Minitest::Test
     assert_instance_of Calendlyr::Group, groups.data.first
   end
 
+  def test_list_with_bare_org_uuid
+    bare_uuid = "AAAAAAAAAAAAAAAA"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    response = {body: fixture_file("groups/list"), status: 200}
+    stub(path: "groups?organization=#{expanded}", response: response)
+
+    groups = client.groups.list(organization: bare_uuid)
+
+    assert_equal 1, groups.data.size
+    assert_instance_of Calendlyr::Group, groups.data.first
+  end
+
+  def test_list_relationships_with_bare_org_uuid
+    bare_uuid = "AAAAAAAAAAAAAAAA"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    response = {body: fixture_file("group_relationships/list"), status: 200}
+    stub(path: "group_relationships?organization=#{expanded}", response: response)
+
+    relationships = client.groups.list_relationships(organization: bare_uuid)
+
+    assert_equal Calendlyr::Collection, relationships.class
+  end
+
   def test_retrieve
     uuid = "abc123"
     response = {body: fixture_file("group_relationships/retrieve"), status: 200}

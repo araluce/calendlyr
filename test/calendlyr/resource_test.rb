@@ -196,4 +196,21 @@ class ResourceTest < Minitest::Test
       assert_equal "{\"key\":\"val\"}", http_spy.last_request.body
     end
   end
+
+  def test_expand_uri_nil_passthrough
+    resource = Calendlyr::Resource.new(client)
+    assert_nil resource.send(:expand_uri, nil, "users")
+  end
+
+  def test_expand_uri_full_uri_passthrough
+    resource = Calendlyr::Resource.new(client)
+    uri = "https://api.calendly.com/users/ABC123"
+    assert_equal uri, resource.send(:expand_uri, uri, "users")
+  end
+
+  def test_expand_uri_bare_uuid_expansion
+    resource = Calendlyr::Resource.new(client)
+    assert_equal "https://api.calendly.com/users/ABC123",
+      resource.send(:expand_uri, "ABC123", "users")
+  end
 end
