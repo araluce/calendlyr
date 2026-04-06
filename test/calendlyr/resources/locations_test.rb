@@ -4,7 +4,7 @@ require "test_helper"
 
 class LocationsResourceTest < Minitest::Test
   def setup
-    list_response = { body: fixture_file("locations/list"), status: 200 }
+    list_response = {body: fixture_file("locations/list"), status: 200}
     stub(path: "locations", response: list_response)
   end
 

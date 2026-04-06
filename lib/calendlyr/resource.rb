@@ -56,7 +56,7 @@ module Calendlyr
 
       body = begin
         body_string.empty? ? {} : JSON.parse(body_string)
-      rescue StandardError
+      rescue
         {}
       end
 

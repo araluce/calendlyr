@@ -7,11 +7,11 @@ class EventTypesResourceTest < Minitest::Test
     @user_uri = "https://api.calendly.com/users/abc123"
     @organization_uri = "https://api.calendly.com/organizations/abc123"
     @event_type_uuid = "AAAAAAAAAAAAAAAA"
-    list_response = { body: fixture_file("event_types/list"), status: 200 }
+    list_response = {body: fixture_file("event_types/list"), status: 200}
     stub(path: "event_types?user=#{@user_uri}&organization=#{@organization_uri}", response: list_response)
     stub(path: "event_types?organization=#{@organization_uri}", response: list_response)
     stub(path: "event_types?user=#{@user_uri}", response: list_response)
-    retrieve_response = { body: fixture_file("event_types/retrieve"), status: 200 }
+    retrieve_response = {body: fixture_file("event_types/retrieve"), status: 200}
     stub(path: "event_types/#{@event_type_uuid}", response: retrieve_response)
   end
 
@@ -64,7 +64,7 @@ class EventTypesResourceTest < Minitest::Test
         additonal_info: "string"
       }
     }
-    stub(method: :post, path: "one_off_event_types", response: { body: fixture_file("event_types/create_one_off"), status: 201 })
+    stub(method: :post, path: "one_off_event_types", response: {body: fixture_file("event_types/create_one_off"), status: 201})
     event_type = client.event_types.create_one_off(**body)
 
     assert_equal Calendlyr::EventType, event_type.class
@@ -80,7 +80,7 @@ class EventTypesResourceTest < Minitest::Test
       duration: 30,
       pooling_type: "round_robin"
     }
-    stub(method: :post, path: "event_types", response: { body: fixture_file("event_types/create"), status: 201 })
+    stub(method: :post, path: "event_types", response: {body: fixture_file("event_types/create"), status: 201})
     event_type = client.event_types.create(**body)
 
     assert_equal Calendlyr::EventType, event_type.class
@@ -90,7 +90,7 @@ class EventTypesResourceTest < Minitest::Test
   end
 
   def test_update
-    stub(method: :patch, path: "event_types/#{@event_type_uuid}", response: { body: fixture_file("event_types/update"), status: 200 })
+    stub(method: :patch, path: "event_types/#{@event_type_uuid}", response: {body: fixture_file("event_types/update"), status: 200})
     event_type = client.event_types.update(uuid: @event_type_uuid, name: "Updated Meeting", duration: 45)
 
     assert_equal Calendlyr::EventType, event_type.class
@@ -100,7 +100,7 @@ class EventTypesResourceTest < Minitest::Test
   end
 
   def test_list_availability_schedules
-    stub(path: "event_type_availability_schedules?event_type_uuid=AAAAAAAAAAAAAAAA", response: { body: fixture_file("event_type_availability_schedules/list"), status: 200 })
+    stub(path: "event_type_availability_schedules?event_type_uuid=AAAAAAAAAAAAAAAA", response: {body: fixture_file("event_type_availability_schedules/list"), status: 200})
     schedules = client.event_types.list_availability_schedules(event_type_uuid: "AAAAAAAAAAAAAAAA")
 
     assert_equal Calendlyr::Collection, schedules.class
@@ -112,10 +112,10 @@ class EventTypesResourceTest < Minitest::Test
     body = {
       event_type_uuid: "AAAAAAAAAAAAAAAA",
       availability_schedules: [
-        { start_time: "2023-10-27T09:00:00Z", end_time: "2023-10-27T12:00:00Z" }
+        {start_time: "2023-10-27T09:00:00Z", end_time: "2023-10-27T12:00:00Z"}
       ]
     }
-    stub(method: :patch, path: "event_type_availability_schedules", response: { body: fixture_file("event_type_availability_schedules/update"), status: 200 })
+    stub(method: :patch, path: "event_type_availability_schedules", response: {body: fixture_file("event_type_availability_schedules/update"), status: 200})
     result = client.event_types.update_availability_schedule(**body)
 
     assert result

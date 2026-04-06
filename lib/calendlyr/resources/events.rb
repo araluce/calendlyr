@@ -10,7 +10,7 @@ module Calendlyr
     end
 
     def cancel(uuid:, reason: nil)
-      Events::Cancellation.new post_request("scheduled_events/#{uuid}/cancellation", body: { reason: reason }).dig("resource").merge(client: client)
+      Events::Cancellation.new post_request("scheduled_events/#{uuid}/cancellation", body: {reason: reason}).dig("resource").merge(client: client)
     end
 
     # Invitee
@@ -24,7 +24,7 @@ module Calendlyr
     end
 
     def create_invitee(event_type:, start_time:, invitee:, **params)
-      body = { event_type: event_type, start_time: start_time, invitee: invitee }.merge(params)
+      body = {event_type: event_type, start_time: start_time, invitee: invitee}.merge(params)
       Events::Invitee.new post_request("invitees", body: body).dig("invitee").merge(client: client)
     end
 
@@ -34,7 +34,7 @@ module Calendlyr
     end
 
     def create_invitee_no_show(invitee:)
-      body = { invitee: invitee }
+      body = {invitee: invitee}
       Events::InviteeNoShow.new post_request("invitee_no_shows", body: body).dig("resource").merge(client: client)
     end
 

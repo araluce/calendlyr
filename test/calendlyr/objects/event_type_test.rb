@@ -8,8 +8,8 @@ class EventTypeObjectTest < Minitest::Test
     @event_type = Calendlyr::EventType.new(json)
 
     event_type_uri = "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA"
-    response = { body: fixture_file("shares/create"), status: 201 }
-    stub(method: :post, path: "shares", body: { event_type: event_type_uri }, response: response)
+    response = {body: fixture_file("shares/create"), status: 201}
+    stub(method: :post, path: "shares", body: {event_type: event_type_uri}, response: response)
   end
 
   def test_associated_profile
