@@ -19,4 +19,18 @@ class ClientTest < Minitest::Test
     assert client.respond_to?(:users)
     refute client.respond_to?(:useers)
   end
+
+  def test_default_timeouts
+    new_client = Calendlyr::Client.new(token: "fake")
+
+    assert_equal 30, new_client.open_timeout
+    assert_equal 30, new_client.read_timeout
+  end
+
+  def test_custom_timeouts
+    new_client = Calendlyr::Client.new(token: "fake", open_timeout: 10, read_timeout: 15)
+
+    assert_equal 10, new_client.open_timeout
+    assert_equal 15, new_client.read_timeout
+  end
 end
