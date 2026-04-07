@@ -72,7 +72,9 @@ module Calendlyr
   autoload :GroupsResource, "calendlyr/resources/groups"
   autoload :OrganizationsResource, "calendlyr/resources/organizations"
   autoload :LocationsResource, "calendlyr/resources/locations"
+  autoload :OutgoingCommunicationsResource, "calendlyr/resources/outgoing_communications"
   autoload :RoutingFormsResource, "calendlyr/resources/routing_forms"
+  autoload :SchedulingLinksResource, "calendlyr/resources/scheduling_links"
   autoload :SharesResource, "calendlyr/resources/shares"
   autoload :UsersResource, "calendlyr/resources/users"
   autoload :WebhooksResource, "calendlyr/resources/webhooks"
@@ -84,7 +86,9 @@ module Calendlyr
   autoload :Group, "calendlyr/objects/group"
   autoload :Organization, "calendlyr/objects/organization"
   autoload :Location, "calendlyr/objects/location"
+  autoload :OutgoingCommunication, "calendlyr/objects/outgoing_communication"
   autoload :RoutingForm, "calendlyr/objects/routing_form"
+  autoload :SchedulingLink, "calendlyr/objects/scheduling_link"
   autoload :Share, "calendlyr/objects/share"
   autoload :User, "calendlyr/objects/user"
 
@@ -103,6 +107,8 @@ module Calendlyr
 
   module EventTypes
     autoload :AvailabilitySchedule, "calendlyr/objects/event_types/availability_schedule"
+    autoload :AvailableTime, "calendlyr/objects/event_types/available_time"
+    autoload :Membership, "calendlyr/objects/event_types/membership"
     autoload :Profile, "calendlyr/objects/event_types/profile"
   end
 

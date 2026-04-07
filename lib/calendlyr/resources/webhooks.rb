@@ -24,5 +24,10 @@ module Calendlyr
     def delete(webhook_uuid:)
       delete_request("webhook_subscriptions/#{webhook_uuid}")
     end
+
+    def sample(event:, organization:, scope:, **params)
+      organization = expand_uri(organization, "organizations")
+      get_request("sample_webhook_data", params: { event: event, organization: organization, scope: scope }.merge(params))
+    end
   end
 end

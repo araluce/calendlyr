@@ -1,0 +1,33 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/event_type_memberships/BBBBBBBBBBBBBBBB",
+      "event_type": {
+        "uri": "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA",
+        "name": "15 Minute Meeting",
+        "active": true,
+        "slug": "acmesales",
+        "scheduling_url": "https://calendly.com/acmesales",
+        "duration": 30,
+        "kind": "solo"
+      },
+      "member": {
+        "uri": "https://api.calendly.com/users/BBBBBBBBBBBBBBBB",
+        "name": "Jane Doe",
+        "slug": "jane",
+        "email": "jane@example.com",
+        "scheduling_url": "https://calendly.com/jane",
+        "timezone": "America/Chicago",
+        "created_at": "2019-01-02T03:04:05.678123Z",
+        "updated_at": "2019-08-07T06:05:04.321123Z",
+        "current_organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+        "resource_type": "User"
+      },
+      "updated_at": "2019-01-02T03:04:05.678123Z",
+      "created_at": "2019-01-02T03:04:05.678123Z"
+    }
+  ],
+  "pagination": {
+    "count": 1
+  }
+}

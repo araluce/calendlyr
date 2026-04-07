@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0]
+
+### Added
+* `GET /event_type_available_times` — `client.event_types.list_available_times(event_type:, start_time:, end_time:)` returns a `Collection` of `EventTypes::AvailableTime` objects. No pagination (not supported by this endpoint).
+* `GET /event_type_memberships` — `client.event_types.list_memberships(event_type:)` and `list_all_memberships`. Returns `EventTypes::Membership` objects.
+* `POST /scheduling_links` — `client.scheduling_links.create(owner:, owner_type:, max_event_count:)` returns a `SchedulingLink` object. Bare UUID expansion for `owner`.
+* `GET /organizations/{uuid}` — `client.organizations.retrieve(uuid:)` returns an `Organization` object.
+* `GET /outgoing_communications` — `client.outgoing_communications.list(organization:)` and `list_all`. Returns `OutgoingCommunication` objects.
+* `GET /sample_webhook_data` — `client.webhooks.sample(event:, organization:, scope:)` returns the raw response hash (shape varies by event type).
+
+### Notes
+* Version 1.0.0 signals complete Calendly API v2 coverage. All documented endpoints are now implemented.
+
+[1.0.0]: https://github.com/araluce/calendlyr/compare/v0.10.0...v1.0.0
+
 ## [0.11.0]
 
 ### Added

@@ -1,9 +1,13 @@
 module Calendlyr
   class OrganizationsResource < Resource
+    def retrieve(uuid:)
+      Organization.new get_request("organizations/#{uuid}").dig("resource").merge(client: client)
+    end
+
     def activity_log(organization: nil, **params)
       next_page_caller = ->(page_token:) { activity_log(organization: organization, **params, page_token: page_token) }
       organization = expand_uri(organization, "organizations")
-      response = get_request("activity_log_entries", params: {organization: organization}.merge(params).compact)
+      response = get_request("activity_log_entries", params: { organization: organization }.merge(params).compact)
       Collection.from_response(response, type: ActivityLog, client: client, next_page_caller: next_page_caller)
     end
 
@@ -48,7 +52,7 @@ module Calendlyr
     end
 
     def invite(organization_uuid:, email:)
-      Organizations::Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: {email: email}).dig("resource").merge(client: client)
+      Organizations::Invitation.new post_request("organizations/#{organization_uuid}/invitations", body: { email: email }).dig("resource").merge(client: client)
     end
 
     def revoke_invitation(org_uuid:, uuid:)
