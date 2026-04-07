@@ -1,0 +1,29 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/routing_form_submissions/PAGE2SUBMISSION",
+      "routing_form": "https://api.calendly.com/routing_forms/AAAAAAAAAAAAAAAA",
+      "questions_and_answers": [],
+      "tracking": {
+        "utm_campaign": null,
+        "utm_source": null,
+        "utm_medium": null,
+        "utm_content": null,
+        "utm_term": null,
+        "salesforce_uuid": null
+      },
+      "result": {
+        "type": "event_type",
+        "value": "https://api.calendly.com/event_types/PAGE2TYPE"
+      },
+      "submitter": "https://calendly.com/scheduled_events/PAGE2/invitees/PAGE2",
+      "submitter_type": "Invitee",
+      "created_at": "2022-05-16T03:04:05.678Z",
+      "updated_at": "2022-05-16T06:05:04.321Z"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  }
+}

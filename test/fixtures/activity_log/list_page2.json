@@ -1,0 +1,30 @@
+{
+  "collection": [
+    {
+      "occurred_at": "2020-01-03T03:04:05.678Z",
+      "uri": "https://api.calendly.com/activity_log_entries/PAGE2ENTRY",
+      "namespace": "User",
+      "action": "Remove",
+      "actor": {
+        "uri": "https://api.calendly.com/users/PAGE2ACTOR",
+        "type": "User",
+        "organization": {
+          "uri": "https://api.calendly.com/organizations/LKJENFLKE293847",
+          "role": "User"
+        },
+        "display_name": "Page2 User",
+        "alternative_identifier": "page2user@example.com"
+      },
+      "fully_qualified_name": "User.Remove",
+      "details": {},
+      "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAA"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  },
+  "last_event_time": "2020-01-03T03:04:05.678Z",
+  "total_count": 1,
+  "exceeds_max_total_count": false
+}

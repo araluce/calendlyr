@@ -1,0 +1,13 @@
+{
+  "collection": [
+    {
+      "type": "reserved",
+      "start_time": "2020-01-07T17:00:00.000000Z",
+      "end_time": "2020-01-07T17:30:00.000000Z"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  }
+}

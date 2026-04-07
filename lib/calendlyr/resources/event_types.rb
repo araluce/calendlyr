@@ -1,10 +1,15 @@
 module Calendlyr
   class EventTypesResource < Resource
     def list(**params)
+      next_page_caller = ->(page_token:) { list(**params, page_token: page_token) }
       params[:user] = expand_uri(params[:user], "users") if params[:user]
       params[:organization] = expand_uri(params[:organization], "organizations") if params[:organization]
       response = get_request("event_types", params: params)
-      Collection.from_response(response, type: EventType, client: client)
+      Collection.from_response(response, type: EventType, client: client, next_page_caller: next_page_caller)
+    end
+
+    def list_all(**params)
+      list(**params).auto_paginate.to_a
     end
 
     def retrieve(uuid:)
@@ -27,8 +32,13 @@ module Calendlyr
 
     # Availability Schedules
     def list_availability_schedules(event_type_uuid:, **params)
+      next_page_caller = ->(page_token:) { list_availability_schedules(event_type_uuid: event_type_uuid, **params, page_token: page_token) }
       response = get_request("event_type_availability_schedules", params: {event_type_uuid: event_type_uuid}.merge(params))
-      Collection.from_response(response, type: EventTypes::AvailabilitySchedule, client: client)
+      Collection.from_response(response, type: EventTypes::AvailabilitySchedule, client: client, next_page_caller: next_page_caller)
+    end
+
+    def list_all_availability_schedules(event_type_uuid:, **params)
+      list_availability_schedules(event_type_uuid: event_type_uuid, **params).auto_paginate.to_a
     end
 
     def update_availability_schedule(event_type_uuid:, availability_schedules:, **params)

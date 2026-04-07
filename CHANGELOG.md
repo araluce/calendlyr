@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0]
+
+### Added
+* Auto-pagination via `Enumerator::Lazy` — `collection.auto_paginate` returns a lazy enumerator that traverses all pages on demand without pre-fetching. Compose with `.take(n)`, `.select { }`, `.map { }`, etc.
+* `#next_page` method on `Collection` — returns the next page as a new `Collection`, or `nil` when there are no more pages.
+* `#next_page_url` attr_reader on `Collection` — exposes the raw next-page URL string.
+* `list_all` convenience methods on every resource with list endpoints:
+  - `client.events.list_all`, `client.events.list_all_invitees`
+  - `client.event_types.list_all`, `client.event_types.list_all_availability_schedules`
+  - `client.organizations.list_all_memberships`, `client.organizations.list_all_invitations`, `client.organizations.list_all_activity_log`
+  - `client.groups.list_all`, `client.groups.list_all_relationships`
+  - `client.availability.list_all_user_busy_times`, `client.availability.list_all_user_schedules`
+  - `client.routing_forms.list_all`, `client.routing_forms.list_all_submissions`
+  - `client.webhooks.list_all`
+  - `client.locations.list_all`
+
+### Changed — Breaking
+* **`Collection#next_page`** (attr_reader returning the raw URL string) is now **`Collection#next_page_url`**. If you were reading the raw next-page URL via `collection.next_page`, change to `collection.next_page_url`.
+* **`Collection#next_page`** is now a **method** that returns the next `Collection` object (or `nil`), not the raw URL string.
+
+[0.11.0]: https://github.com/araluce/calendlyr/compare/v0.10.0...v0.11.0
+
 ## [0.10.0]
 
 ### Added

@@ -82,27 +82,6 @@ client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
 
 The gem mirrors the Calendly API closely, so converting API examples into gem code is straightforward. Responses are wrapped in Ruby objects with dot-access for every field.
 
-<<<<<<< feat/to-json
-### JSON Serialization
-
-All API objects support `#to_json` for easy serialization (caching, logging, API proxying):
-
-```ruby
-event = client.events.retrieve(uuid: "ABC123")
-
-event.to_json
-#=> '{"uri":"https://api.calendly.com/scheduled_events/ABC123","name":"30 Minute Meeting",...}'
-
-# Works with JSON.generate and nested objects
-JSON.generate(event)
-
-# Round-trip: parse back into an Object
-parsed = Calendlyr::Object.new(JSON.parse(event.to_json))
-parsed.name  #=> "30 Minute Meeting"
-```
-
-> **Note:** `#to_json` and `#to_h` exclude the internal `client` reference — only API data is serialized.
-=======
 ### Error Context
 
 API errors now include the HTTP method and path in the message, and expose structured attributes for debugging:
@@ -120,7 +99,66 @@ end
 ```
 
 This makes debugging failed requests much easier without changing existing `rescue Calendlyr::Error` patterns.
->>>>>>> master
+
+## Auto-pagination
+
+Calendlyr supports lazy auto-pagination for all collection endpoints. There are two ways to consume paginated results:
+
+### `list_all` — Eager, returns a flat Array
+
+The simplest option. Fetches every page and returns all items as an Array.
+
+```ruby
+# Get all events across all pages (e.g., hundreds of events)
+events = client.events.list_all(organization: "YOUR_ORG_UUID")
+events  #=> [#<Calendlyr::Event>, #<Calendlyr::Event>, ...]
+
+# Same pattern works for every resource with a list method:
+client.event_types.list_all(organization: "YOUR_ORG_UUID")
+client.webhooks.list_all(organization: "YOUR_ORG_UUID", scope: "organization")
+client.organizations.list_all_memberships(organization: "YOUR_ORG_UUID")
+client.organizations.list_all_invitations(uuid: "YOUR_ORG_UUID")
+client.organizations.list_all_activity_log(organization: "YOUR_ORG_UUID")
+client.groups.list_all(organization: "YOUR_ORG_UUID")
+client.groups.list_all_relationships(organization: "YOUR_ORG_UUID")
+client.routing_forms.list_all(organization: "YOUR_ORG_UUID")
+client.routing_forms.list_all_submissions(form: "YOUR_FORM_UUID")
+client.availability.list_all_user_busy_times(user: "YOUR_USER_UUID", start_time: "...", end_time: "...")
+client.availability.list_all_user_schedules(user: "YOUR_USER_UUID")
+client.locations.list_all
+```
+
+### `auto_paginate` — Lazy Enumerator
+
+Returns an `Enumerator::Lazy` that fetches pages on demand. Pages are only requested as you consume items, so you can stop early without fetching all pages.
+
+```ruby
+collection = client.events.list(organization: "YOUR_ORG_UUID")
+
+# Take only the first 50 events — fetches only as many pages as needed
+first_50 = collection.auto_paginate.take(50)
+
+# Filter lazily — stops fetching once the condition is met
+active = collection.auto_paginate.select { |e| e.status == "active" }.first(10)
+
+# Consume all items lazily
+collection.auto_paginate.each do |event|
+  puts event.name
+end
+```
+
+### Breaking change in v0.11.0
+
+The `#next_page` attr_reader that previously returned the raw next-page URL string has been renamed to `#next_page_url`. The `#next_page` method now returns the **next Collection** (or `nil` if there are no more pages).
+
+```ruby
+# Before (v0.10.x):
+collection.next_page  #=> "https://api.calendly.com/...?page_token=..."
+
+# After (v0.11.0):
+collection.next_page_url  #=> "https://api.calendly.com/...?page_token=..."
+collection.next_page      #=> #<Calendlyr::Collection> or nil
+```
 
 ## Documentation
 

@@ -1,0 +1,16 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/locations/PAGE2LOC",
+      "type": "google_meet",
+      "display_name": "Google Meet"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null,
+    "next_page_token": null,
+    "previous_page": null,
+    "previous_page_token": null
+  }
+}
