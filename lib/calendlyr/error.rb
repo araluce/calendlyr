@@ -11,6 +11,10 @@ module Calendlyr
     end
   end
 
+  class WebhookSignatureError < Error; end
+
+  class WebhookTimestampError < Error; end
+
   class PaymentRequired < Error; end
 
   ERROR_TYPES = {

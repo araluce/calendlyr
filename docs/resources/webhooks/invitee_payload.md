@@ -1,6 +1,12 @@
-# Webhooks Invitee Payload Calendlyr::Wehooks::InviteePayload
+# Webhooks Invitee Payload (`Calendlyr::Webhooks::InviteePayload`)
 
-The payload that is sent via Webhook when an invitee creates or schedules a meeting, and when an invitee cancels.
+Typed payload wrapper used by `Calendlyr::Webhook.parse` when `event` is one of:
+- `invitee.created`
+- `invitee.canceled`
+- `invitee_no_show.created`
+- `invitee_no_show.deleted`
+
+For other events, `parsed.payload` is returned as a generic `Calendlyr::Object`.
 
 Visit official [API Doc](https://developer.calendly.com/api-docs/b92768854bc06-invitee-payload)
 
@@ -9,7 +15,7 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/b92768854bc06-i
 ### Associated Event
 
 ```ruby
-webhook_invitee_payload.associated_organization
+webhook_invitee_payload.associated_event
 #=> #<Calendlyr::Event>
 ```
 
@@ -27,16 +33,4 @@ webhook_invitee_payload.associated_invitee_no_show
 #=> #<Calendlyr::Events::InviteeNoShow>
 ```
 
-### active?
-
-```ruby
-webhook_subscription.active?
-#=> true
-```
-
-### disabled?
-
-```ruby
-webhook_subscription.disabled?
-#=> false
-```
+`active?` / `disabled?` are methods on `Calendlyr::Webhooks::Subscription`, not on invitee payloads.
