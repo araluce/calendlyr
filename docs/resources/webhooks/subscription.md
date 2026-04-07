@@ -1,4 +1,4 @@
-# Webhooks Subscription Calendlyr::Wehooks::Subscription
+# Webhooks Subscription (`Calendlyr::Webhooks::Subscription`)
 
 Webhook Subscription Object.
 
@@ -17,12 +17,14 @@ Visit official [API Doc](https://developer.calendly.com/api-docs/c1ddc06ce1f1b-c
 client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: "ORG_UUID", scope: 'organization')
 #=> #<Calendlyr::Webhooks::Subscription>
 
-client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: "ORG_UUID", user: "USER_UUID", scope: 'user')
+client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: "ORG_UUID", user: "https://api.calendly.com/users/USER_UUID", scope: 'user')
 #=> #<Calendlyr::Webhooks::Subscription>
 
-client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: "ORG_UUID", group: group_uri, scope: 'group')
+client.webhooks.create(url: 'https://example.com/webhook', events: ['invitee.created'], organization: "ORG_UUID", group: "https://api.calendly.com/groups/GROUP_UUID", scope: 'group')
 #=> #<Calendlyr::Webhooks::Subscription>
 ```
+
+`organization:` accepts either a bare UUID (`"ORG_UUID"`) or full URI. For `user:` and `group:`, pass the URI format shown above.
 
 ### Retrieve
 
@@ -41,7 +43,7 @@ Get a list of Webhook Subscriptions for a specified Organization or User.
 
 Visit official [API Doc](https://developer.calendly.com/api-docs/faac832d7c57d-list-webhook-subscriptions)
 
-For the example bellow we will use only required parameters, but you can use any other parameter as well.
+For the example below we use only required parameters, but you can pass other supported API parameters as needed.
 
 ```ruby
 # organization: accepts a bare UUID or full Calendly URI

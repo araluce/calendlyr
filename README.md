@@ -109,19 +109,25 @@ The gem mirrors the Calendly API closely, so converting API examples into gem co
 
 `Calendlyr::Webhook` (singular) verifies signed webhook payloads. This is separate from `client.webhooks` / `Calendlyr::Webhooks` (plural), which are API resources for managing webhook subscriptions.
 
+- Calendly sends the signature in the `Calendly-Webhook-Signature` HTTP header.
+- In Rack/Rails, that header is available as `HTTP_CALENDLY_WEBHOOK_SIGNATURE`.
+- `verify!` raises on invalid signature/timestamp; `valid?` returns `true`/`false`; `parse` verifies first, then JSON-parses and wraps the payload.
+
 ```ruby
 payload = request.body.read
-header = request.get_header("HTTP_CALENDLY_WEBHOOK_SIGNATURE")
+signature_header = request.get_header("HTTP_CALENDLY_WEBHOOK_SIGNATURE")
+signing_key = ENV.fetch("CALENDLY_WEBHOOK_SIGNING_KEY")
 
-if Calendlyr::Webhook.valid?(payload: payload, header: header, signing_key: ENV.fetch("CALENDLY_WEBHOOK_SIGNING_KEY"))
+if Calendlyr::Webhook.valid?(payload: payload, signature_header: signature_header, signing_key: signing_key)
   webhook = Calendlyr::Webhook.parse(
     payload: payload,
-    header: header,
-    signing_key: ENV.fetch("CALENDLY_WEBHOOK_SIGNING_KEY")
+    signature_header: signature_header,
+    signing_key: signing_key
   )
 
   webhook.event   #=> "invitee.created"
-  webhook.payload #=> Calendlyr::Webhooks::InviteePayload (for invitee events)
+  webhook.payload #=> Calendlyr::Webhooks::InviteePayload (for invitee.* events)
+                 #=> Calendlyr::Object (for other/unknown events)
 end
 ```
 

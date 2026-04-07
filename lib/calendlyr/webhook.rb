@@ -9,10 +9,11 @@ module Calendlyr
 
     module_function
 
-    def verify!(payload:, header:, signing_key:, tolerance: DEFAULT_TOLERANCE)
+    def verify!(payload:, signing_key:, header: nil, signature_header: nil, tolerance: DEFAULT_TOLERANCE)
       raise ArgumentError, "signing_key is required" if signing_key.nil? || signing_key.empty?
 
-      timestamp, provided_signature = parse_header(header)
+      resolved_header = resolve_signature_header(header: header, signature_header: signature_header)
+      timestamp, provided_signature = parse_header(resolved_header)
       verify_timestamp!(timestamp, tolerance)
 
       expected_signature = compute_signature(payload, timestamp, signing_key)
@@ -21,17 +22,26 @@ module Calendlyr
       raise WebhookSignatureError, "Invalid webhook signature"
     end
 
-    def valid?(payload:, header:, signing_key:, tolerance: DEFAULT_TOLERANCE)
-      verify!(payload: payload, header: header, signing_key: signing_key, tolerance: tolerance)
+    def valid?(payload:, signing_key:, header: nil, signature_header: nil, tolerance: DEFAULT_TOLERANCE)
+      verify!(payload: payload, header: header, signature_header: signature_header, signing_key: signing_key, tolerance: tolerance)
     rescue WebhookSignatureError, WebhookTimestampError
       false
     end
 
-    def parse(payload:, header:, signing_key:, tolerance: DEFAULT_TOLERANCE)
-      verify!(payload: payload, header: header, signing_key: signing_key, tolerance: tolerance)
+    def parse(payload:, signing_key:, header: nil, signature_header: nil, tolerance: DEFAULT_TOLERANCE)
+      verify!(payload: payload, header: header, signature_header: signature_header, signing_key: signing_key, tolerance: tolerance)
       parsed_payload = JSON.parse(payload)
       Webhooks::Payload.new(parsed_payload.merge(client: nil))
     end
+
+    def resolve_signature_header(header:, signature_header:)
+      if header && signature_header && header != signature_header
+        raise ArgumentError, "Provide either header or signature_header"
+      end
+
+      header || signature_header
+    end
+    private_class_method :resolve_signature_header
 
     def parse_header(header)
       raise WebhookSignatureError, "Missing webhook signature header" if header.nil? || header.strip.empty?

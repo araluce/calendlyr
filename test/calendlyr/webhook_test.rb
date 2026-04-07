@@ -25,6 +25,33 @@ class WebhookTest < Minitest::Test
     }
   end
 
+  def test_verify_bang_accepts_signature_header_alias
+    payload = fixture_file("objects/webhooks/payload")
+    timestamp = 1_700_000_000
+
+    assert Time.stub(:now, Time.at(timestamp)) {
+      Calendlyr::Webhook.verify!(
+        payload: payload,
+        signature_header: signed_header(payload: payload, timestamp: timestamp),
+        signing_key: SIGNING_KEY
+      )
+    }
+  end
+
+  def test_verify_bang_raises_argument_error_for_conflicting_header_args
+    payload = fixture_file("objects/webhooks/payload")
+
+    assert_raises(ArgumentError) do
+      Calendlyr::Webhook.verify!(
+        payload: payload,
+        header: "t=1700000000,v1=#{A_SIGNATURE}",
+        signature_header: "t=1700000000,v1=#{ZERO_SIGNATURE}",
+        signing_key: SIGNING_KEY,
+        tolerance: nil
+      )
+    end
+  end
+
   def test_verify_bang_raises_when_header_is_missing
     payload = fixture_file("objects/webhooks/payload")
 
@@ -182,6 +209,19 @@ class WebhookTest < Minitest::Test
     end
   end
 
+  def test_valid_accepts_signature_header_alias
+    payload = fixture_file("objects/webhooks/payload")
+    now = 1_700_000_400
+
+    assert Time.stub(:now, Time.at(now)) {
+      Calendlyr::Webhook.valid?(
+        payload: payload,
+        signature_header: signed_header(payload: payload, timestamp: now),
+        signing_key: SIGNING_KEY
+      )
+    }
+  end
+
   def test_parse_returns_typed_payload_after_signature_verification
     payload = fixture_file("objects/webhooks/payload")
     timestamp = 1_700_000_000
@@ -197,6 +237,21 @@ class WebhookTest < Minitest::Test
     assert_instance_of Calendlyr::Webhooks::Payload, parsed
     assert_equal "invitee.created", parsed.event
     assert_instance_of Calendlyr::Webhooks::InviteePayload, parsed.payload
+  end
+
+  def test_parse_accepts_signature_header_alias
+    payload = fixture_file("objects/webhooks/payload")
+    timestamp = 1_700_000_000
+
+    parsed = Time.stub(:now, Time.at(timestamp)) {
+      Calendlyr::Webhook.parse(
+        payload: payload,
+        signature_header: signed_header(payload: payload, timestamp: timestamp),
+        signing_key: SIGNING_KEY
+      )
+    }
+
+    assert_instance_of Calendlyr::Webhooks::Payload, parsed
   end
 
   def test_parse_raises_signature_error_before_parsing
