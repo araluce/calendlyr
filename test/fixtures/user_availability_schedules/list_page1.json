@@ -1,0 +1,16 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/user_availability_schedule/abc123",
+      "default": true,
+      "name": "Working Hours",
+      "user": "https://api.calendly.com/users/abc123",
+      "timezone": "America/New_York",
+      "rules": []
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": "https://api.calendly.com/user_availability_schedules?page_token=PAGE2TOKEN"
+  }
+}

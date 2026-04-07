@@ -67,4 +67,20 @@ class WebhooksResourceTest < Minitest::Test
     stub(method: :delete, path: "webhook_subscriptions/#{webhook_uuid}", response: response)
     assert client.webhooks.delete(webhook_uuid: webhook_uuid)
   end
+
+  def test_list_all_returns_all_pages
+    organization_uri = "https://api.calendly.com/organizations/abc123"
+    scope = "user"
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page1_response = {body: fixture_file("webhooks/list"), status: 200}
+    page2_response = {body: fixture_file("webhooks/list_page2"), status: 200}
+    stub(path: "webhook_subscriptions?organization=#{organization_uri}&scope=#{scope}", response: page1_response)
+    stub(path: "webhook_subscriptions?organization=#{organization_uri}&scope=#{scope}&page_token=#{token}", response: page2_response)
+
+    webhooks = client.webhooks.list_all(organization: organization_uri, scope: scope)
+
+    assert_equal Array, webhooks.class
+    assert_equal 2, webhooks.size
+    assert_equal Calendlyr::Webhooks::Subscription, webhooks.first.class
+  end
 end

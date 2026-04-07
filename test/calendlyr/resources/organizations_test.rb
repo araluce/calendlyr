@@ -123,4 +123,51 @@ class OrganizationsResourceTest < Minitest::Test
     stub(method: :delete, path: "organization_memberships/#{membership_uuid}", response: response)
     assert client.organizations.remove_user(uuid: membership_uuid)
   end
+
+  def test_list_all_memberships_returns_all_pages
+    user_uri = "https://api.calendly.com/users/abc123"
+    organization_uri = "https://api.calendly.com/organizations/abc123"
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page1_response = {body: fixture_file("organizations/list_memberships"), status: 200}
+    page2_response = {body: fixture_file("organizations/list_memberships_page2"), status: 200}
+    stub(path: "organization_memberships?user=#{user_uri}&organization=#{organization_uri}", response: page1_response)
+    stub(path: "organization_memberships?user=#{user_uri}&organization=#{organization_uri}&page_token=#{token}", response: page2_response)
+
+    memberships = client.organizations.list_all_memberships(user: user_uri, organization: organization_uri)
+
+    assert_equal Array, memberships.class
+    assert_equal 2, memberships.size
+    assert_equal Calendlyr::Organizations::Membership, memberships.first.class
+  end
+
+  def test_list_all_invitations_returns_all_pages
+    organization_uuid = "abc123"
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page1_response = {body: fixture_file("organizations/list_invitations"), status: 200}
+    page2_response = {body: fixture_file("organizations/list_invitations_page2"), status: 200}
+    stub(path: "organizations/#{organization_uuid}/invitations", response: page1_response)
+    stub(path: "organizations/#{organization_uuid}/invitations?page_token=#{token}", response: page2_response)
+
+    invitations = client.organizations.list_all_invitations(uuid: organization_uuid)
+
+    assert_equal Array, invitations.class
+    assert_equal 2, invitations.size
+    assert_equal Calendlyr::Organizations::Invitation, invitations.first.class
+  end
+
+  def test_list_all_activity_log_returns_all_pages
+    bare_uuid = "ORG-2"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page1_response = {body: fixture_file("activity_log/list"), status: 200}
+    page2_response = {body: fixture_file("activity_log/list_page2"), status: 200}
+    stub(path: "activity_log_entries?organization=#{expanded}", response: page1_response)
+    stub(path: "activity_log_entries?organization=#{expanded}&page_token=#{token}", response: page2_response)
+
+    entries = client.organizations.list_all_activity_log(organization: bare_uuid)
+
+    assert_equal Array, entries.class
+    assert_equal 2, entries.size
+    assert_equal Calendlyr::ActivityLog, entries.first.class
+  end
 end

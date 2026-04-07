@@ -98,4 +98,31 @@ class EventsResourceTest < Minitest::Test
 
     assert_equal Calendlyr::Events::InviteeNoShow, no_show.class
   end
+
+  def test_list_all_returns_all_pages
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page2_path = "scheduled_events?user=#{@user_uri}&organization=#{@organization_uri}&page_token=#{token}"
+    stub(path: page2_path, response: {body: fixture_file("events/list_page2"), status: 200})
+
+    events = client.events.list_all(user: @user_uri, organization: @organization_uri)
+
+    assert_equal Array, events.class
+    assert_equal 2, events.size
+    assert_equal Calendlyr::Event, events.first.class
+  end
+
+  def test_list_all_invitees_returns_all_pages
+    event_uuid = "abc123"
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page1_path = "scheduled_events/#{event_uuid}/invitees"
+    page2_path = "scheduled_events/#{event_uuid}/invitees?page_token=#{token}"
+    stub(path: page1_path, response: {body: fixture_file("event_invitees/list"), status: 200})
+    stub(path: page2_path, response: {body: fixture_file("event_invitees/list_page2"), status: 200})
+
+    invitees = client.events.list_all_invitees(uuid: event_uuid)
+
+    assert_equal Array, invitees.class
+    assert_equal 2, invitees.size
+    assert_equal Calendlyr::Events::Invitee, invitees.first.class
+  end
 end

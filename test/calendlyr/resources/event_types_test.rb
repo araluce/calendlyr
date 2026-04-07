@@ -143,4 +143,16 @@ class EventTypesResourceTest < Minitest::Test
     assert result
     assert_equal "Availability schedules updated successfully.", result["message"]
   end
+
+  def test_list_all_returns_all_pages
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page2_path = "event_types?user=#{@user_uri}&organization=#{@organization_uri}&page_token=#{token}"
+    stub(path: page2_path, response: {body: fixture_file("event_types/list_page2"), status: 200})
+
+    event_types = client.event_types.list_all(user: @user_uri, organization: @organization_uri)
+
+    assert_equal Array, event_types.class
+    assert_equal 2, event_types.size
+    assert_equal Calendlyr::EventType, event_types.first.class
+  end
 end

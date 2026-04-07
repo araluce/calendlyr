@@ -44,5 +44,19 @@ module Availabilities
       assert_equal Calendlyr::Collection, schedules.class
       assert_equal 2, schedules.data.count
     end
+
+    def test_list_all_user_schedules_returns_all_pages
+      token = "PAGE2TOKEN"
+      page1_response = {body: fixture_file("user_availability_schedules/list_page1"), status: 200}
+      page2_response = {body: fixture_file("user_availability_schedules/list_page2"), status: 200}
+      stub(path: "user_availability_schedules?user=#{@user_uri}", response: page1_response)
+      stub(path: "user_availability_schedules?user=#{@user_uri}&page_token=#{token}", response: page2_response)
+
+      schedules = client.availability.list_all_user_schedules(user: @user_uri)
+
+      assert_equal Array, schedules.class
+      assert_equal 2, schedules.size
+      assert_equal Calendlyr::Availabilities::UserSchedule, schedules.first.class
+    end
   end
 end
