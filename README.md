@@ -82,7 +82,6 @@ client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
 
 The gem mirrors the Calendly API closely, so converting API examples into gem code is straightforward. Responses are wrapped in Ruby objects with dot-access for every field.
 
-<<<<<<< feat/to-json
 ### JSON Serialization
 
 All API objects support `#to_json` for easy serialization (caching, logging, API proxying):
@@ -120,7 +119,6 @@ end
 ```
 
 This makes debugging failed requests much easier without changing existing `rescue Calendlyr::Error` patterns.
->>>>>>> master
 
 ## Documentation
 
