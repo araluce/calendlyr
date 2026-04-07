@@ -24,3 +24,4 @@ vendor
 .idea/
 bin/my_console
 .atl/*
+.DS_Store
