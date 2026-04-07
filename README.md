@@ -59,13 +59,17 @@ events = client.events.list(user: "YOUR_USER_UUID")
 
 ### Optional request/response logging
 
-Calendlyr can emit request lifecycle logs with any logger object that responds to `info`, `debug`, `warn`, and `error` (for example Ruby's stdlib `Logger`). Logging is opt-in.
+Calendlyr can emit request lifecycle logs with any logger-like object that responds to `info`, `debug`, `warn`, and `error`. Logging is opt-in, and the gem does not ship a logger implementation for you.
 
 ```ruby
 require "logger"
 
 client = Calendlyr::Client.new(token: ENV["CALENDLY_TOKEN"], logger: Logger.new($stdout))
 ```
+
+`Logger` is just an example. You can pass any object that responds to `info`, `debug`, `warn`, and `error`.
+
+If you're on Ruby 4 and want to use Ruby's `Logger`, make sure your application includes the `logger` gem.
 
 Or configure it globally:
 
