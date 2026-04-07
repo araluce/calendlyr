@@ -1,4 +1,6 @@
 require "test_helper"
+require "logger"
+require "stringio"
 
 class ConfigurationTest < Minitest::Test
   def test_readme_documents_multi_tenant_caveat
@@ -8,11 +10,19 @@ class ConfigurationTest < Minitest::Test
     assert_includes readme, "use `Calendlyr::Client.new(token:)` per request"
   end
 
+  def test_readme_documents_optional_logging
+    readme = File.read(File.expand_path("../../README.md", __dir__))
+
+    assert_includes readme, "config.logger = Logger.new($stdout)"
+    assert_includes readme, "Calendlyr::Client.new(token: ENV[\"CALENDLY_TOKEN\"], logger: Logger.new($stdout))"
+  end
+
   def test_configuration_returns_defaults_before_configure
     configuration = Calendlyr.configuration
 
     assert_instance_of Calendlyr::Configuration, configuration
     assert_nil configuration.token
+    assert_nil configuration.logger
     assert_equal 30, configuration.open_timeout
     assert_equal 30, configuration.read_timeout
   end
@@ -81,6 +91,41 @@ class ConfigurationTest < Minitest::Test
 
     assert_equal 10, second_client.read_timeout
     refute_equal first_client.object_id, second_client.object_id
+  end
+
+  def test_configure_sets_logger_and_propagates_to_client
+    logger = Logger.new(StringIO.new)
+
+    Calendlyr.configure do |config|
+      config.token = "tk"
+      config.logger = logger
+    end
+
+    assert_equal logger, Calendlyr.configuration.logger
+    assert_equal logger, Calendlyr.client.logger
+  end
+
+  def test_reconfigure_logger_invalidates_client_cache
+    Calendlyr.configure { |config| config.token = "tk" }
+    first_client = Calendlyr.client
+
+    logger = Logger.new(StringIO.new)
+    Calendlyr.configure { |config| config.logger = logger }
+    second_client = Calendlyr.client
+
+    assert_equal logger, second_client.logger
+    refute_equal first_client.object_id, second_client.object_id
+  end
+
+  def test_logger_defaults_to_nil_after_reset
+    Calendlyr.configure do |config|
+      config.token = "tk"
+      config.logger = Logger.new(StringIO.new)
+    end
+
+    Calendlyr.reset!
+
+    assert_nil Calendlyr.configuration.logger
   end
 
   def test_reset_clears_configuration_and_client

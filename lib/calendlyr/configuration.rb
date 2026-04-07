@@ -1,11 +1,12 @@
 module Calendlyr
   class Configuration
-    attr_accessor :token, :open_timeout, :read_timeout
+    attr_accessor :token, :open_timeout, :read_timeout, :logger
 
-    def initialize(token: nil, open_timeout: nil, read_timeout: nil)
+    def initialize(token: nil, open_timeout: nil, read_timeout: nil, logger: nil)
       @token = token
       @open_timeout = open_timeout.nil? ? self.class.default_open_timeout : open_timeout
       @read_timeout = read_timeout.nil? ? self.class.default_read_timeout : read_timeout
+      @logger = logger
     end
 
     def self.default_open_timeout

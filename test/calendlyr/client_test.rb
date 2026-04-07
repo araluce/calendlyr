@@ -1,4 +1,6 @@
 require "test_helper"
+require "logger"
+require "stringio"
 
 class ClientTest < Minitest::Test
   def test_token
@@ -32,5 +34,18 @@ class ClientTest < Minitest::Test
 
     assert_equal 10, new_client.open_timeout
     assert_equal 15, new_client.read_timeout
+  end
+
+  def test_default_logger_is_nil
+    new_client = Calendlyr::Client.new(token: "fake")
+
+    assert_nil new_client.logger
+  end
+
+  def test_custom_logger
+    logger = Logger.new(StringIO.new)
+    new_client = Calendlyr::Client.new(token: "fake", logger: logger)
+
+    assert_equal logger, new_client.logger
   end
 end
