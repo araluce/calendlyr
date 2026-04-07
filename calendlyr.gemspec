@@ -7,11 +7,13 @@ Gem::Specification.new do |spec|
   spec.email = ["araluce11@gmail.com"]
 
   spec.summary = "Ruby bindings for Calendly API."
-  spec.description = "Ruby bindings for Calendly API. Calendly APIs can be found here: https://calendly.stoplight.io/docs/api-docs/"
+  spec.description = "Ruby bindings for Calendly API v2. Full docs: https://developer.calendly.com/api-docs/"
   spec.homepage = "https://github.com/araluce/calendlyr"
   spec.license = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 3.2.0")
   spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["changelog_uri"] = "https://github.com/araluce/calendlyr/blob/master/CHANGELOG.md"
+  spec.metadata["documentation_uri"] = "https://github.com/araluce/calendlyr/tree/master/docs"
 
   spec.files = `git ls-files -z`.split("\x0")
   spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
