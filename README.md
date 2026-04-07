@@ -57,6 +57,29 @@ events = client.events.list(user: "YOUR_USER_UUID")
 
 `Calendlyr.client` memoizes a client instance and rebuilds it if token or timeout values change.
 
+### Optional request/response logging
+
+Calendlyr can emit request lifecycle logs with any logger-like object that responds to `info`, `debug`, `warn`, and `error`. Logging is opt-in, and the gem does not ship a logger implementation for you.
+
+```ruby
+require "logger"
+
+client = Calendlyr::Client.new(token: ENV["CALENDLY_TOKEN"], logger: Logger.new($stdout))
+```
+
+`Logger` is just an example. You can pass any object that responds to `info`, `debug`, `warn`, and `error`.
+
+If you're on Ruby 4 and want to use Ruby's `Logger`, make sure your application includes the `logger` gem.
+
+Or configure it globally:
+
+```ruby
+Calendlyr.configure do |config|
+  config.token = ENV.fetch("CALENDLY_TOKEN")
+  config.logger = Logger.new($stdout)
+end
+```
+
 In Rails, this is typically configured in an initializer:
 
 ```ruby
@@ -81,6 +104,26 @@ client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
 ```
 
 The gem mirrors the Calendly API closely, so converting API examples into gem code is straightforward. Responses are wrapped in Ruby objects with dot-access for every field.
+
+### JSON Serialization
+
+All API objects support `#to_json` for easy serialization (caching, logging, API proxying):
+
+```ruby
+event = client.events.retrieve(uuid: "ABC123")
+
+event.to_json
+#=> '{"uri":"https://api.calendly.com/scheduled_events/ABC123","name":"30 Minute Meeting",...}'
+
+# Works with JSON.generate and nested objects
+JSON.generate(event)
+
+# Round-trip: parse back into an Object
+parsed = Calendlyr::Object.new(JSON.parse(event.to_json))
+parsed.name  #=> "30 Minute Meeting"
+```
+
+> **Note:** `#to_json` and `#to_h` exclude the internal `client` reference — only API data is serialized.
 
 ### Error Context
 
@@ -166,7 +209,7 @@ For the full list of available resources and methods, check out the [API Referen
 
 ## Contributing
 
-1. Fork it ( https://github.com/araluce/calendlyr/fork )
+1. [Fork it](https://github.com/araluce/calendlyr/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
