@@ -1,5 +1,10 @@
+require "json"
+
 module Calendlyr
   class Object
+    FILTERED_KEYS = %w[client].freeze
+    private_constant :FILTERED_KEYS
+
     def self.get_slug(path)
       path.split("/").last
     end
@@ -32,9 +37,13 @@ module Calendlyr
     end
 
     def to_h
-      @attributes.each_with_object({}) do |(key, value), hash|
+      @attributes.except(*FILTERED_KEYS).each_with_object({}) do |(key, value), hash|
         hash[key.to_sym] = unwrap(value)
       end
+    end
+
+    def to_json(*)
+      to_h.to_json(*)
     end
 
     def inspect

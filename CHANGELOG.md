@@ -2,10 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0]
+
+### Added
+* Auto-pagination via `Enumerator::Lazy` — `collection.auto_paginate` returns a lazy enumerator that traverses all pages on demand without pre-fetching. Compose with `.take(n)`, `.select { }`, `.map { }`, etc.
+* `#next_page` method on `Collection` — returns the next page as a new `Collection`, or `nil` when there are no more pages.
+* `#next_page_url` attr_reader on `Collection` — exposes the raw next-page URL string.
+* `list_all` convenience methods on every resource with list endpoints:
+  - `client.events.list_all`, `client.events.list_all_invitees`
+  - `client.event_types.list_all`, `client.event_types.list_all_availability_schedules`
+  - `client.organizations.list_all_memberships`, `client.organizations.list_all_invitations`, `client.organizations.list_all_activity_log`
+  - `client.groups.list_all`, `client.groups.list_all_relationships`
+  - `client.availability.list_all_user_busy_times`, `client.availability.list_all_user_schedules`
+  - `client.routing_forms.list_all`, `client.routing_forms.list_all_submissions`
+  - `client.webhooks.list_all`
+  - `client.locations.list_all`
+
+### Changed — Breaking
+* **`Collection#next_page`** (attr_reader returning the raw URL string) is now **`Collection#next_page_url`**. If you were reading the raw next-page URL via `collection.next_page`, change to `collection.next_page_url`.
+* **`Collection#next_page`** is now a **method** that returns the next `Collection` object (or `nil`), not the raw URL string.
+
+[0.11.0]: https://github.com/araluce/calendlyr/compare/v0.10.0...v0.11.0
+
 ## [0.10.0]
 
 ### Added
 * `Calendlyr::Webhook.verify!`, `valid?`, and `parse` — verify signed webhook payloads with HMAC-SHA256, optional timestamp tolerance, and typed payload parsing
+* `Calendlyr.configure`, `Calendlyr.configuration`, `Calendlyr.client`, and `Calendlyr.reset!` — module-level global configuration and default client support with token/timeout settings
+* Optional request/response logging via `Client.new(logger:)` or `Calendlyr.configure { |c| c.logger = ... }` — INFO for method/URL/status/duration, DEBUG for response body (truncated), WARN for retries, ERROR for API errors. Authorization header is never logged.
+* `Object#to_json` — Serialize any API object to JSON. Works with `JSON.generate`, nested objects, and arrays. The internal `client` reference is automatically excluded from serialization.
 * `client.data_compliance.delete_scheduled_event_data` — Remove scheduled events data within a time range (`POST /data_compliance/deletion/events`)
 * `put_request` support in `Resource` base class for PUT HTTP verb
 * `Collection` now includes `Enumerable` — use `each`, `map`, `select` directly on collections
@@ -18,6 +43,7 @@ All notable changes to this project will be documented in this file.
 * Requires Ruby >= 3.2.0 (dropped support for Ruby 2.4–3.1)
 
 ### Fixed
+* Error messages now include request context (`GET /path`) and expose structured attributes on `Calendlyr::Error` (`status`, `http_method`, `path`, `response_body`) for easier debugging
 * **Security:** Removed `OpenSSL::SSL::VERIFY_NONE` — SSL connections now properly verify certificates
 * **Security:** Bare `rescue` replaced with `rescue JSON::ParserError` — non-JSON errors are no longer silently swallowed
 * `Invitee#cancel` now correctly uses the event UUID instead of the invitee UUID

@@ -1,0 +1,16 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/user_availability_schedule/abc456",
+      "default": false,
+      "name": "Evening Hours",
+      "user": "https://api.calendly.com/users/abc123",
+      "timezone": "America/New_York",
+      "rules": []
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  }
+}

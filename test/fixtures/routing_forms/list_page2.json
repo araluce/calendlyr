@@ -1,0 +1,17 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/routing_forms/PAGE2FORM",
+      "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+      "name": "ACME Demo Page 2",
+      "status": "published",
+      "questions": [],
+      "created_at": "2022-05-16T03:04:05.678Z",
+      "updated_at": "2022-05-16T06:05:04.321Z"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  }
+}

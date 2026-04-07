@@ -1,0 +1,26 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/organization_memberships/page2membership",
+      "role": "user",
+      "user": {
+        "uri": "https://api.calendly.com/users/page2user",
+        "name": "Jane Smith",
+        "slug": "janesmith",
+        "email": "jane@example.com",
+        "scheduling_url": "https://calendly.com/janesmith",
+        "timezone": "America/Chicago",
+        "avatar_url": null,
+        "created_at": "2019-01-02T03:04:05.678123Z",
+        "updated_at": "2019-08-07T06:05:04.321123Z"
+      },
+      "organization": "https://api.calendly.com/organizations/abc123",
+      "updated_at": "2019-08-07T06:05:04.321123Z",
+      "created_at": "2019-01-02T03:04:05.678123Z"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  }
+}

@@ -18,23 +18,23 @@ module Calendlyr
     private
 
     def get_request(url, params: {})
-      handle_response request(url, Net::HTTP::Get, params: params)
+      handle_response request(url, Net::HTTP::Get, params: params), method: "GET", path: url
     end
 
     def post_request(url, body:)
-      handle_response request(url, Net::HTTP::Post, body: body)
+      handle_response request(url, Net::HTTP::Post, body: body), method: "POST", path: url
     end
 
     def patch_request(url, body:)
-      handle_response request(url, Net::HTTP::Patch, body: body)
+      handle_response request(url, Net::HTTP::Patch, body: body), method: "PATCH", path: url
     end
 
     def put_request(url, body:)
-      handle_response request(url, Net::HTTP::Put, body: body)
+      handle_response request(url, Net::HTTP::Put, body: body), method: "PUT", path: url
     end
 
     def delete_request(url, params: {})
-      handle_response request(url, Net::HTTP::Delete, params: params)
+      handle_response request(url, Net::HTTP::Delete, params: params), method: "DELETE", path: url
     end
 
     def request(url, req_type, body: {}, params: {}, base_url: Client::BASE_URL)
@@ -55,19 +55,33 @@ module Calendlyr
       request["Authorization"] = "Bearer #{client.token}"
       request.body = body.to_json if body.any?
 
+      logging_enabled = !logger.nil?
+      start_time = monotonic_now if logging_enabled
+      request_method = request.method
+      request_url = uri.to_s if logging_enabled
       attempts = 0
+      response = nil
 
       loop do
         response = http.request(request)
-        return response unless response.code == "429"
-        return response if attempts >= MAX_RETRIES
+        break unless response.code == "429"
+        break if attempts >= MAX_RETRIES
 
-        sleep retry_after_seconds(response, attempts)
+        backoff_seconds = retry_after_seconds(response, attempts)
+        log(:warn, "retry_attempt=#{attempts + 1} method=#{request_method} url=#{request_url} status=429 backoff_seconds=#{backoff_seconds}")
+        sleep backoff_seconds
         attempts += 1
       end
+
+      if logging_enabled
+        log(:info, "method=#{request_method} url=#{request_url} status=#{response.code} duration_ms=#{elapsed_milliseconds(start_time)}")
+        log(:debug, "response_body=#{truncated_body(response.body.to_s)}")
+      end
+
+      response
     end
 
-    def handle_response(response)
+    def handle_response(response, method: nil, path: nil)
       body_string = response.body.to_s
 
       body = begin
@@ -77,7 +91,8 @@ module Calendlyr
       end
 
       if ERROR_CODES.include? response.code
-        raise ResponseErrorHandler.new(response.code, body).error
+        log(:error, "method=#{method} path=/#{path} status=#{response.code} response_body=#{truncated_body(body_string)}")
+        raise ResponseErrorHandler.new(response.code, body, method: method, path: path).error
       end
 
       body
@@ -94,6 +109,30 @@ module Calendlyr
       return value if value.nil? || value.start_with?("https://")
 
       "#{Client::BASE_URL}/#{resource_type}/#{value}"
+    end
+
+    def logger
+      client.logger
+    end
+
+    def log(level, message)
+      return unless logger
+
+      logger.public_send(level, "[calendlyr] #{message}")
+    end
+
+    def truncated_body(body_string)
+      return body_string if body_string.length <= 1000
+
+      "#{body_string[0, 1000]}... (truncated)"
+    end
+
+    def monotonic_now
+      Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    end
+
+    def elapsed_milliseconds(start_time)
+      ((monotonic_now - start_time) * 1000).round(1)
     end
   end
 end

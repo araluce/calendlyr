@@ -1,0 +1,23 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/webhook_subscriptions/page2webhook",
+      "callback_url": "https://example.com/webhook",
+      "created_at": "2019-08-25T14:15:22Z",
+      "updated_at": "2019-08-25T14:15:22Z",
+      "retry_started_at": "2019-08-25T14:15:22Z",
+      "state": "active",
+      "events": [
+        "invitee.created"
+      ],
+      "scope": "user",
+      "organization": "https://api.calendly.com/organizations/abc123",
+      "user": "https://api.calendly.com/users/abc123",
+      "creator": "https://api.calendly.com/users/abc123"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  }
+}

@@ -46,4 +46,35 @@ class GroupsResourceTest < Minitest::Test
     assert_instance_of Calendlyr::Groups::Relationship, relationship
     assert_equal "member", relationship.role
   end
+
+  def test_list_all_returns_all_pages
+    organization = "https://api.calendly.com/groups/AAAAAAAAAAAAAAAA"
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page1_response = {body: fixture_file("groups/list"), status: 200}
+    page2_response = {body: fixture_file("groups/list_page2"), status: 200}
+    stub(path: "groups?organization=#{organization}", response: page1_response)
+    stub(path: "groups?organization=#{organization}&page_token=#{token}", response: page2_response)
+
+    groups = client.groups.list_all(organization: organization)
+
+    assert_equal Array, groups.class
+    assert_equal 2, groups.size
+    assert_equal Calendlyr::Group, groups.first.class
+  end
+
+  def test_list_all_relationships_returns_all_pages
+    bare_uuid = "AAAAAAAAAAAAAAAA"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    page1_response = {body: fixture_file("group_relationships/list"), status: 200}
+    page2_response = {body: fixture_file("group_relationships/list_page2"), status: 200}
+    stub(path: "group_relationships?organization=#{expanded}", response: page1_response)
+    stub(path: "group_relationships?organization=#{expanded}&page_token=#{token}", response: page2_response)
+
+    relationships = client.groups.list_all_relationships(organization: bare_uuid)
+
+    assert_equal Array, relationships.class
+    assert_equal 4, relationships.size
+    assert_equal Calendlyr::Groups::Relationship, relationships.first.class
+  end
 end

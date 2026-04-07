@@ -1,9 +1,14 @@
 module Calendlyr
   class EventsResource < Resource
     def list(**params)
+      next_page_caller = ->(page_token:) { list(**params, page_token: page_token) }
       params[:user] = expand_uri(params[:user], "users") if params[:user]
       response = get_request("scheduled_events", params: params)
-      Collection.from_response(response, type: Event, client: client)
+      Collection.from_response(response, type: Event, client: client, next_page_caller: next_page_caller)
+    end
+
+    def list_all(**params)
+      list(**params).auto_paginate.to_a
     end
 
     def retrieve(uuid:)
@@ -16,8 +21,13 @@ module Calendlyr
 
     # Invitee
     def list_invitees(uuid:, **params)
+      next_page_caller = ->(page_token:) { list_invitees(uuid: uuid, **params, page_token: page_token) }
       response = get_request("scheduled_events/#{uuid}/invitees", params: params)
-      Collection.from_response(response, type: Events::Invitee, client: client)
+      Collection.from_response(response, type: Events::Invitee, client: client, next_page_caller: next_page_caller)
+    end
+
+    def list_all_invitees(uuid:, **params)
+      list_invitees(uuid: uuid, **params).auto_paginate.to_a
     end
 
     def retrieve_invitee(event_uuid:, invitee_uuid:)

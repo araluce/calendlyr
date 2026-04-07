@@ -1,0 +1,35 @@
+{
+  "collection": [
+    {
+      "cancel_url": "https://calendly.com/cancellations/page2",
+      "created_at": "2020-11-24T17:51:18.327602Z",
+      "email": "page2@example.com",
+      "event": "https://api.calendly.com/scheduled_events/abc123",
+      "name": "Page Two Invitee",
+      "new_invitee": null,
+      "old_invitee": null,
+      "questions_and_answers": [],
+      "reschedule_url": "https://calendly.com/reschedulings/page2",
+      "rescheduled": false,
+      "status": "active",
+      "text_reminder_number": null,
+      "timezone": "America/Chicago",
+      "tracking": {
+        "utm_campaign": null,
+        "utm_source": null,
+        "utm_medium": null,
+        "utm_content": null,
+        "utm_term": null,
+        "salesforce_uuid": null
+      },
+      "updated_at": "2020-11-24T17:51:18.341657Z",
+      "uri": "https://api.calendly.com/scheduled_events/abc123/invitees/page2",
+      "canceled": false,
+      "payment": null
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  }
+}

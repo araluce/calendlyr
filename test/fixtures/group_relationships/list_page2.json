@@ -1,0 +1,35 @@
+{
+  "collection": [
+    {
+      "uri": "https://api.calendly.com/group_relationships/PAGE2REL",
+      "role": "member",
+      "owner": {
+        "type": "OrganizationMembership",
+        "uri": "https://api.calendly.com/organization_memberships/PAGE2MEMBER",
+        "role": "user",
+        "user": {
+          "uri": "https://api.calendly.com/users/PAGE2USER",
+          "name": "Page Two User",
+          "slug": "page2user",
+          "email": "page2@example.com",
+          "scheduling_url": "https://calendly.com/page2user",
+          "timezone": "America/Chicago",
+          "avatar_url": null,
+          "created_at": "2019-01-02T03:04:05.678123Z",
+          "updated_at": "2019-08-07T06:05:04.321123Z"
+        },
+        "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+        "updated_at": "2019-08-07T06:05:04.321123Z",
+        "created_at": "2019-01-02T03:04:05.678123Z"
+      },
+      "organization": "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA",
+      "group": "https://api.calendly.com/groups/AAAAAAAAAAAAAAAA",
+      "created_at": "2019-01-02T03:04:05.678123Z",
+      "updated_at": "2019-08-07T06:05:04.321123Z"
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next_page": null
+  }
+}
