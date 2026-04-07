@@ -49,4 +49,54 @@ class ObjectTest < Minitest::Test
 
     assert_equal first, second
   end
+
+  def test_to_h_excludes_client_key
+    object = Calendlyr::Object.new(name: "test", client: :some_client)
+
+    refute object.to_h.key?(:client)
+  end
+
+  def test_to_h_client_dot_access_still_works
+    object = Calendlyr::Object.new(name: "test", client: :some_client)
+
+    assert_equal :some_client, object.client
+  end
+
+  def test_to_json_returns_valid_json_string
+    object = Calendlyr::Object.new(name: "test", status: "active", client: :some_client)
+    parsed = JSON.parse(object.to_json)
+
+    assert_equal "test", parsed["name"]
+    assert_equal "active", parsed["status"]
+    refute parsed.key?("client")
+  end
+
+  def test_to_json_nested_objects_and_arrays
+    object = Calendlyr::Object.new(user: {name: "alice"}, items: [{id: 1}])
+    parsed = JSON.parse(object.to_json)
+
+    assert_equal "alice", parsed["user"]["name"]
+    assert_equal 1, parsed["items"][0]["id"]
+  end
+
+  def test_to_json_nil_values_become_null
+    object = Calendlyr::Object.new(name: nil)
+    parsed = JSON.parse(object.to_json)
+
+    assert parsed.key?("name")
+    assert_nil parsed["name"]
+  end
+
+  def test_json_generate_compatibility
+    object = Calendlyr::Object.new(name: "test")
+
+    assert_equal object.to_json, JSON.generate(object)
+  end
+
+  def test_round_trip_equivalence
+    original = Calendlyr::Object.new(name: "alice", status: "active")
+    round_tripped = Calendlyr::Object.new(JSON.parse(original.to_json))
+
+    assert_equal original, round_tripped
+  end
 end

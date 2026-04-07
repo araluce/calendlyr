@@ -61,6 +61,89 @@ class ResourceTest < Minitest::Test
     end
   end
 
+  def test_error_exposes_structured_attributes
+    error = Calendlyr::NotFound.new(
+      "not found",
+      status: "404",
+      http_method: "GET",
+      path: "users/INVALID",
+      response_body: {"title" => "Not Found"}
+    )
+
+    assert_equal "404", error.status
+    assert_equal "GET", error.http_method
+    assert_equal "users/INVALID", error.path
+    assert_equal({"title" => "Not Found"}, error.response_body)
+  end
+
+  def test_error_plain_message_keeps_backward_compatibility
+    error = Calendlyr::Error.new("plain message")
+
+    assert_equal "plain message", error.message
+    assert_nil error.status
+    assert_nil error.http_method
+    assert_nil error.path
+    assert_nil error.response_body
+  end
+
+  def test_error_no_arg_construction_preserves_standard_error_message
+    error = Calendlyr::Error.new
+
+    assert_equal "Calendlyr::Error", error.message
+    assert_nil error.status
+    assert_nil error.http_method
+    assert_nil error.path
+    assert_nil error.response_body
+  end
+
+  def test_dynamic_error_subclass_retains_structured_attributes
+    error = Calendlyr::Unauthenticated.new("msg", status: "401", http_method: "GET")
+
+    assert_equal "401", error.status
+    assert_equal "GET", error.http_method
+    assert_instance_of Calendlyr::Unauthenticated, error
+    assert_kind_of Calendlyr::Error, error
+  end
+
+  def test_response_error_handler_builds_contextual_message_and_body
+    body = {"title" => "Not Found", "message" => "Resource does not exist"}
+    error = Calendlyr::ResponseErrorHandler.new("404", body, method: "GET", path: "users/INVALID").error
+
+    assert_equal "[Error 404] GET /users/INVALID — Not Found. Resource does not exist", error.message
+    assert_equal body, error.response_body
+    assert_equal "404", error.status
+    assert_equal "GET", error.http_method
+    assert_equal "users/INVALID", error.path
+  end
+
+  def test_response_error_handler_omits_missing_title_and_message_without_error
+    error_without_title = Calendlyr::ResponseErrorHandler.new("404", {"message" => "Only message"}, method: "GET", path: "users/missing").error
+    error_without_message = Calendlyr::ResponseErrorHandler.new("404", {"title" => "Only title"}, method: "GET", path: "users/missing").error
+    error_without_both = Calendlyr::ResponseErrorHandler.new("404", {}, method: "GET", path: "users/missing").error
+
+    assert_equal "[Error 404] GET /users/missing — Only message", error_without_title.message
+    assert_equal "[Error 404] GET /users/missing — Only title", error_without_message.message
+    assert_equal "[Error 404] GET /users/missing", error_without_both.message
+  end
+
+  def test_response_error_handler_preserves_legacy_message_without_context
+    body = {"title" => "Not Found", "message" => "Resource does not exist"}
+    error = Calendlyr::ResponseErrorHandler.new("404", body).error
+
+    assert_equal "[Error 404] Not Found. Resource does not exist", error.message
+    assert_nil error.http_method
+    assert_nil error.path
+  end
+
+  def test_response_error_handler_429_uses_contextual_fixed_message
+    error = Calendlyr::ResponseErrorHandler.new("429", {}, method: "POST", path: "scheduled_events").error
+
+    assert_equal "[Error 429] POST /scheduled_events — Too many requests, please try again later.", error.message
+    assert_equal "429", error.status
+    assert_equal "POST", error.http_method
+    assert_equal "scheduled_events", error.path
+  end
+
   def test_handle_response_invalid_json_returns_empty_hash
     resource = Calendlyr::Resource.new(client)
     response = ResponseStub.new(body: "not json", code: "200")
@@ -158,9 +241,14 @@ class ResourceTest < Minitest::Test
 
     Net::HTTP.stub(:new, http_spy) do
       resource.stub(:sleep, proc { |seconds| sleeps << seconds }) do
-        assert_raises Calendlyr::TooManyRequests do
+        error = assert_raises Calendlyr::TooManyRequests do
           resource.send(:get_request, "users/me")
         end
+
+        assert_equal "429", error.status
+        assert_equal "GET", error.http_method
+        assert_equal "users/me", error.path
+        assert_equal "[Error 429] GET /users/me — Too many requests, please try again later.", error.message
       end
     end
 
@@ -182,6 +270,51 @@ class ResourceTest < Minitest::Test
     end
 
     assert_equal 1, http_spy.request_count
+  end
+
+  def test_get_request_error_propagates_http_method_and_path
+    resource = Calendlyr::Resource.new(client)
+    responses = [ResponseStub.new(body: fixture_file("resources/404"), code: "404")]
+    http_spy = HttpSpy.new(responses: responses, host: "api.calendly.com", port: 443)
+
+    Net::HTTP.stub(:new, http_spy) do
+      error = assert_raises Calendlyr::NotFound do
+        resource.send(:get_request, "users/me")
+      end
+
+      assert_equal "GET", error.http_method
+      assert_equal "users/me", error.path
+    end
+  end
+
+  def test_post_request_error_propagates_http_method_and_path
+    resource = Calendlyr::Resource.new(client)
+    responses = [ResponseStub.new(body: fixture_file("resources/400"), code: "400")]
+    http_spy = HttpSpy.new(responses: responses, host: "api.calendly.com", port: 443)
+
+    Net::HTTP.stub(:new, http_spy) do
+      error = assert_raises Calendlyr::BadRequest do
+        resource.send(:post_request, "scheduled_events", body: {})
+      end
+
+      assert_equal "POST", error.http_method
+      assert_equal "scheduled_events", error.path
+    end
+  end
+
+  def test_delete_request_error_propagates_http_method_and_path
+    resource = Calendlyr::Resource.new(client)
+    responses = [ResponseStub.new(body: fixture_file("resources/403"), code: "403")]
+    http_spy = HttpSpy.new(responses: responses, host: "api.calendly.com", port: 443)
+
+    Net::HTTP.stub(:new, http_spy) do
+      error = assert_raises Calendlyr::PermissionDenied do
+        resource.send(:delete_request, "event_types/UUID")
+      end
+
+      assert_equal "DELETE", error.http_method
+      assert_equal "event_types/UUID", error.path
+    end
   end
 
   def test_put_request_sends_json_body_and_handles_response

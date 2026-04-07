@@ -18,23 +18,23 @@ module Calendlyr
     private
 
     def get_request(url, params: {})
-      handle_response request(url, Net::HTTP::Get, params: params)
+      handle_response request(url, Net::HTTP::Get, params: params), method: "GET", path: url
     end
 
     def post_request(url, body:)
-      handle_response request(url, Net::HTTP::Post, body: body)
+      handle_response request(url, Net::HTTP::Post, body: body), method: "POST", path: url
     end
 
     def patch_request(url, body:)
-      handle_response request(url, Net::HTTP::Patch, body: body)
+      handle_response request(url, Net::HTTP::Patch, body: body), method: "PATCH", path: url
     end
 
     def put_request(url, body:)
-      handle_response request(url, Net::HTTP::Put, body: body)
+      handle_response request(url, Net::HTTP::Put, body: body), method: "PUT", path: url
     end
 
     def delete_request(url, params: {})
-      handle_response request(url, Net::HTTP::Delete, params: params)
+      handle_response request(url, Net::HTTP::Delete, params: params), method: "DELETE", path: url
     end
 
     def request(url, req_type, body: {}, params: {}, base_url: Client::BASE_URL)
@@ -67,7 +67,7 @@ module Calendlyr
       end
     end
 
-    def handle_response(response)
+    def handle_response(response, method: nil, path: nil)
       body_string = response.body.to_s
 
       body = begin
@@ -77,7 +77,7 @@ module Calendlyr
       end
 
       if ERROR_CODES.include? response.code
-        raise ResponseErrorHandler.new(response.code, body).error
+        raise ResponseErrorHandler.new(response.code, body, method: method, path: path).error
       end
 
       body
