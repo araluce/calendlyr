@@ -5,7 +5,7 @@ require "test_helper"
 class OutgoingCommunicationsResourceTest < Minitest::Test
   def test_list
     organization_uri = "https://api.calendly.com/organizations/abc123"
-    stub(path: "outgoing_communications?organization=#{organization_uri}", response: { body: fixture_file("outgoing_communications/list"), status: 200 })
+    stub(path: "outgoing_communications?organization=#{organization_uri}", response: {body: fixture_file("outgoing_communications/list"), status: 200})
 
     communications = client.outgoing_communications.list(organization: organization_uri)
 
@@ -19,7 +19,7 @@ class OutgoingCommunicationsResourceTest < Minitest::Test
   def test_list_with_bare_org_uuid
     bare_uuid = "abc123"
     expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
-    stub(path: "outgoing_communications?organization=#{expanded}", response: { body: fixture_file("outgoing_communications/list"), status: 200 })
+    stub(path: "outgoing_communications?organization=#{expanded}", response: {body: fixture_file("outgoing_communications/list"), status: 200})
 
     communications = client.outgoing_communications.list(organization: bare_uuid)
 
@@ -30,8 +30,8 @@ class OutgoingCommunicationsResourceTest < Minitest::Test
   def test_list_all_returns_all_pages
     organization_uri = "https://api.calendly.com/organizations/abc123"
     token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
-    stub(path: "outgoing_communications?organization=#{organization_uri}", response: { body: fixture_file("outgoing_communications/list"), status: 200 })
-    stub(path: "outgoing_communications?organization=#{organization_uri}&page_token=#{token}", response: { body: fixture_file("outgoing_communications/list_page2"), status: 200 })
+    stub(path: "outgoing_communications?organization=#{organization_uri}", response: {body: fixture_file("outgoing_communications/list"), status: 200})
+    stub(path: "outgoing_communications?organization=#{organization_uri}&page_token=#{token}", response: {body: fixture_file("outgoing_communications/list_page2"), status: 200})
 
     communications = client.outgoing_communications.list_all(organization: organization_uri)
 

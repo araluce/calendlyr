@@ -5,8 +5,8 @@ require "test_helper"
 class SchedulingLinksResourceTest < Minitest::Test
   def test_create
     event_type_uri = "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2"
-    body = { max_event_count: 1, owner: event_type_uri, owner_type: "EventType" }
-    stub(method: :post, path: "scheduling_links", body: body, response: { body: fixture_file("scheduling_links/create"), status: 201 })
+    body = {max_event_count: 1, owner: event_type_uri, owner_type: "EventType"}
+    stub(method: :post, path: "scheduling_links", body: body, response: {body: fixture_file("scheduling_links/create"), status: 201})
 
     link = client.scheduling_links.create(owner: event_type_uri)
 
@@ -19,8 +19,8 @@ class SchedulingLinksResourceTest < Minitest::Test
   def test_create_with_bare_event_type_uuid
     bare_uuid = "GBGBDCAADAEDCRZ2"
     expanded = "https://api.calendly.com/event_types/#{bare_uuid}"
-    body = { max_event_count: 1, owner: expanded, owner_type: "EventType" }
-    stub(method: :post, path: "scheduling_links", body: body, response: { body: fixture_file("scheduling_links/create"), status: 201 })
+    body = {max_event_count: 1, owner: expanded, owner_type: "EventType"}
+    stub(method: :post, path: "scheduling_links", body: body, response: {body: fixture_file("scheduling_links/create"), status: 201})
 
     link = client.scheduling_links.create(owner: bare_uuid)
 
@@ -30,8 +30,8 @@ class SchedulingLinksResourceTest < Minitest::Test
 
   def test_create_with_custom_max_event_count
     event_type_uri = "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2"
-    body = { max_event_count: 5, owner: event_type_uri, owner_type: "EventType" }
-    stub(method: :post, path: "scheduling_links", body: body, response: { body: fixture_file("scheduling_links/create"), status: 201 })
+    body = {max_event_count: 5, owner: event_type_uri, owner_type: "EventType"}
+    stub(method: :post, path: "scheduling_links", body: body, response: {body: fixture_file("scheduling_links/create"), status: 201})
 
     link = client.scheduling_links.create(owner: event_type_uri, max_event_count: 5)
 

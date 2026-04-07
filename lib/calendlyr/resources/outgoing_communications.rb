@@ -5,7 +5,7 @@ module Calendlyr
     def list(organization:, **params)
       next_page_caller = ->(page_token:) { list(organization: organization, **params, page_token: page_token) }
       organization = expand_uri(organization, "organizations")
-      response = get_request("outgoing_communications", params: { organization: organization }.merge(params))
+      response = get_request("outgoing_communications", params: {organization: organization}.merge(params))
       Collection.from_response(response, type: OutgoingCommunication, client: client, next_page_caller: next_page_caller)
     end
 
