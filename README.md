@@ -195,6 +195,8 @@ client.routing_forms.list_all_submissions(form: "YOUR_FORM_UUID")
 client.availability.list_all_user_busy_times(user: "YOUR_USER_UUID", start_time: "...", end_time: "...")
 client.availability.list_all_user_schedules(user: "YOUR_USER_UUID")
 client.locations.list_all
+client.event_types.list_all_memberships(event_type: "YOUR_EVENT_TYPE_UUID")
+client.outgoing_communications.list_all(organization: "YOUR_ORG_UUID")
 ```
 
 ### `auto_paginate` — Lazy Enumerator
@@ -214,19 +216,6 @@ active = collection.auto_paginate.select { |e| e.status == "active" }.first(10)
 collection.auto_paginate.each do |event|
   puts event.name
 end
-```
-
-### Breaking change in v0.11.0
-
-The `#next_page` attr_reader that previously returned the raw next-page URL string has been renamed to `#next_page_url`. The `#next_page` method now returns the **next Collection** (or `nil` if there are no more pages).
-
-```ruby
-# Before (v0.10.x):
-collection.next_page  #=> "https://api.calendly.com/...?page_token=..."
-
-# After (v0.11.0):
-collection.next_page_url  #=> "https://api.calendly.com/...?page_token=..."
-collection.next_page      #=> #<Calendlyr::Collection> or nil
 ```
 
 ## Documentation
