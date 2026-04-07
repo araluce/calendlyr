@@ -5,7 +5,7 @@
 
 # Calendlyr
 
-![Calendlyr logo](logos/calendlyr.png)
+![Calendlyr logo](logos/calendlyr_bg_white.png)
 
 The simplest way to interact with [Calendly's API v2](https://developer.calendly.com/api-docs) in Ruby. No dependencies, no complexity — just a Personal Access Token and you're good to go.
 
