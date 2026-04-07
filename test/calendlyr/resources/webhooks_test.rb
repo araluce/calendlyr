@@ -83,4 +83,30 @@ class WebhooksResourceTest < Minitest::Test
     assert_equal 2, webhooks.size
     assert_equal Calendlyr::Webhooks::Subscription, webhooks.first.class
   end
+
+  def test_sample
+    organization_uri = "https://api.calendly.com/organizations/abc123"
+    event = "invitee.created"
+    scope = "organization"
+    stub(path: "sample_webhook_data?event=#{event}&organization=#{organization_uri}&scope=#{scope}", response: {body: fixture_file("webhooks/sample"), status: 200})
+
+    result = client.webhooks.sample(event: event, organization: organization_uri, scope: scope)
+
+    assert_equal Hash, result.class
+    assert_equal "invitee.created", result["event"]
+    assert result.key?("payload")
+  end
+
+  def test_sample_with_bare_org_uuid
+    bare_uuid = "abc123"
+    expanded = "https://api.calendly.com/organizations/#{bare_uuid}"
+    event = "invitee.created"
+    scope = "organization"
+    stub(path: "sample_webhook_data?event=#{event}&organization=#{expanded}&scope=#{scope}", response: {body: fixture_file("webhooks/sample"), status: 200})
+
+    result = client.webhooks.sample(event: event, organization: bare_uuid, scope: scope)
+
+    assert_equal Hash, result.class
+    assert_equal "invitee.created", result["event"]
+  end
 end

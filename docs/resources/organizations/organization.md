@@ -13,6 +13,19 @@ organization = client.organization
 #=> #<Calendlyr::Organization>
 ```
 
+## Client requests
+
+### Retrieve
+
+Returns information about a specified Organization.
+
+Visit official [API Doc](https://developer.calendly.com/api-docs)
+
+```ruby
+client.organizations.retrieve(uuid: "ORG_UUID")
+#=> #<Calendlyr::Organization>
+```
+
 ## Object methods
 
 ### Activity Logs

@@ -45,5 +45,24 @@ module Calendlyr
       body = {event_type_uuid: event_type_uuid, availability_schedules: availability_schedules}.merge(params)
       patch_request("event_type_availability_schedules", body: body)
     end
+
+    # Available Times (no pagination — endpoint does not support it)
+    def list_available_times(event_type:, start_time:, end_time:, **params)
+      event_type = expand_uri(event_type, "event_types")
+      response = get_request("event_type_available_times", params: {event_type: event_type, start_time: start_time, end_time: end_time}.merge(params))
+      Collection.from_response(response, type: EventTypes::AvailableTime, client: client)
+    end
+
+    # Event Type Memberships
+    def list_memberships(event_type:, **params)
+      next_page_caller = ->(page_token:) { list_memberships(event_type: event_type, **params, page_token: page_token) }
+      event_type = expand_uri(event_type, "event_types")
+      response = get_request("event_type_memberships", params: {event_type: event_type}.merge(params))
+      Collection.from_response(response, type: EventTypes::Membership, client: client, next_page_caller: next_page_caller)
+    end
+
+    def list_all_memberships(event_type:, **params)
+      list_memberships(event_type: event_type, **params).auto_paginate.to_a
+    end
   end
 end

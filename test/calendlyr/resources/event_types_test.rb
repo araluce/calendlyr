@@ -155,4 +155,54 @@ class EventTypesResourceTest < Minitest::Test
     assert_equal 2, event_types.size
     assert_equal Calendlyr::EventType, event_types.first.class
   end
+
+  def test_list_available_times
+    event_type_uri = "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA"
+    start_time = "2020-01-01T00:00:00.000000Z"
+    end_time = "2020-01-02T00:00:00.000000Z"
+    stub(path: "event_type_available_times?event_type=#{event_type_uri}&start_time=#{start_time}&end_time=#{end_time}", response: {body: fixture_file("event_type_available_times/list"), status: 200})
+
+    times = client.event_types.list_available_times(event_type: event_type_uri, start_time: start_time, end_time: end_time)
+
+    assert_equal Calendlyr::Collection, times.class
+    assert_equal Calendlyr::EventTypes::AvailableTime, times.data.first.class
+    assert_equal 1, times.data.count
+    assert_equal "available", times.data.first.status
+  end
+
+  def test_list_memberships
+    event_type_uri = "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA"
+    stub(path: "event_type_memberships?event_type=#{event_type_uri}", response: {body: fixture_file("event_type_memberships/list"), status: 200})
+
+    memberships = client.event_types.list_memberships(event_type: event_type_uri)
+
+    assert_equal Calendlyr::Collection, memberships.class
+    assert_equal Calendlyr::EventTypes::Membership, memberships.data.first.class
+    assert_equal 1, memberships.data.count
+    assert_equal "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi", memberships.next_page_token
+  end
+
+  def test_list_memberships_with_bare_event_type_uuid
+    bare_uuid = "AAAAAAAAAAAAAAAA"
+    expanded = "https://api.calendly.com/event_types/#{bare_uuid}"
+    stub(path: "event_type_memberships?event_type=#{expanded}", response: {body: fixture_file("event_type_memberships/list"), status: 200})
+
+    memberships = client.event_types.list_memberships(event_type: bare_uuid)
+
+    assert_equal Calendlyr::Collection, memberships.class
+    assert_equal 1, memberships.data.count
+  end
+
+  def test_list_all_memberships_returns_all_pages
+    event_type_uri = "https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA"
+    token = "sNjq4TvMDfUHEl7zHRR0k0E1PCEJWvdi"
+    stub(path: "event_type_memberships?event_type=#{event_type_uri}", response: {body: fixture_file("event_type_memberships/list"), status: 200})
+    stub(path: "event_type_memberships?event_type=#{event_type_uri}&page_token=#{token}", response: {body: fixture_file("event_type_memberships/list_page2"), status: 200})
+
+    memberships = client.event_types.list_all_memberships(event_type: event_type_uri)
+
+    assert_equal Array, memberships.class
+    assert_equal 2, memberships.size
+    assert_equal Calendlyr::EventTypes::Membership, memberships.first.class
+  end
 end

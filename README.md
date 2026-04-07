@@ -7,9 +7,11 @@
 
 ![Calendlyr logo](logos/calendlyr_bg_white.png)
 
-The simplest way to interact with [Calendly's API v2](https://developer.calendly.com/api-docs) in Ruby. No dependencies, no complexity — just a Personal Access Token and you're good to go.
+The simplest way to interact with [Calendly's API v2](https://developer.calendly.com/api-docs) in Ruby. No runtime dependencies, no ceremony — just a Personal Access Token and you're good to go.
 
 ## Installation
+
+Calendlyr requires **Ruby >= 3.2.0**.
 
 Add to your Gemfile:
 
@@ -95,7 +97,7 @@ end
 
 ### Bare UUIDs
 
-Every method that takes a Calendly resource reference (like `user:`, `organization:`, `event_type:`) accepts both bare UUIDs and full URIs. The gem expands bare UUIDs automatically:
+Most methods that take a Calendly resource reference (like `user:`, `organization:`, `event_type:`, or `owner:`) accept both bare UUIDs and full URIs. When supported, the gem expands bare UUIDs automatically:
 
 ```ruby
 # Both are equivalent:
@@ -104,6 +106,8 @@ client.events.list(user: "https://api.calendly.com/users/YOUR_USER_UUID")
 ```
 
 The gem mirrors the Calendly API closely, so converting API examples into gem code is straightforward. Responses are wrapped in Ruby objects with dot-access for every field.
+
+> **Note:** A few endpoints still expect a full Calendly URI for specific parameters. When that matters, the resource docs call it out explicitly.
 
 ### Webhook signature verification
 
@@ -131,7 +135,7 @@ if Calendlyr::Webhook.valid?(payload: payload, signature_header: signature_heade
 end
 ```
 
-### JSON Serialization
+### JSON serialization
 
 All API objects support `#to_json` for easy serialization (caching, logging, API proxying):
 
@@ -151,7 +155,7 @@ parsed.name  #=> "30 Minute Meeting"
 
 > **Note:** `#to_json` and `#to_h` exclude the internal `client` reference — only API data is serialized.
 
-### Error Context
+### Error context
 
 API errors now include the HTTP method and path in the message, and expose structured attributes for debugging:
 
@@ -171,7 +175,7 @@ This makes debugging failed requests much easier without changing existing `resc
 
 ## Auto-pagination
 
-Calendlyr supports lazy auto-pagination for all collection endpoints. There are two ways to consume paginated results:
+Calendlyr supports lazy auto-pagination for paginated collection endpoints. There are two ways to consume paginated results:
 
 ### `list_all` — Eager, returns a flat Array
 
@@ -195,6 +199,8 @@ client.routing_forms.list_all_submissions(form: "YOUR_FORM_UUID")
 client.availability.list_all_user_busy_times(user: "YOUR_USER_UUID", start_time: "...", end_time: "...")
 client.availability.list_all_user_schedules(user: "YOUR_USER_UUID")
 client.locations.list_all
+client.event_types.list_all_memberships(event_type: "YOUR_EVENT_TYPE_UUID")
+client.outgoing_communications.list_all(organization: "YOUR_ORG_UUID")
 ```
 
 ### `auto_paginate` — Lazy Enumerator
@@ -216,22 +222,11 @@ collection.auto_paginate.each do |event|
 end
 ```
 
-### Breaking change in v0.11.0
-
-The `#next_page` attr_reader that previously returned the raw next-page URL string has been renamed to `#next_page_url`. The `#next_page` method now returns the **next Collection** (or `nil` if there are no more pages).
-
-```ruby
-# Before (v0.10.x):
-collection.next_page  #=> "https://api.calendly.com/...?page_token=..."
-
-# After (v0.11.0):
-collection.next_page_url  #=> "https://api.calendly.com/...?page_token=..."
-collection.next_page      #=> #<Calendlyr::Collection> or nil
-```
-
 ## Documentation
 
 For the full list of available resources and methods, check out the [API Reference](docs/resources/).
+
+The docs in this repository focus on the Ruby wrapper API. For request/response schemas and endpoint-level behavior, use the official Calendly API docs linked from each resource page.
 
 ## Contributing
 

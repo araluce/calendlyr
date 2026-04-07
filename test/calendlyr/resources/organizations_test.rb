@@ -3,6 +3,18 @@
 require "test_helper"
 
 class OrganizationsResourceTest < Minitest::Test
+  def test_retrieve
+    organization_uuid = "012345678901234567890"
+    stub(path: "organizations/#{organization_uuid}", response: {body: fixture_file("organizations/retrieve"), status: 200})
+
+    organization = client.organizations.retrieve(uuid: organization_uuid)
+
+    assert_equal Calendlyr::Organization, organization.class
+    assert_equal "https://api.calendly.com/organizations/012345678901234567890", organization.uri
+    assert_equal "Sales Team", organization.name
+    assert_equal "professional", organization.plan
+  end
+
   def test_invite
     organization_uuid = "ABCDABCDABCDABCD"
     email = "email@example.com"

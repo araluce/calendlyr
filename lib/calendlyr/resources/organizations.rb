@@ -1,5 +1,9 @@
 module Calendlyr
   class OrganizationsResource < Resource
+    def retrieve(uuid:)
+      Organization.new get_request("organizations/#{uuid}").dig("resource").merge(client: client)
+    end
+
     def activity_log(organization: nil, **params)
       next_page_caller = ->(page_token:) { activity_log(organization: organization, **params, page_token: page_token) }
       organization = expand_uri(organization, "organizations")

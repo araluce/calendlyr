@@ -1,0 +1,21 @@
+{
+  "collection": [
+    {
+      "type": "email",
+      "to": "user2@example.com",
+      "from": "noreply@calendly.com",
+      "subject": "Reminder: upcoming event",
+      "body": "Your event is tomorrow.",
+      "sender_uri": "https://api.calendly.com/users/BBBBBBBBBBBBBBBB",
+      "sender_email": "user2@example.com",
+      "event_type_uri": "https://api.calendly.com/event_types/BBBBBBBBBBBBBBBB",
+      "event_uri": "https://api.calendly.com/scheduled_events/BBBBBBBBBBBBBBBB",
+      "sent_at": "2023-09-25T11:12:13.145Z",
+      "created_at": "2023-09-25T11:12:13.145Z",
+      "scheduling_url": "https://calendly.com/event/other"
+    }
+  ],
+  "pagination": {
+    "count": 1
+  }
+}
