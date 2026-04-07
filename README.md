@@ -57,6 +57,29 @@ events = client.events.list(user: "YOUR_USER_UUID")
 
 `Calendlyr.client` memoizes a client instance and rebuilds it if token or timeout values change.
 
+### Optional request/response logging
+
+Calendlyr can emit request lifecycle logs with any logger-like object that responds to `info`, `debug`, `warn`, and `error`. Logging is opt-in, and the gem does not ship a logger implementation for you.
+
+```ruby
+require "logger"
+
+client = Calendlyr::Client.new(token: ENV["CALENDLY_TOKEN"], logger: Logger.new($stdout))
+```
+
+`Logger` is just an example. You can pass any object that responds to `info`, `debug`, `warn`, and `error`.
+
+If you're on Ruby 4 and want to use Ruby's `Logger`, make sure your application includes the `logger` gem.
+
+Or configure it globally:
+
+```ruby
+Calendlyr.configure do |config|
+  config.token = ENV.fetch("CALENDLY_TOKEN")
+  config.logger = Logger.new($stdout)
+end
+```
+
 In Rails, this is typically configured in an initializer:
 
 ```ruby
@@ -101,7 +124,7 @@ parsed.name  #=> "30 Minute Meeting"
 ```
 
 > **Note:** `#to_json` and `#to_h` exclude the internal `client` reference — only API data is serialized.
-=======
+
 ### Error Context
 
 API errors now include the HTTP method and path in the message, and expose structured attributes for debugging:

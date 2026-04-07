@@ -1,8 +1,34 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "logger"
+require "stringio"
 
 class ResourceTest < Minitest::Test
+  class LoggerSpy
+    attr_reader :entries
+
+    def initialize
+      @entries = []
+    end
+
+    def info(message)
+      @entries << [:info, message]
+    end
+
+    def debug(message)
+      @entries << [:debug, message]
+    end
+
+    def warn(message)
+      @entries << [:warn, message]
+    end
+
+    def error(message)
+      @entries << [:error, message]
+    end
+  end
+
   class HttpSpy
     attr_reader :host, :port, :last_request, :request_count
     attr_accessor :use_ssl, :open_timeout, :read_timeout
@@ -345,5 +371,115 @@ class ResourceTest < Minitest::Test
     resource = Calendlyr::Resource.new(client)
     assert_equal "https://api.calendly.com/users/ABC123",
       resource.send(:expand_uri, "ABC123", "users")
+  end
+
+  def test_request_logs_info_and_debug_with_stdlib_logger
+    log_output = StringIO.new
+    logger = Logger.new(log_output)
+    custom_client = Calendlyr::Client.new(token: "fake", logger: logger)
+    resource = Calendlyr::Resource.new(custom_client)
+    response = ResponseStub.new(body: '{"resource":{"uri":"https://api.calendly.com/users/AAA"}}', code: "200")
+    http_spy = HttpSpy.new(responses: [response], host: "api.calendly.com", port: 443)
+
+    Net::HTTP.stub(:new, http_spy) do
+      resource.send(:get_request, "users/me")
+    end
+
+    output = log_output.string
+    assert_includes output, "[calendlyr]"
+    assert_includes output, "GET"
+    assert_includes output, "https://api.calendly.com/users/me"
+    assert_includes output, "status=200"
+    assert_includes output, "duration_ms="
+    assert_includes output, "response_body="
+  end
+
+  def test_request_logs_debug_body_truncation_at_1000_characters
+    logger = LoggerSpy.new
+    body = "x" * 2000
+    custom_client = Calendlyr::Client.new(token: "fake", logger: logger)
+    resource = Calendlyr::Resource.new(custom_client)
+    response = ResponseStub.new(body: body, code: "200")
+    http_spy = HttpSpy.new(responses: [response], host: "api.calendly.com", port: 443)
+
+    Net::HTTP.stub(:new, http_spy) do
+      resource.send(:get_request, "users/me")
+    end
+
+    debug_entry = logger.entries.find { |entry| entry.first == :debug }
+    refute_nil debug_entry
+    assert_equal 1000, debug_entry.last.scan("x").length
+    assert_includes debug_entry.last, "(truncated)"
+  end
+
+  def test_request_logs_warn_for_429_retries
+    logger = LoggerSpy.new
+    custom_client = Calendlyr::Client.new(token: "fake", logger: logger)
+    resource = Calendlyr::Resource.new(custom_client)
+    responses = [
+      ResponseStub.new(body: fixture_file("resources/429"), code: "429"),
+      ResponseStub.new(body: '{"ok":true}', code: "200")
+    ]
+    http_spy = HttpSpy.new(responses: responses, host: "api.calendly.com", port: 443)
+
+    Net::HTTP.stub(:new, http_spy) do
+      resource.stub(:sleep, proc { |_seconds| }) do
+        resource.send(:get_request, "users/me")
+      end
+    end
+
+    warn_entry = logger.entries.find { |entry| entry.first == :warn }
+    refute_nil warn_entry
+    assert_includes warn_entry.last, "retry_attempt=1"
+  end
+
+  def test_handle_response_logs_error_before_raising
+    logger = LoggerSpy.new
+    custom_client = Calendlyr::Client.new(token: "fake", logger: logger)
+    resource = Calendlyr::Resource.new(custom_client)
+    response = ResponseStub.new(body: fixture_file("resources/404"), code: "404")
+
+    assert_raises Calendlyr::NotFound do
+      resource.send(:handle_response, response, method: "GET", path: "users/missing")
+    end
+
+    error_entry = logger.entries.find { |entry| entry.first == :error }
+    refute_nil error_entry
+    assert_includes error_entry.last, "status=404"
+    assert_includes error_entry.last, "GET"
+    assert_includes error_entry.last, "users/missing"
+  end
+
+  def test_logs_never_include_bearer_or_token
+    log_output = StringIO.new
+    logger = Logger.new(log_output)
+    custom_client = Calendlyr::Client.new(token: "secret123", logger: logger)
+    resource = Calendlyr::Resource.new(custom_client)
+    response = ResponseStub.new(body: '{"ok":true}', code: "200")
+    http_spy = HttpSpy.new(responses: [response], host: "api.calendly.com", port: 443)
+
+    Net::HTTP.stub(:new, http_spy) do
+      resource.send(:get_request, "users/me")
+    end
+
+    output = log_output.string
+    refute_includes output, "secret123"
+    refute_includes output, "Bearer"
+  end
+
+  def test_nil_logger_skips_logging_work
+    resource = Calendlyr::Resource.new(client)
+    response = ResponseStub.new(body: '{"ok":true}', code: "200")
+    http_spy = HttpSpy.new(responses: [response], host: "api.calendly.com", port: 443)
+
+    resource.stub(:monotonic_now, proc { raise "should not measure time when logger is nil" }) do
+      resource.stub(:log, proc { |_level, _message| raise "should not log when logger is nil" }) do
+        Net::HTTP.stub(:new, http_spy) do
+          result = resource.send(:get_request, "users/me")
+
+          assert_equal({"ok" => true}, result)
+        end
+      end
+    end
   end
 end

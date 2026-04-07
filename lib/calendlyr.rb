@@ -35,14 +35,15 @@ module Calendlyr
     private
 
     def configuration_signature
-      [configuration.token, configuration.open_timeout, configuration.read_timeout]
+      [configuration.token, configuration.open_timeout, configuration.read_timeout, configuration.logger]
     end
 
     def client_attributes
       {
         token: configuration.token,
         open_timeout: configuration.open_timeout,
-        read_timeout: configuration.read_timeout
+        read_timeout: configuration.read_timeout,
+        logger: configuration.logger
       }
     end
   end
