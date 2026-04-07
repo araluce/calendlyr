@@ -40,6 +40,36 @@ invitees = client.events.list_invitees(uuid: event.uuid)
 invitees.data.first.email  #=> "john@example.com"
 ```
 
+## Global configuration
+
+For single-tenant apps, you can configure `Calendlyr` once and reuse a default client:
+
+```ruby
+Calendlyr.configure do |config|
+  config.token = ENV.fetch("CALENDLY_TOKEN")
+  config.open_timeout = 5
+  config.read_timeout = 15
+end
+
+client = Calendlyr.client
+events = client.events.list(user: "YOUR_USER_UUID")
+```
+
+`Calendlyr.client` memoizes a client instance and rebuilds it if token or timeout values change.
+
+In Rails, this is typically configured in an initializer:
+
+```ruby
+# config/initializers/calendlyr.rb
+Calendlyr.configure do |config|
+  config.token = ENV.fetch("CALENDLY_TOKEN")
+end
+```
+
+> [!IMPORTANT]
+> `Calendlyr.client` is module-global and **not thread-safe for multi-tenant usage**.
+> If your app serves multiple tenants or uses per-request credentials, use `Calendlyr::Client.new(token:)` per request.
+
 ### Bare UUIDs
 
 Every method that takes a Calendly resource reference (like `user:`, `organization:`, `event_type:`) accepts both bare UUIDs and full URIs. The gem expands bare UUIDs automatically:

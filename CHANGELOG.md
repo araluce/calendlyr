@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [0.10.0]
 
 ### Added
+* `Calendlyr.configure`, `Calendlyr.configuration`, `Calendlyr.client`, and `Calendlyr.reset!` — module-level global configuration and default client support with token/timeout settings
 * `Object#to_json` — Serialize any API object to JSON. Works with `JSON.generate`, nested objects, and arrays. The internal `client` reference is automatically excluded from serialization.
 * `client.data_compliance.delete_scheduled_event_data` — Remove scheduled events data within a time range (`POST /data_compliance/deletion/events`)
 * `put_request` support in `Resource` base class for PUT HTTP verb
