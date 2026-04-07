@@ -7,6 +7,16 @@ require "minitest/autorun"
 require "webmock/minitest"
 
 class Minitest::Test
+  def before_setup
+    Calendlyr.reset!
+    super
+  end
+
+  def after_teardown
+    Calendlyr.reset!
+    super
+  end
+
   def initialize(name)
     stub_user_me_request
     super

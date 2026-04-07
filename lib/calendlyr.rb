@@ -2,9 +2,50 @@ require "calendlyr/version"
 
 module Calendlyr
   autoload :Client, "calendlyr/client"
+  autoload :Configuration, "calendlyr/configuration"
   autoload :Collection, "calendlyr/collection"
   autoload :Object, "calendlyr/object"
   autoload :Resource, "calendlyr/resource"
+
+  class << self
+    def configure
+      yield(configuration)
+    end
+
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
+    def client
+      raise ArgumentError, "Missing Calendly token. Configure it with Calendlyr.configure { |c| c.token = \"...\" }" if configuration.token.nil?
+
+      signature = configuration_signature
+      @client = nil if @client_signature != signature
+      @client ||= Client.new(**client_attributes)
+      @client_signature = signature
+      @client
+    end
+
+    def reset!
+      @configuration = nil
+      @client = nil
+      @client_signature = nil
+    end
+
+    private
+
+    def configuration_signature
+      [configuration.token, configuration.open_timeout, configuration.read_timeout]
+    end
+
+    def client_attributes
+      {
+        token: configuration.token,
+        open_timeout: configuration.open_timeout,
+        read_timeout: configuration.read_timeout
+      }
+    end
+  end
 
   # Errors
   autoload :ERROR_TYPES, "calendlyr/error"
