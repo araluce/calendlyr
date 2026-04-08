@@ -1,4 +1,4 @@
-![Calendlyr logo](logos/calendlyr_bg_white.png)
+![Calendlyr logo](logos/calendlyr_bg_white_square.png)
 
 [![](https://img.shields.io/github/license/araluce/calendlyr)](https://github.com/araluce/calendlyr/blob/master/LICENSE.txt)
 [![](https://github.com/araluce/calendlyr/actions/workflows/ci.yml/badge.svg)](https://github.com/araluce/calendlyr/actions)
