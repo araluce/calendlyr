@@ -1,13 +1,14 @@
-[![](https://img.shields.io/github/license/araluce/calendlyr)](https://github.com/araluce/calendlyr/blob/master/LICENSE.txt)
-[![](https://github.com/araluce/calendlyr/actions/workflows/ci.yml/badge.svg)](https://github.com/araluce/calendlyr/actions)
-[![codecov](https://codecov.io/gh/araluce/calendlyr/branch/master/graph/badge.svg?token=YSUU4PHM6Y)](https://codecov.io/gh/araluce/calendlyr)
-![Gem Downloads](https://img.shields.io/gem/dt/calendlyr)
-
-# Calendlyr
-
 ![Calendlyr logo](logos/calendlyr_bg_white.png)
 
+[![](https://img.shields.io/github/license/araluce/calendlyr)](https://github.com/araluce/calendlyr/blob/master/LICENSE.txt)
+[![](https://github.com/araluce/calendlyr/actions/workflows/ci.yml/badge.svg)](https://github.com/araluce/calendlyr/actions)
+[![Maintainability](https://qlty.sh/gh/araluce/projects/calendlyr/maintainability.svg)](https://qlty.sh/gh/araluce/projects/calendlyr)
+[![Code Coverage](https://qlty.sh/gh/araluce/projects/calendlyr/coverage.svg)](https://qlty.sh/gh/araluce/projects/calendlyr)
+![Gem Downloads](https://img.shields.io/gem/dt/calendlyr)
+
 The simplest way to interact with [Calendly's API v2](https://developer.calendly.com/api-docs) in Ruby. No runtime dependencies, no ceremony — just a Personal Access Token and you're good to go.
+
+> **📖 Behind the gem:** Curious about the design decisions, trade-offs, and real-world lessons from building and maintaining Calendlyr? I wrote a [5-part series](https://engineering.crisalix.com/articles/demystifying-ruby-gems/) covering everything — from [why gems aren't as scary as you think](https://engineering.crisalix.com/articles/demystifying-ruby-gems/) to [how this wrapper was built from scratch](https://engineering.crisalix.com/articles/building-a-gem/) with zero dependencies.
 
 ## Installation
 
